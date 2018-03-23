@@ -1,8 +1,8 @@
----------------------------
-title: Xfan CV
----------------------------
-date: 2018-01-20 18:19:11
-tags: xfan
+------------------
+title: Git Notes
+date: 2018-01-27 09:48:39
+tags: git
+---
 
 Welcome to xfan`s blog
 

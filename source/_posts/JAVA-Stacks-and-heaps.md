@@ -1,8 +1,8 @@
-----------------------------
-title: JAVA Stacks And Heaps
-----------------------------
-date: 2018-01-23 09:49:48   
-tags: stacks heaps
+------------------
+title: Git Notes
+date: 2018-01-27 09:48:39
+tags: git
+---
 
 ### About   
 &nbsp;&nbsp;Some basic types of variables defined in the function and the object reference variables are allocated in the function's stack memory.   

@@ -1,8 +1,8 @@
-------------------------
-title: Java Data Structure
-------------------------
-date: 2018-01-29 10:21:52
-tags: structure
+------------------
+title: Git Notes
+date: 2018-01-27 09:48:39
+tags: git
+---
 
 ### The class and interface of the structure
 

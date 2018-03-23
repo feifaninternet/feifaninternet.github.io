@@ -1,8 +1,8 @@
------------------------
-title: JAVA Linked List
------------------------
-date: 2018-02-02 11:45:03
-tags: linked list
+------------------
+title: Git Notes
+date: 2018-01-27 09:48:39
+tags: git
+---
 
 ### About
 

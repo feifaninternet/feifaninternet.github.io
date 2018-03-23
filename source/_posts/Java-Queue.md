@@ -1,8 +1,8 @@
------------------
-title: Java Queue
------------------
-date: 2018-02-02 17:01:03
-tags: queue
+------------------
+title: Git Notes
+date: 2018-01-27 09:48:39
+tags: git
+---
 
 ### The definition of the queue
 &nbsp;&nbsp;Is a linear table with limited operations. Is a first-in,first-out(FIFO) linear table.   
