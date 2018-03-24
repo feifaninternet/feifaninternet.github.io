@@ -1,9 +1,11 @@
 -----------------------
 title: JAVA Linked List
------------------------
 date: 2018-02-02 11:45:03
-tags: linked list
-categories: JAVA
+tags: 
+    - linked list
+categories: 
+    - JAVA
+---
 
 ### About
 

@@ -103,20 +103,21 @@ categories: Frame
              */
             private String time_expire;
     }
-   ```    
+   ```
+   
 #### 构建示例：
+
    ```
-        PaymentPO paymentPO = new PaymentPO();
-        paymentPO.setAppid("wx65fbfa71fbf0b639");
-        paymentPO.setMch_id("1498814312");
-        paymentPO.setMerchant_pay_key("vnYncWrMQsGHTVvj8ZR76B1d8T32oQZK");
-        paymentPO.setNotify_url("https://api-czh.dankal.cn/v1/recharge/wx_notify");
-        paymentPO.setTotal_fee("100");
-        paymentPO.setSpbill_create_ip("120.78.10.31");
-        paymentPO.setOpenid("odyO05BBjHEqIrPu1R5k9WbNwaC4");
+      PaymentPO paymentPO = new PaymentPO();
+      paymentPO.setAppid("wx65fbfa71fbf0b639");
+      paymentPO.setMch_id("1498814312");
+      paymentPO.setMerchant_pay_key("vnYncWrMQsGHTVvj8ZR76B1d8T32oQZK");
+      paymentPO.setNotify_url("https://api-czh.dankal.cn/v1/recharge/wx_notify");
+      paymentPO.setTotal_fee("100");
+      paymentPO.setSpbill_create_ip("120.78.10.31");
+      paymentPO.setOpenid("odyO05BBjHEqIrPu1R5k9WbNwaC4");
    ```
-    
-    
+   
 ### 2.WxPayResponse 
 
   内部对 PaymentPO 对象的参数进行验证,必须的参数不能缺少，否则会视为异常，若参数正确，会请求微信支付统一下单接口，然后再次签名，返回调用微信支付所需参数。 
@@ -138,6 +139,7 @@ categories: Frame
 返回示例：
 
 #### success
+
    ```
       {
          timeStamp=1521442735, 
@@ -155,14 +157,15 @@ categories: Frame
        error = invalid spbill_create_ip
      }
    ```
+   
 - 参数错误:
+
    ```
     {
       error=[SpbillCreateIp is missing, TotalFee is missing]
     }  
    ```
       
-    
 ### 3.示例代码
    ```java
     public class TestWxPayResponse {
