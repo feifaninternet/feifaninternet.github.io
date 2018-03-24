@@ -1,8 +1,10 @@
-------------------
-title: Git Notes
-date: 2018-01-27 09:48:39
-tags: git
----
+----------------------------
+title: JVM内存模型与垃圾回收
+----------------------------
+date: 2018-03-20 11:53:35
+tags: 内存模型 垃圾回收
+categories: JAVA
+
 ### 内存模型   
 ![Picture](/picture/java-stack-model.png)   
  

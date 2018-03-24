@@ -1,8 +1,10 @@
-------------------
-title: Git Notes
-date: 2018-01-27 09:48:39
-tags: git
----
+-----------------
+title: Java Array
+-----------------
+date: 2018-02-01 18:06:38
+tags: array
+categories: JAVA
+
 ### Description
 
 &nbsp;&nbsp;The same type of data collection.In fact, the array is a container.We can automatically number the elements in the array from 0 to facilitate the operation of these elements.Array is a way to store data.And array can hold any type of data.   

@@ -1,8 +1,9 @@
-------------------
-title: Git Notes
-date: 2018-01-27 09:48:39
-tags: git
----
+---------------
+title: JAVA IO
+---------------
+date: 2018-03-20 14:53:55
+tags: IO 流
+categories: JAVA
 
 ### Description
 JAVA IO 也成为 IO 流，它的核心就是对文件的操作，对于字节，字符类型的输入和输出流。   
