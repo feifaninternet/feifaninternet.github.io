@@ -1,29 +1,27 @@
----
-title: about
-layout: about
-comments: false
----
-about:
-  - type: me
-    icon: icon-user
-    text_value:
-    - "Scut，1991，Spring."
-    - "喜欢设计，擅长编程，喜欢睡懒觉."
-    - "前端开发工程师，常用 HTML / CSS / JavaScript."
-  - type: Github
-    icon: icon-github
-    text_key: Github
-    text_value: "@forsigner"
-    text_value_url: https://github.com/forsigner
-  - type: weibo
-    icon: icon-weibo
-    text_key: 微博
-    text_value: "@forsigner"
-    text_value_url: http://weibo.com/u/1847075964
-  - type: mail
-    icon: icon-mail
-    text_key: Gmail
-    text_value: "forsigner@gmail.com"
-  - type: location
-    icon: icon-location
-    text_value: 珠海
+---------------------------
+title: Xfan CV
+---------------------------
+date: 2018-01-20 18:19:11
+tags: xfan
+categories: Personal
+
+### 个人简介
+1. 基本信息介绍，出生年月，毕业院校，工作经验年限
+2. 个人博客
+3. github网址
+4. 个人jar包集成
+
+### 专业技能
+java最新和最常用技术汇总   
+springBoot,maven,mybatis,springCould,gradle,hibernate,fast-jar,kafka,k8s,kibana      
+conCurrent包，线程   
+util包,collection   
+*感觉缺少新技术点*
+
+### 工作经验
+1. 2017.07 - 2018.3 顺丰专送小程序，用户量，技术等
+2. 2016.11 - 2017.1 共享抽纸
+3. 2016.4 - 2016.6 联程出行，共享汽车
+
+### 扩展
+自我认识
