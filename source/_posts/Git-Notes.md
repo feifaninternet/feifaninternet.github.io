@@ -4,7 +4,6 @@ title: Git Notes
 date: 2018-01-27 09:48:39
 tags: git
 categories: Git
-
 ### Git operation
 
 ### Put your project into remote warehouse
@@ -160,3 +159,46 @@ $ git push
    $ git rebase --abort
    ```   
 *attention: after rebase,don`t need to commit and submit new changes,all git automatically*
+
+### My IDEA .ignore directory
+   ```
+    target/
+    !.mvn/wrapper/maven-wrapper.jar
+    
+    ### STS ###
+    .apt_generated
+    *.classpath
+    .factorypath
+    *.project
+    *.settings/
+    *.springBeans
+    *.class
+    
+    ### IntelliJ IDEA ###
+    *.jar
+    # *.war
+    *.ear
+    *.log
+    *.mvn
+    
+    *.idea
+    *.iws
+    *.iml
+    *.ipr
+    
+    target
+    src/test
+    
+    ### NetBeans ###
+    nbproject/private/
+    build/
+    nbbuild/
+    dist/
+    nbdist/
+    .nb-gradle/
+   ```
+need to remove cached first : 
+   ```
+    git rm -r --cached .
+   ```
+  

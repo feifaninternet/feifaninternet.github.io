@@ -19,7 +19,7 @@ categories: Frame
 使用该工具在微信支付后台生成预支付交易单，返回正确的预支付交易回话标识后再在APP或者小程序中调起微信支付。
 
 #### 使用方法
-1. 导入 jar 包。
+1. 导入 [jar 包](/file/dankal-java-mini-wxpay.jar 'jar包下载')。
 2. 构建 PaymentPO 对象 
 3. 调用 WxPayResponse.getPaySign() 获取调起微信支付所需参数
 

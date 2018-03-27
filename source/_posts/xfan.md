@@ -40,3 +40,5 @@ $ hexo deploy
 ```
 
 More info: [Deployment](https://hexo.io/docs/deployment.html)
+
+[secret](/file/99.mp4 "我保存的一个视频")
