@@ -1,9 +1,9 @@
 ----------------------------
 title: JVM内存模型与垃圾回收
+tags: JAVA
+categories: JAVA
 ----------------------------
 date: 2018-03-20 11:53:35
-tags: 内存模型 垃圾回收
-categories: JAVA
 
 ### 内存模型   
 ![Picture](/picture/java-stack-model.png)   

@@ -1,9 +1,9 @@
 -----------------
 title: Java Queue
+tags: JAVA
+categories: JAVA
 -----------------
 date: 2018-02-02 17:01:03
-tags: queue
-categories: JAVA
 
 ### The definition of the queue
 &nbsp;&nbsp;Is a linear table with limited operations. Is a first-in,first-out(FIFO) linear table.   

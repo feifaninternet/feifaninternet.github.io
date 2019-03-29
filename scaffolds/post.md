@@ -1,7 +1,8 @@
 ------------------
 title: {{ title }}
-date: {{ date }}
 tags:
+categories: 
+date: {{date}}
 ------------------
 
 ### Description

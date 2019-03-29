@@ -1,9 +1,9 @@
 ----------------------------
 title: JAVA Stacks And Heaps
+tags: JAVA
+categories: JAVA
 ----------------------------
 date: 2018-01-23 09:49:48   
-tags: stacks heaps
-categories: JAVA
 
 ### About   
 &nbsp;&nbsp;Some basic types of variables defined in the function and the object reference variables are allocated in the function's stack memory.   

@@ -1,9 +1,9 @@
 ----------------------
 title: Java Collection
+tags: JAVA
+categories: JAVA
 ----------------------
 date: 2018-02-05 10:26:40
-tags: collection
-categories: JAVA
 
 ### Description
 &nbsp;&nbsp;In programming, we often need to store data. Although the array is a good choice, but the premise is known to save the number of objects, once the length of the array initialization, can not be changed, and the collection is used to save the dynamic growth data (at compile time can not determine the specific number) of.   

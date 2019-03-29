@@ -6,22 +6,52 @@ tags: xfan
 categories: Personal
 
 ### 个人简介
-1. 基本信息介绍，出生年月，毕业院校，工作经验年限
-2. 个人博客
-3. github网址
-4. 个人jar包集成
+熊凡，男，1994-12-27，毕业于湖南工业大学机械设计制造及其自动化专业，2年工作经验   
+邮箱：feifaninternet920@gmail.com   
+个人博客：https://feifaninternet.github.io   
+github网址：https://github.com/feifaninternet   
 
 ### 专业技能
-java最新和最常用技术汇总   
-springBoot,maven,mybatis,springCould,gradle,hibernate,fast-jar,kafka,k8s,kibana      
-conCurrent包，线程   
-util包,collection   
-*感觉缺少新技术点*
+1. 扎实的Java基础，熟悉多线程、网络编程，了解设计模式。
+2. 熟练使用Maven、Gradle版本控制工具，Git、GitHub、Coding、GitLab等代码管理。
+3. 熟悉Java Web技术，jQuery、Ajax等前端框架。
+4. 熟练应用Spring boot、MyBatis、Hibernate等框架开发常用框架。
+5. 熟悉springCloud、Dubbo等分布式框架。
+6. 掌握Mysql、Oracle关系数据库，Redis、MongoDB等Nosql。
+7. 熟悉Tomcat、JBOSS、WebLogic下的项目部署。
+8. 良好的文档阅读能力，能快速接入第三方应用。
 
-### 工作经验
-1. 2017.07 - 2018.3 顺丰专送小程序，用户量，技术等
-2. 2016.11 - 2017.1 共享抽纸
-3. 2016.4 - 2016.6 联程出行，共享汽车
+### 项目经验
 
-### 扩展
-自我认识
+#### 1.顺丰专送小程序 2017.09 - 2018.3 
+- 公司：深圳蛋壳创意科技
+- 架构：SpringBoot + Mybatis + JPA
+- 职能：可行性分析,功能需求开发,代码与数据库维护
+- 描述：顺丰专送的第一个微信端小程序，用于寄同城件(同城快递)和大网件(跨城快递)，   
+也可以给好友发送包裹礼物，好友填写接收地址后，寄件方下单即可，后取消大网件，   
+同城也可跨城配送，增加了余额支付和发票功能。
+
+#### 2.共享抽纸小程序 2018.1 - 2018.4
+- 公司：深圳蛋壳创意科技
+- 架构：SpringBoot + Mybatis
+- 职能：可行性分析,开发周期估算，功能需求开发,代码与数据库维护
+- 描述：共享抽纸盒，在餐厅或其他装配该抽纸盒的地方扫描设备上的二维码进行登录小程序   
+进行抽纸功能，个人中心可使用手机号和微信快捷登录方式登录，可以在一个微信中登录2个不同的小程序账号，   
+其设备信息及相关功能需要与硬件对接。
+
+#### 3. 联程出行APP 2016.5 - 2016.11
+- 公司：深圳蛋壳创意科技
+- 架构：Mybatis + Spring + SpringMVC + Redis + Mysql
+- 职能：可行性分析,开发周期估算，功能需求开发,代码与数据库维护
+- 描述：
+    - Android APP, IOS APP，PC端（管理系统）   
+    - 项目实现了电动汽车的在线分时租赁；
+    - 用户：个人用户，集团用户，系统管理人员；
+    - APP功能：寻找周边车辆，我的订单，我的钱包，客服等
+    - 总体技术：Mybatis + Spring + SpringMVC + Redis + Mysql
+
+
+### 自我评价
+1. 热爱软件开发事业，对IT领域的软件开发技术具有浓厚的兴趣。
+2. 有很强的团队合作意识，不突显个人主义，能够快速融入新的工作环境。
+3. 想在分布式和高并发方面得到提升。

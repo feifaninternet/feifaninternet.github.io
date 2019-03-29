@@ -1,9 +1,10 @@
 ----------------
 title: Git Notes
+tags: git
+categories: work notes
 ----------------
 date: 2018-01-27 09:48:39
-tags: git
-categories: Git
+
 ### Git operation
 
 ### Put your project into remote warehouse
@@ -39,6 +40,13 @@ $ git push -u origin master
 ```
    
 7.now you can create a new dev branch based on the master,and then create your branch based on the dev,keep the developments
+
+### Change your git warehouse address
+We use the simplest method.
+
+   ```bash
+    git remote set-url origin remote_git_address
+   ```
   
 ### Submit code steps       
 1.add your code to the working tree
@@ -136,31 +144,40 @@ $ git push
    
 ### Rebase conflict   
 1.find the conflict file   
-2.find the text like this   
+2.find the text like this 
+
    ```
      <<<<<<< HEAD  -- dev branch
      dev code
      =======
      your code
      >>>>>>> 6853e5ff961e684d3a6c02d4d06183b5ff330dcc  -- your branch
-   ```   
+   ```
+
 3.remove the conflict flag, leaving only one branch of the code (dev code or your code)   
 4.add changes to the working tree
+
    ``` bash
    $ git add -u
-   ```  
+   ```
+
 5.continue rebase   
+
    ``` bash
    $ git rebase --continue
-   ```   
+   ```
+
 6.until all conflicts resolved   
 7.if you want to quit rebase   
+
    ``` bash
    $ git rebase --abort
-   ```   
+   ```
+
 *attention: after rebase,don`t need to commit and submit new changes,all git automatically*
 
 ### My IDEA .ignore directory
+
    ```
     target/
     !.mvn/wrapper/maven-wrapper.jar
@@ -197,8 +214,17 @@ $ git push
     nbdist/
     .nb-gradle/
    ```
+
 need to remove cached first : 
+
    ```
     git rm -r --cached .
    ```
+   
+no userName no password every push :
+
+   ```
+    git config --global credential.helper store
+   ```
+
   

@@ -1,9 +1,9 @@
 ---------------------------
 title: 微信支付集成 -- JAVA
+tags: wxPay
+categories: Frame
 ---------------------------
 date: 2018-03-22 14:04:21
-tags: 微信支付
-categories: Frame
 
 ### 1.文档说明
 

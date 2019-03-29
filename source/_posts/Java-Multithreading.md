@@ -1,10 +1,9 @@
 --------------------------
 title: Java Multithreading
+tags: JAVA
+categories: JAVA
 --------------------------
 date: 2018-02-08 14:20:32
-tags: multithreading
-categories: JAVA
-
 
 ### Description
 
