@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>JAVA Linked List | Xfan blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="JAVA,">
+  
+
+  <meta name="description" content="date: 2018-02-02 11:45:03 About&amp;nbsp;&amp;nbsp;A linked list is a common underlying data structure that is a linear list but does not store data in a linear order, but a pointer to the next node in each n">
+<meta name="keywords" content="JAVA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JAVA Linked List">
+<meta property="og:url" content="https://feifaninternet.github.io/2019/04/11/JAVA-Linked-List/index.html">
+<meta property="og:site_name" content="Xfan blog">
+<meta property="og:description" content="date: 2018-02-02 11:45:03 About&amp;nbsp;&amp;nbsp;A linked list is a common underlying data structure that is a linear list but does not store data in a linear order, but a pointer to the next node in each n">
+<meta property="og:locale" content="Chinese">
+<meta property="og:updated_time" content="2019-04-11T02:31:11.800Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JAVA Linked List">
+<meta name="twitter:description" content="date: 2018-02-02 11:45:03 About&amp;nbsp;&amp;nbsp;A linked list is a common underlying data structure that is a linear list but does not store data in a linear order, but a pointer to the next node in each n">
+
+  
+
+  
+    <link rel="icon" href="/picture/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/person/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">Site</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">Site</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/archives/" rel="noopener noreferrer" target="_self">
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/categories/JAVA" rel="noopener noreferrer" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/tags/git" rel="noopener noreferrer" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/link/" rel="noopener noreferrer" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/about/" rel="noopener noreferrer" target="_self">
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/search/" rel="noopener noreferrer" target="_self">
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#About"><span class="toc-text">About</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Linked-list"><span class="toc-text">Linked list</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Create-a-node-class"><span class="toc-text">Create a node class</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Create-a-linked-list"><span class="toc-text">Create a linked list</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Some-commonly-used-linked-list-operations"><span class="toc-text">Some commonly used linked list operations</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-List-reversed"><span class="toc-text">1. List reversed</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-Find-single-linked-list-of-intermediate-nodes"><span class="toc-text">2.Find single-linked list of intermediate nodes</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-Sort-the-linked-list"><span class="toc-text">3.Sort the linked list</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-Delete-duplicate-nodes-in-the-list"><span class="toc-text">4.Delete duplicate nodes in the list</span></a></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-JAVA-Linked-List" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">JAVA Linked List</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2019.04.11</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>xfan</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/JAVA/">JAVA</a>
+  </span>
+
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="https://feifaninternet.github.io//2019/04/11/JAVA-Linked-List/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>date: 2018-02-02 11:45:03</p>
+<h3 id="About"><a href="#About" class="headerlink" title="About"></a>About</h3><p>&nbsp;&nbsp;A linked list is a common underlying data structure that is a linear list but does not store data in a linear order, but a pointer to the next node in each node.So the list is inserted faster than the linear order table,however, the query speed is relatively slow.The use of linked list structure can overcome the shortcomings of the array linked list need to know the size of the data in advance, the linked list structure can take full advantage of computer memory space for flexible dynamic memory management.However,the list has the lost random array read the advantages of the same time as the list linked to increase the pointer field,the space overhead is relatively large.<br>&nbsp;&nbsp;Linked list as a basic data structure can be used to generate other type of data structure.A linked list usually consists of a series of nodes,each containing arbitrary instance data and one or two links to point to the previous or next node,which allows inserting and removing nodes anywhere on the table,but not allow random access.There are many different types of lists : unidirectional lists,double linked lists and circular lists.<br>&nbsp;&nbsp;Linked to the list as a unit, the data is not stored in continuous storage, in addition to the data, but also contains a pointer to the next node, the data always need to access the data from the beginning of the list.   </p>
+<h3 id="Linked-list"><a href="#Linked-list" class="headerlink" title="Linked list"></a>Linked list</h3><h4 id="Create-a-node-class"><a href="#Create-a-node-class" class="headerlink" title="Create a node class"></a>Create a node class</h4>   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * data : represents the value of the node</span></span><br><span class="line"><span class="comment">     * next : the reference to the next node</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Getter</span> <span class="meta">@Setter</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> data;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Getter</span> <span class="meta">@Setter</span></span><br><span class="line">    <span class="keyword">private</span> Node next;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * only one node</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    Node(<span class="keyword">int</span> data)&#123;</span><br><span class="line">        m_Data = data;</span><br><span class="line">        m_Next = <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * contains multiple nodes,pointers must be defined</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    Node(<span class="keyword">int</span> data, Node next)&#123;</span><br><span class="line">        m_Data = data;</span><br><span class="line">        m_Next = next;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Create-a-linked-list"><a href="#Create-a-linked-list" class="headerlink" title="Create a linked list"></a>Create a linked list</h4>   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LinkList</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Getter</span> <span class="meta">@Setter</span></span><br><span class="line">    <span class="keyword">private</span> Node m_Node;</span><br><span class="line">   </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * empty linked list</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    LinkList()&#123;</span><br><span class="line">        m_Node = <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * create a linked list with only one node because no pointers are declared</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    LinkList(<span class="keyword">int</span> data)&#123;</span><br><span class="line">        m_Node = <span class="keyword">new</span> Node(data);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * traverse all nodes</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">String <span class="title">viewAllNodes</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Node next = m_Node;</span><br><span class="line">        String s;</span><br><span class="line">        <span class="keyword">while</span> (next != <span class="keyword">null</span>)&#123;</span><br><span class="line">            s += next.getData();</span><br><span class="line">            next = next.getNext();              </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> s;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * insert at the specified id location</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">insertAfterId</span><span class="params">(<span class="keyword">int</span> data, <span class="keyword">int</span> id)</span></span>&#123;</span><br><span class="line">        Node next = m_Node;</span><br><span class="line">        <span class="keyword">if</span>(next == <span class="keyword">null</span>)&#123;</span><br><span class="line">            m_Node = <span class="keyword">new</span> Node(data);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">while</span>(next.getNext() != <span class="keyword">null</span> &amp;&amp; next.getData() != id)</span><br><span class="line">            next = next.getNext();</span><br><span class="line">            next.setNext(<span class="keyword">new</span> Node(data, next.getNext()));</span><br><span class="line">         &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * remove the node at the specified id location</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">removeAtId</span><span class="params">(<span class="keyword">int</span> id)</span></span>&#123;</span><br><span class="line">        Node ahead = m_Node;</span><br><span class="line">        Node follow = ahead;</span><br><span class="line">        <span class="keyword">if</span>(ahead == <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(ahead.getData() == id)&#123;</span><br><span class="line">            m_Node = m_Node.getNext();</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            ahead = ahead.getNext();</span><br><span class="line">            <span class="keyword">while</span>(ahead != <span class="keyword">null</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span>(ahead.getData() == id)&#123;</span><br><span class="line">                    follow.setNext(ahead.getNext());</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                follow = ahead;</span><br><span class="line">                ahead = ahead.getNext();</span><br><span class="line">            &#125;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * remove all nodes</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">removeAll</span><span class="params">()</span></span>&#123;</span><br><span class="line">        m_Node = <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Some-commonly-used-linked-list-operations"><a href="#Some-commonly-used-linked-list-operations" class="headerlink" title="Some commonly used linked list operations"></a>Some commonly used linked list operations</h3><h4 id="1-List-reversed"><a href="#1-List-reversed" class="headerlink" title="1. List reversed"></a>1. List reversed</h4>   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LinkedListMethodDemo</span></span>&#123;</span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> Node <span class="title">ReverseIteratively</span><span class="params">(Node head)</span> </span>&#123;</span><br><span class="line">        </span><br><span class="line">        Node pReversedHead = head;</span><br><span class="line">        Node pNode = head;</span><br><span class="line">        Node pPrev = <span class="keyword">null</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> (pNode != <span class="keyword">null</span>) &#123;</span><br><span class="line">            Node pNext = pNode.next;</span><br><span class="line">            <span class="keyword">if</span> (pNext == <span class="keyword">null</span>) &#123;</span><br><span class="line">                pReversedHead = pNode;</span><br><span class="line">            &#125;</span><br><span class="line">            pNode.next = pPrev;</span><br><span class="line">            pPrev = pNode;</span><br><span class="line">            pNode = pNext;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">this</span>.head = pReversedHead;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2-Find-single-linked-list-of-intermediate-nodes"><a href="#2-Find-single-linked-list-of-intermediate-nodes" class="headerlink" title="2.Find single-linked list of intermediate nodes"></a>2.Find single-linked list of intermediate nodes</h4><p>&nbsp;&nbsp;Use the fast and slow way to find the middle node of the single-linked list, the fast pointer takes two steps at a time, and the slow pointer takes one step at a time. When the fast pointer finishes, the slow pointer just reaches the intermediate node.<br>   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SearchMidNode</span></span>&#123;</span><br><span class="line">   </span><br><span class="line">    <span class="function"><span class="keyword">public</span> Node <span class="title">searchMidNode</span><span class="params">(Node head)</span> </span>&#123;</span><br><span class="line">        </span><br><span class="line">        Node p = <span class="keyword">this</span>.head, </span><br><span class="line">        q = <span class="keyword">this</span>.head;</span><br><span class="line">        <span class="keyword">while</span> (p != <span class="keyword">null</span> &amp;&amp; p.next != <span class="keyword">null</span> &amp;&amp; p.next.next != <span class="keyword">null</span>) &#123;</span><br><span class="line">            p = p.next.next;</span><br><span class="line">            q = q.next;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"Mid:"</span> + q.data);</span><br><span class="line">        <span class="keyword">return</span> q;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="3-Sort-the-linked-list"><a href="#3-Sort-the-linked-list" class="headerlink" title="3.Sort the linked list"></a>3.Sort the linked list</h4>   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SortLinkedList</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Node <span class="title">orderList</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        </span><br><span class="line">        Node nextNode;</span><br><span class="line">        <span class="keyword">int</span> tmp;</span><br><span class="line">        Node curNode = head;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> (curNode.next != <span class="keyword">null</span>) &#123;</span><br><span class="line">            nextNode = curNode.next;</span><br><span class="line">            <span class="keyword">while</span> (nextNode != <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (curNode.data &gt; nextNode.data) &#123;</span><br><span class="line">                    tmp = curNode.data;</span><br><span class="line">                    curNode.data = nextNode.data;</span><br><span class="line">                    nextNode.data = tmp;</span><br><span class="line">                &#125;</span><br><span class="line">            nextNode = nextNode.next;</span><br><span class="line">            &#125;</span><br><span class="line">            curNode = curNode.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="4-Delete-duplicate-nodes-in-the-list"><a href="#4-Delete-duplicate-nodes-in-the-list" class="headerlink" title="4.Delete duplicate nodes in the list"></a>4.Delete duplicate nodes in the list</h4>   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SortLinkedList</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteDuplicate</span><span class="params">(Node head)</span></span>&#123;</span><br><span class="line">        Node p = head;</span><br><span class="line">        <span class="keyword">while</span> (p != <span class="keyword">null</span>)&#123;</span><br><span class="line">            Node q = p;</span><br><span class="line">            <span class="keyword">while</span> (q.next != <span class="keyword">null</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span>(q.next == p.next)&#123;</span><br><span class="line">                    q.next == q.next.next;</span><br><span class="line">                &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                    q = q.next;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            p = p.next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    
+  </div>
+
+  
+      <div class="git"></div>
+  
+
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持xfan</div>
+        <ul>
+        
+          <li class="item">
+            <span>微信扫一扫</span>
+            <img src="/picture/qr-wechat.png" alt>
+          </li>
+        
+          <li class="item">
+            <span>支付宝扫一扫</span>
+            <img src="/picture/qr-alipay.png" alt>
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2019/04/11/JAVA-IO/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2019/04/11/JAVA设计模式/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/archives/" rel="noopener noreferrer" target="_self">
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/categories/JAVA" rel="noopener noreferrer" target="_self">
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/tags/git" rel="noopener noreferrer" target="_self">
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/link/" rel="noopener noreferrer" target="_self">
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/about/" rel="noopener noreferrer" target="_self">
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/search/" rel="noopener noreferrer" target="_self">
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'xfan';
+    
+    var disqus_url = 'https://feifaninternet.github.io/2019/04/11/JAVA-Linked-List/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//xfan.disqus.com/count.js" async></script>
+
+
+
+    
+    
+
+    
+    
+
+    
+
+    
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

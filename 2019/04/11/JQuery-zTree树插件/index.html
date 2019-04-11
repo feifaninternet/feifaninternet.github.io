@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>JQuery zTree树插件 | Xfan blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="zTree,">
+  
+
+  <meta name="description" content="date: 2018-05-24 14:28:52 DescriptionzTree是一个依靠JQuery实现的多功能树插件。优异的性能，灵活的配置，多功能的组合是zTree的优点。  特点：   zTree 3.x 将核心代码按照功能进行分割，不需要的代码可以不用加载 采用延迟加载技术，上万节点轻松加载 兼容IE,Chrome,Safari等浏览器 支持静态和Ajax异步加载节点数据 支持任意更">
+<meta name="keywords" content="zTree">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JQuery zTree树插件">
+<meta property="og:url" content="https://feifaninternet.github.io/2019/04/11/JQuery-zTree树插件/index.html">
+<meta property="og:site_name" content="Xfan blog">
+<meta property="og:description" content="date: 2018-05-24 14:28:52 DescriptionzTree是一个依靠JQuery实现的多功能树插件。优异的性能，灵活的配置，多功能的组合是zTree的优点。  特点：   zTree 3.x 将核心代码按照功能进行分割，不需要的代码可以不用加载 采用延迟加载技术，上万节点轻松加载 兼容IE,Chrome,Safari等浏览器 支持静态和Ajax异步加载节点数据 支持任意更">
+<meta property="og:locale" content="Chinese">
+<meta property="og:image" content="https://feifaninternet.github.io/picture/zTree.png">
+<meta property="og:updated_time" content="2019-04-11T02:31:11.801Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JQuery zTree树插件">
+<meta name="twitter:description" content="date: 2018-05-24 14:28:52 DescriptionzTree是一个依靠JQuery实现的多功能树插件。优异的性能，灵活的配置，多功能的组合是zTree的优点。  特点：   zTree 3.x 将核心代码按照功能进行分割，不需要的代码可以不用加载 采用延迟加载技术，上万节点轻松加载 兼容IE,Chrome,Safari等浏览器 支持静态和Ajax异步加载节点数据 支持任意更">
+<meta name="twitter:image" content="https://feifaninternet.github.io/picture/zTree.png">
+
+  
+
+  
+    <link rel="icon" href="/picture/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/person/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">Site</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">Site</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/archives/" rel="noopener noreferrer" target="_self">
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/categories/JAVA" rel="noopener noreferrer" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/tags/git" rel="noopener noreferrer" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/link/" rel="noopener noreferrer" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/about/" rel="noopener noreferrer" target="_self">
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/search/" rel="noopener noreferrer" target="_self">
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Description"><span class="toc-text">Description</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#zTree-的使用"><span class="toc-text">zTree 的使用</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-JQuery-zTree树插件" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">JQuery zTree树插件</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2019.04.11</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>xfan</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/Expand/">Expand</a>
+  </span>
+
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="https://feifaninternet.github.io//2019/04/11/JQuery-zTree树插件/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>date: 2018-05-24 14:28:52</p>
+<h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>zTree是一个依靠JQuery实现的多功能树插件。优异的性能，灵活的配置，多功能的组合是zTree的优点。</p>
+<ul>
+<li>特点：</li>
+</ul>
+<ol>
+<li>zTree 3.x 将核心代码按照功能进行分割，不需要的代码可以不用加载</li>
+<li>采用延迟加载技术，上万节点轻松加载</li>
+<li>兼容IE,Chrome,Safari等浏览器</li>
+<li>支持静态和Ajax异步加载节点数据</li>
+<li>支持任意更换皮肤，自定义图标</li>
+<li>支持及其灵活的checkbox或radio选择功能</li>
+<li>提供多种事件响应回调</li>
+<li>灵活的编辑功能，可随意拖拽节点，还可以多节点拖拽</li>
+<li>在一个页面内同时生成多个Tree实例   </li>
+<li>简单的参数配置实现灵活多变的功能</li>
+</ol>
+<p><a href="http://www.treejs.cn/v3/api.php" target="_blank" rel="noopener">zTree官方文档</a></p>
+<h3 id="zTree-的使用"><a href="#zTree-的使用" class="headerlink" title="zTree 的使用"></a>zTree 的使用</h3><ul>
+<li>引入资源：向页面中引入JQuery的js文件，zTree的js文件和CSS文件</li>
+<li><p>页面添加zTree的容器，class属性为ztree</p>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">"treeDemo"</span> <span class="attr">class</span>=<span class="string">"ztree"</span>&gt;</span><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>引入数据：zTree可以解析json格式的数据，有两种方式可以把数据传给zTree组件来生成树状结构。</p>
+</li>
+</ul>
+<p>1.直接把json数据传给组件</p>
+   <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    $.fn.zTree.init($(<span class="string">"#treeDemo"</span>), setting, zNodes);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>2.异步获取json格式数据，第三个参数传null或者空着</p>
+   <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    $.fn.zTree.init($(<span class="string">"#treeDemo"</span>), setting, <span class="literal">null</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>使用 Demo</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> setting = &#123;</span><br><span class="line">    data: &#123;</span><br><span class="line">        key : &#123;</span><br><span class="line">            title : <span class="string">"c01name"</span>, <span class="comment">//鼠标悬停显示的信息</span></span><br><span class="line">            name : <span class="string">"c01name"</span> <span class="comment">//网页上显示出节点的名称</span></span><br><span class="line">        &#125;,</span><br><span class="line">        simpleData: &#123;</span><br><span class="line">            enable: <span class="literal">true</span>,</span><br><span class="line">            idKey: <span class="string">"c01id"</span>, <span class="comment">//修改默认的ID为自己的ID</span></span><br><span class="line">            pIdKey: <span class="string">"c01parentid"</span>,<span class="comment">//修改默认父级ID为自己数据的父级ID</span></span><br><span class="line">            rootPId: <span class="number">000</span>     <span class="comment">//根节点的ID</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>有时候异步处理得到的数据并不是一个单纯的jsonArray数据，我们需要对它进行一个简单的提取操作：</p>
+   <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> setting = &#123;</span><br><span class="line">    <span class="keyword">async</span>: &#123;</span><br><span class="line">        enable: <span class="literal">true</span>,<span class="comment">//采用异步加载</span></span><br><span class="line">        dataFilter: ajaxDataFilter,    <span class="comment">//预处理数据</span></span><br><span class="line">        url : <span class="string">"http://127.0.0.1/WeChat/admin/C01Action_listC01.action"</span>,</span><br><span class="line">        dataType : <span class="string">"json"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    data : &#123;</span><br><span class="line">        key : &#123;</span><br><span class="line">            title : <span class="string">"c01name"</span>,    </span><br><span class="line">            name : <span class="string">"c01name"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        simpleData : &#123;</span><br><span class="line">            enable : <span class="literal">true</span>,</span><br><span class="line">            idKey : <span class="string">"c01id"</span>,</span><br><span class="line">            pIdKey : <span class="string">"c01parentid"</span>,</span><br><span class="line">            rootPid : <span class="number">000</span> </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    callback : &#123;</span><br><span class="line">        beforeClick: zTreeBeforeClick,</span><br><span class="line">        onClick : zTreeOnClick,</span><br><span class="line">        onAsyncSuccess: zTreeOnAsyncSuccess <span class="comment">//异步加载完成调用</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">/* 获取返回的数据，进行预操作 */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ajaxDataFilter</span>(<span class="params">treeId, parentNode, responseData</span>) </span>&#123;</span><br><span class="line">    responseData = responseData.jsonArray;</span><br><span class="line">    <span class="keyword">return</span> responseData;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//异步加载完成时运行，此方法将所有的节点打开</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">zTreeOnAsyncSuccess</span>(<span class="params">event, treeId, msg</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> treeObj = $.fn.zTree.getZTreeObj(<span class="string">"treeDemo"</span>);</span><br><span class="line">    treeObj.expandAll(<span class="literal">true</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>使用案例：</p>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">HTML</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">HEAD</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">TITLE</span>&gt;</span> zTree Demo <span class="tag">&lt;/<span class="name">TITLE</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"content-type"</span> <span class="attr">content</span>=<span class="string">"text/html; charset=UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"zTreeStyle/zTreeStyle.css"</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"jquery-1.4.2.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"jquery.ztree.core-3.x.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">SCRIPT</span> <span class="attr">LANGUAGE</span>=<span class="string">"JavaScript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> zTreeObj;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> setting = &#123;&#125;; <span class="comment">// zTree 的参数配置，后面详解</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> zNodes = [ <span class="comment">// zTree 的数据属性，此处使用标准json格式</span></span></span><br><span class="line"><span class="undefined">    &#123;</span></span><br><span class="line"><span class="javascript">    name: <span class="string">"test1"</span>, <span class="attr">open</span>: <span class="literal">true</span>, <span class="attr">children</span>: [</span></span><br><span class="line"><span class="javascript">    &#123; <span class="attr">name</span>: <span class="string">"test1_1"</span> &#125;, &#123; <span class="attr">name</span>: <span class="string">"test1_2"</span> &#125;]</span></span><br><span class="line"><span class="undefined">    &#125;,</span></span><br><span class="line"><span class="undefined">    &#123;</span></span><br><span class="line"><span class="javascript">    name: <span class="string">"test2"</span>, <span class="attr">open</span>: <span class="literal">true</span>, <span class="attr">children</span>: [</span></span><br><span class="line"><span class="javascript">    &#123; <span class="attr">name</span>: <span class="string">"test2_1"</span> &#125;, &#123; <span class="attr">name</span>: <span class="string">"test2_2"</span> &#125;]</span></span><br><span class="line"><span class="undefined">    &#125; ];</span></span><br><span class="line"><span class="javascript">    $(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">    zTreeObj = $.fn.zTree.init($(<span class="string">"#treeDemo"</span>), setting, zNodes); <span class="comment">//初始化zTree，三个参数一次分别是容器(zTree 的容器 className 别忘了设置为 "ztree")、参数配置、数据源</span></span></span><br><span class="line"><span class="undefined">    &#125;);</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">SCRIPT</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">HEAD</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">BODY</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">"treeDemo"</span> <span class="attr">class</span>=<span class="string">"ztree"</span>&gt;</span><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">BODY</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">HTML</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>效果图如下：</p>
+<p><img src="/picture/zTree.png" alt="菜单示例图"></p>
+<p>详细应用请参考<a href="http://www.treejs.cn/v3/api.php" target="_blank" rel="noopener">zTree官方文档</a></p>
+
+    
+  </div>
+
+  
+      <div class="git"></div>
+  
+
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持xfan</div>
+        <ul>
+        
+          <li class="item">
+            <span>微信扫一扫</span>
+            <img src="/picture/qr-wechat.png" alt>
+          </li>
+        
+          <li class="item">
+            <span>支付宝扫一扫</span>
+            <img src="/picture/qr-alipay.png" alt>
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2019/04/11/JAVA面试题/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2019/04/11/JVM内存模型与垃圾回收/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/archives/" rel="noopener noreferrer" target="_self">
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/categories/JAVA" rel="noopener noreferrer" target="_self">
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/tags/git" rel="noopener noreferrer" target="_self">
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/link/" rel="noopener noreferrer" target="_self">
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/about/" rel="noopener noreferrer" target="_self">
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/search/" rel="noopener noreferrer" target="_self">
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'xfan';
+    
+    var disqus_url = 'https://feifaninternet.github.io/2019/04/11/JQuery-zTree树插件/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//xfan.disqus.com/count.js" async></script>
+
+
+
+    
+    
+
+    
+    
+
+    
+
+    
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

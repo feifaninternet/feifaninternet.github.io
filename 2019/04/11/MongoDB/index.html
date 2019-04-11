@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>MongoDB 简介 | Xfan blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="MongoDB,">
+  
+
+  <meta name="description" content="date: 2018-03-27 18:00:15 Nosql 简介要学习MongoDB需要先了解NoSQL。之前我们的数据库系统都是使用的关系模型，Nosql泛指非关系型的数据库。超大规模和高并发的SNS类型的web2.0纯动态网站传统的关系数据库已经显得力不从心，Nosql数据库的产生就是为了解决这些问题,Nosql用于超大规模数据的存储。    关系型数据库遵循 ACID 规则事物的特性：">
+<meta name="keywords" content="MongoDB">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MongoDB 简介">
+<meta property="og:url" content="https://feifaninternet.github.io/2019/04/11/MongoDB/index.html">
+<meta property="og:site_name" content="Xfan blog">
+<meta property="og:description" content="date: 2018-03-27 18:00:15 Nosql 简介要学习MongoDB需要先了解NoSQL。之前我们的数据库系统都是使用的关系模型，Nosql泛指非关系型的数据库。超大规模和高并发的SNS类型的web2.0纯动态网站传统的关系数据库已经显得力不从心，Nosql数据库的产生就是为了解决这些问题,Nosql用于超大规模数据的存储。    关系型数据库遵循 ACID 规则事物的特性：">
+<meta property="og:locale" content="Chinese">
+<meta property="og:updated_time" content="2019-04-11T02:31:11.802Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MongoDB 简介">
+<meta name="twitter:description" content="date: 2018-03-27 18:00:15 Nosql 简介要学习MongoDB需要先了解NoSQL。之前我们的数据库系统都是使用的关系模型，Nosql泛指非关系型的数据库。超大规模和高并发的SNS类型的web2.0纯动态网站传统的关系数据库已经显得力不从心，Nosql数据库的产生就是为了解决这些问题,Nosql用于超大规模数据的存储。    关系型数据库遵循 ACID 规则事物的特性：">
+
+  
+
+  
+    <link rel="icon" href="/picture/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/person/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">Site</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">Site</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/archives/" rel="noopener noreferrer" target="_self">
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/categories/JAVA" rel="noopener noreferrer" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/tags/git" rel="noopener noreferrer" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/link/" rel="noopener noreferrer" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/about/" rel="noopener noreferrer" target="_self">
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/search/" rel="noopener noreferrer" target="_self">
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Nosql-简介"><span class="toc-text">Nosql 简介</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#关系型数据库遵循-ACID-规则"><span class="toc-text">关系型数据库遵循 ACID 规则</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Nosql-的特性"><span class="toc-text">Nosql 的特性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CAP-定理"><span class="toc-text">CAP 定理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Nosql的优缺点"><span class="toc-text">Nosql的优缺点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Nosql-数据库分类"><span class="toc-text">Nosql 数据库分类</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MongoDB-简介"><span class="toc-text">MongoDB 简介</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#MongoDB的特点"><span class="toc-text">MongoDB的特点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MongoDB的概念解析"><span class="toc-text">MongoDB的概念解析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数据库"><span class="toc-text">数据库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#文档"><span class="toc-text">文档</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#集合"><span class="toc-text">集合</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#元数据"><span class="toc-text">元数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MongoDB-数据类型"><span class="toc-text">MongoDB 数据类型</span></a></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-MongoDB" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">MongoDB 简介</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2019.04.11</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>xfan</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/database/">database</a>
+  </span>
+
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="https://feifaninternet.github.io//2019/04/11/MongoDB/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>date: 2018-03-27 18:00:15</p>
+<h3 id="Nosql-简介"><a href="#Nosql-简介" class="headerlink" title="Nosql 简介"></a>Nosql 简介</h3><p>要学习MongoDB需要先了解NoSQL。<br>之前我们的数据库系统都是使用的关系模型，Nosql泛指非关系型的数据库。超大规模和高并发的SNS类型的web2.0纯动态网站传统的关系数据库已经显得力不从心，Nosql数据库的产生就是为了解决这些问题,Nosql用于超大规模数据的存储。   </p>
+<h4 id="关系型数据库遵循-ACID-规则"><a href="#关系型数据库遵循-ACID-规则" class="headerlink" title="关系型数据库遵循 ACID 规则"></a>关系型数据库遵循 ACID 规则</h4><p>事物的特性：</p>
+<p>1.A(Atomicity)原子性<br>原子性很容易理解，也就是说事务里的所有操作要么全部做完，要么都不做，事务成功的条件是事务里的所有操作都成功，只要有一个操作失败，整个事务就失败，需要回滚。   </p>
+<p>2.C(Consistency)一致性<br>一致性也比较容易理解，也就是说数据库要一直处于一致的状态，事务的运行不会改变数据库原本的一致性约束。例如现有完整性约束a+b=10，如果一个事务改变了a，那么必须得改变b，使得事务结束后依然满足a+b=10，否则事务失败。</p>
+<p>3.I(Isolation)独立性<br>所谓的独立性是指并发的事务之间不会互相影响，如果一个事务要访问的数据正在被另外一个事务修改，只要另外一个事务未提交，它所访问的数据就不受未提交事务的影响。</p>
+<p>4.D(Durability)持久性<br>持久性是指一旦事务提交后，它所做的修改将会永久的保存在数据库上，即使出现宕机也不会丢失。</p>
+<h4 id="Nosql-的特性"><a href="#Nosql-的特性" class="headerlink" title="Nosql 的特性"></a>Nosql 的特性</h4><ol>
+<li>Not only sql，不仅仅是sql</li>
+<li>没有声明性的查询语言</li>
+<li>没有预定义的模式</li>
+<li>键-值对存储，列存储，文档存储，图形数据库</li>
+<li>最终一致性，而非 ACID 属性</li>
+<li>非结构化和不可预知的数据</li>
+<li>CAP定理</li>
+<li>高性能，高可用性和可伸缩性      </li>
+</ol>
+<h4 id="CAP-定理"><a href="#CAP-定理" class="headerlink" title="CAP 定理"></a>CAP 定理</h4><p>在计算机科学中，CAP定理又被称作布鲁尔定理，它指出一个分布式计算系统不可能同时满足的三点：</p>
+<ul>
+<li>一致性(Consistency),所有节点在同一时间具有相同的数据。</li>
+<li>可用性(Availability),保证每个请求不管成功失败都有响应</li>
+<li>分隔容忍(Partition tolerance),系统中任意信息的丢失或者失败不会影响系统的继续运作。</li>
+</ul>
+<p>CAP理论的核心是：一个分布式系统不可能同时很好的满足一致性，可用性和分区容错性，最多只能同时较好的满足其中两个。   </p>
+<ul>
+<li>CA：单点集群，满足一致性，可用性的系统，通常在可扩展性上不太强大。</li>
+<li>CP： 满足一致性，分区容忍性的系统，通常性能不是特别高。(比如 Zookeeper)</li>
+<li>AP：满足可用性，分区容忍性的系统，通常可能对一致性要求低一些。(比如 Eureka)</li>
+</ul>
+<h4 id="Nosql的优缺点"><a href="#Nosql的优缺点" class="headerlink" title="Nosql的优缺点"></a>Nosql的优缺点</h4><p>优点：</p>
+<ul>
+<li>高可扩展性</li>
+<li>分布式计算</li>
+<li>低成本</li>
+<li>架构的灵活性，半结构化数据</li>
+<li>没有复杂的关系</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>没有标准化</li>
+<li>有限的查询功能</li>
+<li>最终一致时不直观的程序</li>
+</ul>
+<h4 id="Nosql-数据库分类"><a href="#Nosql-数据库分类" class="headerlink" title="Nosql 数据库分类"></a>Nosql 数据库分类</h4><table>
+<thead>
+<tr>
+<th>类型</th>
+<th style="text-align:center">部分代表</th>
+<th style="text-align:right">特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>列存储</td>
+<td style="text-align:center">Hbase，CassandraH，ypertable</td>
+<td style="text-align:right">按列存储数据。最大的特点是方便存储结构化和半结构化数据，方便做数据压缩，对针对某一列或者某几列的查询有非常大的IO优势。</td>
+</tr>
+<tr>
+<td>文档存储</td>
+<td style="text-align:center">MongoDB,CouchDB</td>
+<td style="text-align:right">文档存储一般用类似json的格式存储，存储的内容是文档型的。这样也就有有机会对某些字段建立索引，实现关系数据库的某些功能。</td>
+</tr>
+<tr>
+<td>key-value存储</td>
+<td style="text-align:center">Tyrant,BerkeleyDB,MemcacheDB,Redis</td>
+<td style="text-align:right">可以通过key快速查询到其value。一般来说，存储不管value的格式，照单全收</td>
+</tr>
+<tr>
+<td>图存储</td>
+<td style="text-align:center">Neo4J，FlockDB</td>
+<td style="text-align:right">图形关系的最佳存储。使用传统关系数据库来解决的话性能低下，而且设计使用不方便。</td>
+</tr>
+<tr>
+<td>对象存储</td>
+<td style="text-align:center">db4o，Versant</td>
+<td style="text-align:right">通过类似面向对象语言的语法操作数据库，通过对象的方式存取数据。</td>
+</tr>
+<tr>
+<td>xml数据库</td>
+<td style="text-align:center">BaseX，BerkeleyDB</td>
+<td style="text-align:right">高效的存储XML数据，并支持XML的内部查询语法。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="MongoDB-简介"><a href="#MongoDB-简介" class="headerlink" title="MongoDB 简介"></a>MongoDB 简介</h3><p>MongoDB是由C++语言编写的，是一个基于分布式文件存储的开源数据库系统。在高负载的情况下，添加更多的节点，可以保证服务器性能。MongoDB旨在WEB应用提供可扩展的高性能数据存储解决方案。MongoDB将数据存储为一个文档，数据结构由键值对组成。MongoDB文档类似于json对象。字段值可以包含其他文档，数组及文档数组。</p>
+<h4 id="MongoDB的特点"><a href="#MongoDB的特点" class="headerlink" title="MongoDB的特点"></a>MongoDB的特点</h4><ul>
+<li>MongoDB的提供了一个面向文档存储，操作起来比较简单和容易。</li>
+<li>你可以在MongoDB记录中设置任何属性的索引来实现更快的排序。</li>
+<li>你可以通过本地或者网络创建数据镜像，这使得MongoDB有更强的扩展性。</li>
+<li>如果负载的增加（需要更多的存储空间和更强的处理能力） ，它可以分布在计算机网络中的其他节点上这就是所谓的分片。</li>
+<li>Mongo支持丰富的查询表达式。查询指令使用JSON形式的标记，可轻易查询文档中内嵌的对象及数组。</li>
+<li>MongoDb 使用update()命令可以实现替换完成的文档（数据）或者一些指定的数据字段 。</li>
+<li>Mongodb中的Map/reduce主要是用来对数据进行批量处理和聚合操作。</li>
+<li>Map和Reduce。Map函数调用emit(key,value)遍历集合中所有的记录，将key与value传给Reduce函数进行处理。</li>
+<li>Map函数和Reduce函数是使用Javascript编写的，并可以通过db.runCommand或mapreduce命令来执行MapReduce操作。</li>
+<li>GridFS是MongoDB中的一个内置功能，可以用于存放大量小文件。</li>
+<li>MongoDB允许在服务端执行脚本，可以用Javascript编写某个函数，直接在服务端执行，也可以把函数的定义存储在服务端，下次直接调用即可。</li>
+<li>MongoDB支持各种编程语言:RUBY，PYTHON，JAVA，C++，PHP，C#等多种语言。</li>
+<li>MongoDB安装简单。注意：国内下载需要翻墙，不然会停在下载页面，不出现下载框</li>
+</ul>
+<h4 id="MongoDB的概念解析"><a href="#MongoDB的概念解析" class="headerlink" title="MongoDB的概念解析"></a>MongoDB的概念解析</h4><table>
+<thead>
+<tr>
+<th>SQL术语/概念</th>
+<th style="text-align:center">MongoDB术语/概念</th>
+<th style="text-align:right">解释/说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>database</td>
+<td style="text-align:center">database</td>
+<td style="text-align:right">数据库</td>
+</tr>
+<tr>
+<td>table</td>
+<td style="text-align:center">collection</td>
+<td style="text-align:right">数据库表/集合</td>
+</tr>
+<tr>
+<td>row</td>
+<td style="text-align:center">document</td>
+<td style="text-align:right">数据记录行/文档</td>
+</tr>
+<tr>
+<td>column</td>
+<td style="text-align:center">field</td>
+<td style="text-align:right">数据字段/域</td>
+</tr>
+<tr>
+<td>index</td>
+<td style="text-align:center">index</td>
+<td style="text-align:right">索引</td>
+</tr>
+<tr>
+<td>table joins</td>
+<td style="text-align:center"></td>
+<td style="text-align:right">表连接,MongoDB不支持</td>
+</tr>
+<tr>
+<td>primary key</td>
+<td style="text-align:center">primary key</td>
+<td style="text-align:right">主键,MongoDB自动将_id字段设置为主键</td>
+</tr>
+</tbody>
+</table>
+<h4 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h4><p>一个mongodb中可以建立多个数据库。<br>MongoDB的默认数据库为db，改数据库存储在data目录中。<br>MongoDB的单个示例可以容纳多个独立的数据库，每一个都有自己的集合和权限，不同的数据库也放置在不同的文件中。<br>有一些数据库名是保留的，可以直接访问这些有特殊作用的数据库：</p>
+<ul>
+<li>admin：从权限的角度来看，这是”root”数据库。要是将一个用户添加到这个数据库，这个用户自动继承所有数据库的权限。一些特定的服务器端命令也只能从这个数据库运行，比如列出所有的数据库或者关闭服务器。</li>
+<li>local：这个数据永远不会被复制，可以用来存储限于本地单台服务器的任意集合。</li>
+<li>config: 当Mongo用于分片设置时，config数据库在内部使用，用于保存分片的相关信息。</li>
+</ul>
+<h4 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h4><p>文档是一个键值(key-value)对(即BSON)。MongoDB 的文档不需要设置相同的字段，并且相同的字段不需要相同的数据类型，这与关系型数据库有很大的区别，也是 MongoDB 非常突出的特点。<br>需要注意到是：</p>
+<ol>
+<li>文档中的键/值对是有序的</li>
+<li>文档中的值不仅可以是在双引号里面的字符串，还可以是其他几种数据类型（甚至可以是整个嵌入的文档)。</li>
+<li>MongoDB区分类型和大小写。</li>
+<li>MongoDB的文档不能有重复的键。</li>
+<li>文档的键是字符串。除了少数例外情况，键可以使用任意UTF-8字符。</li>
+</ol>
+<p>文档键命名规范：</p>
+<ol>
+<li>键不能含有\0 (空字符)。这个字符用来表示键的结尾。</li>
+<li>.和$有特别的意义，只有在特定环境下才能使用。</li>
+<li>以下划线”_”开头的键是保留的(不是严格要求的)。</li>
+</ol>
+<h4 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h4><p>集合就是MongoDB文档组，集合存在于数据库中，集合没有固定的结构，这意味着你在对集合可以插入不同格式和类型的数据，但通常情况下我们插入集合的数据都会有一定的关联性。<br>比如，我们可以将以下不同数据结构的文档插入到集合中：</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;site&quot;:&quot;www.baidu.com&quot;&#125;  &#123;&quot;site&quot;:&quot;www.google.com&quot;,&quot;name&quot;:&quot;Google&quot;&#125;  </span><br><span class="line">&#123;&quot;site&quot;:&quot;www.runoob.com&quot;,&quot;name&quot;:&quot;菜鸟教程&quot;,&quot;num&quot;:5&#125;</span><br></pre></td></tr></table></figure>
+<p>当第一个文档插入时，集合就会被创建。</p>
+<h4 id="元数据"><a href="#元数据" class="headerlink" title="元数据"></a>元数据</h4><p>数据库的信息是存储在集合中。他们使用了系统的命名空间：</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dbname.system.*</span><br></pre></td></tr></table></figure>
+<p>在MongoDB数据库中名字空间 <dbname>.system.* 是包含多种系统信息的特殊集合(Collection)，如下:   </dbname></p>
+<table>
+<thead>
+<tr>
+<th>集合命名空间</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dbname.system.namespaces</td>
+<td style="text-align:center">列出所有名字空间。</td>
+</tr>
+<tr>
+<td>dbname.system.indexes</td>
+<td style="text-align:center">列出所有索引。</td>
+</tr>
+<tr>
+<td>dbname.system.profile</td>
+<td style="text-align:center">包含数据库概要(profile)信息。</td>
+</tr>
+<tr>
+<td>dbname.system.users</td>
+<td style="text-align:center">列出所有可访问数据库的用户。</td>
+</tr>
+<tr>
+<td>dbname.local.sources</td>
+<td style="text-align:center">包含复制对端（slave）的服务器信息和状态。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="MongoDB-数据类型"><a href="#MongoDB-数据类型" class="headerlink" title="MongoDB 数据类型"></a>MongoDB 数据类型</h4><table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>String</td>
+<td style="text-align:center">字符串。存储数据常用的数据类型。在 MongoDB 中，UTF-8 编码的字符串才是合法的。</td>
+</tr>
+<tr>
+<td>Integer</td>
+<td style="text-align:center">整型数值。用于存储数值。</td>
+</tr>
+<tr>
+<td>Boolean</td>
+<td style="text-align:center">布尔值。用于存储布尔值。</td>
+</tr>
+<tr>
+<td>Double</td>
+<td style="text-align:center">双精度浮点值。用于存储浮点值。</td>
+</tr>
+<tr>
+<td>Min/Max keys</td>
+<td style="text-align:center">将一个值与 BSON（二进制的 JSON）元素的最低值和最高值相对比。</td>
+</tr>
+<tr>
+<td>Arrays</td>
+<td style="text-align:center">用于将数组或列表或多个值存储为一个键。</td>
+</tr>
+<tr>
+<td>Timestamp</td>
+<td style="text-align:center">时间戳。</td>
+</tr>
+<tr>
+<td>Object</td>
+<td style="text-align:center">用于内嵌文档。</td>
+</tr>
+<tr>
+<td>Null</td>
+<td style="text-align:center">用于创建空值。</td>
+</tr>
+<tr>
+<td>Symbol</td>
+<td style="text-align:center">符号。该数据类型基本上等同于字符串类型，但不同的是，它一般用于采用特殊符号类型的语言。。</td>
+</tr>
+<tr>
+<td>Date</td>
+<td style="text-align:center">日期时间。</td>
+</tr>
+<tr>
+<td>Object ID</td>
+<td style="text-align:center">对象 ID。用于创建文档的 ID。</td>
+</tr>
+<tr>
+<td>Binary Data</td>
+<td style="text-align:center">二进制数据。用于存储二进制数据。</td>
+</tr>
+<tr>
+<td>Code</td>
+<td style="text-align:center">代码类型。用于在文档中存储 JavaScript 代码。</td>
+</tr>
+<tr>
+<td>Regular expression</td>
+<td style="text-align:center">正则表达式类型。用于存储正则表达式。</td>
+</tr>
+</tbody>
+</table>
+
+    
+  </div>
+
+  
+      <div class="git"></div>
+  
+
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持xfan</div>
+        <ul>
+        
+          <li class="item">
+            <span>微信扫一扫</span>
+            <img src="/picture/qr-wechat.png" alt>
+          </li>
+        
+          <li class="item">
+            <span>支付宝扫一扫</span>
+            <img src="/picture/qr-alipay.png" alt>
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2019/04/11/Linux命令/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2019/04/11/Java-Multithreading/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/archives/" rel="noopener noreferrer" target="_self">
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/categories/JAVA" rel="noopener noreferrer" target="_self">
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/tags/git" rel="noopener noreferrer" target="_self">
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/link/" rel="noopener noreferrer" target="_self">
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/about/" rel="noopener noreferrer" target="_self">
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/search/" rel="noopener noreferrer" target="_self">
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'xfan';
+    
+    var disqus_url = 'https://feifaninternet.github.io/2019/04/11/MongoDB/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//xfan.disqus.com/count.js" async></script>
+
+
+
+    
+    
+
+    
+    
+
+    
+
+    
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

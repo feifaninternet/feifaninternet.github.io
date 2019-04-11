@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>如何应对恶意IP访问 | Xfan blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="http,">
+  
+
+  <meta name="description" content="date: 2019-03-13 16:20:25 Description最近上线的一个项目，上线几天突然崩溃了，客户反馈的时候我也是纳闷，啥也没有改动呀，上服务器一看访问日志，很明显是有人在恶意攻击，项目运行内存不足挂掉了。  遇到这种情况，我们应该如何应对呢？ 限制单个IP访问接口的频率在拦截器中使用 Guava Cache 实现    1234567891011//初始化 cache ，定义">
+<meta name="keywords" content="http">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何应对恶意IP访问">
+<meta property="og:url" content="https://feifaninternet.github.io/2019/04/11/如何应对恶意IP访问/index.html">
+<meta property="og:site_name" content="Xfan blog">
+<meta property="og:description" content="date: 2019-03-13 16:20:25 Description最近上线的一个项目，上线几天突然崩溃了，客户反馈的时候我也是纳闷，啥也没有改动呀，上服务器一看访问日志，很明显是有人在恶意攻击，项目运行内存不足挂掉了。  遇到这种情况，我们应该如何应对呢？ 限制单个IP访问接口的频率在拦截器中使用 Guava Cache 实现    1234567891011//初始化 cache ，定义">
+<meta property="og:locale" content="Chinese">
+<meta property="og:image" content="https://feifaninternet.github.io/picture/reqLog.jpg">
+<meta property="og:image" content="https://feifaninternet.github.io/picture/attackLog.png">
+<meta property="og:image" content="https://feifaninternet.github.io/picture/bakLog.jpg">
+<meta property="og:image" content="https://feifaninternet.github.io/picture/interceptor.jpg">
+<meta property="og:image" content="https://feifaninternet.github.io/picture/403.jpg">
+<meta property="og:updated_time" content="2019-04-11T02:31:11.804Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何应对恶意IP访问">
+<meta name="twitter:description" content="date: 2019-03-13 16:20:25 Description最近上线的一个项目，上线几天突然崩溃了，客户反馈的时候我也是纳闷，啥也没有改动呀，上服务器一看访问日志，很明显是有人在恶意攻击，项目运行内存不足挂掉了。  遇到这种情况，我们应该如何应对呢？ 限制单个IP访问接口的频率在拦截器中使用 Guava Cache 实现    1234567891011//初始化 cache ，定义">
+<meta name="twitter:image" content="https://feifaninternet.github.io/picture/reqLog.jpg">
+
+  
+
+  
+    <link rel="icon" href="/picture/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/person/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">Site</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">Site</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/archives/" rel="noopener noreferrer" target="_self">
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/categories/JAVA" rel="noopener noreferrer" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/tags/git" rel="noopener noreferrer" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/link/" rel="noopener noreferrer" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/about/" rel="noopener noreferrer" target="_self">
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/search/" rel="noopener noreferrer" target="_self">
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Description"><span class="toc-text">Description</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#限制单个IP访问接口的频率"><span class="toc-text">限制单个IP访问接口的频率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用RateLimiter限流"><span class="toc-text">使用RateLimiter限流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Nginx-限制单IP并发访问数量和访问速度"><span class="toc-text">Nginx 限制单IP并发访问数量和访问速度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用Shell脚本限制恶意IP"><span class="toc-text">使用Shell脚本限制恶意IP</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-如何应对恶意IP访问" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">如何应对恶意IP访问</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2019.04.11</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>xfan</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/Expand/">Expand</a>
+  </span>
+
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="https://feifaninternet.github.io//2019/04/11/如何应对恶意IP访问/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>date: 2019-03-13 16:20:25</p>
+<h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>最近上线的一个项目，上线几天突然崩溃了，客户反馈的时候我也是纳闷，啥也没有改动呀，上服务器一看访问日志，很明显是有人在恶意攻击，项目运行内存不足挂掉了。</p>
+<p><img src="/picture/reqLog.jpg" alt="请求日志"></p>
+<p>遇到这种情况，我们应该如何应对呢？</p>
+<h3 id="限制单个IP访问接口的频率"><a href="#限制单个IP访问接口的频率" class="headerlink" title="限制单个IP访问接口的频率"></a>限制单个IP访问接口的频率</h3><p>在拦截器中使用 <code>Guava Cache</code> 实现</p>
+   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//初始化 cache ，定义过期时间</span></span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> Cache&lt;Object, Object&gt; IP_CONTROL = CacheBuilder.newBuilder()</span><br><span class="line">             .expireAfterAccess(<span class="number">1</span>, TimeUnit.SECONDS).build();</span><br><span class="line"> </span><br><span class="line"> <span class="comment">//拦截在限制时间内的单ip访问相同接口</span></span><br><span class="line"> <span class="keyword">if</span> (IP_CONTROL.getIfPresent(ip + url) != <span class="keyword">null</span>)&#123;</span><br><span class="line">     logger.warn(<span class="string">"拦截恶意请求, ip:&#123;&#125;, url:&#123;&#125;"</span>, ip, url);</span><br><span class="line">     <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="comment">//通过的ip放入缓存</span></span><br><span class="line"> IP_CONTROL.put(ip + url, <span class="string">"pass"</span>);</span><br></pre></td></tr></table></figure>
+<p>这样在同一秒内同一个IP对相同的接口发起的请求将被拦截<br>缺陷: </p>
+<ol>
+<li>限制了所有IP访问接口，会误伤非恶意IP</li>
+<li>请求还是会进入应用程序，不够完美</li>
+</ol>
+<h3 id="使用RateLimiter限流"><a href="#使用RateLimiter限流" class="headerlink" title="使用RateLimiter限流"></a>使用RateLimiter限流</h3><p>可在被攻击的控制层进行处理，<a href="https://www.jianshu.com/p/5d4fe4b2a726" target="_blank" rel="noopener">令牌桶算法和RateLimiter原理</a></p>
+   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span>  </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">IndexController</span> </span>&#123;</span><br><span class="line">    <span class="comment">//设置放行速率</span></span><br><span class="line">    RateLimiter rateLimiter = RateLimiter.create(<span class="number">1</span>);  </span><br><span class="line">  </span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/test"</span>)  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">test</span><span class="params">(<span class="keyword">int</span> count, String code)</span> </span>&#123;  </span><br><span class="line">        System.out.println(<span class="string">"等待时间"</span> + rateLimiter.acquire());</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"pass"</span>;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可宏观控制系统的稳定性，控制请求放行的速率达到稳定系统的效果<br>缺陷: </p>
+<ol>
+<li>尽管控制了放行速率，但是非法IP还是会有源源不断的进入，而且还会占用正常用户的排队时间</li>
+<li>请求还是会进入应用程序，不够完美</li>
+</ol>
+<h3 id="Nginx-限制单IP并发访问数量和访问速度"><a href="#Nginx-限制单IP并发访问数量和访问速度" class="headerlink" title="Nginx 限制单IP并发访问数量和访问速度"></a>Nginx 限制单IP并发访问数量和访问速度</h3><p>1.在 <code>nginx</code> 相应的配置文件中加入下面的配置，然后重启 <code>nginx</code></p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">    #定义一个名为allips的limit_req_zone用来存储session，大小是10M内存，</span><br><span class="line">    #以$binary_remote_addr 为key,限制平均每秒的请求为20个，</span><br><span class="line">    #1M能存储16000个状态，rete的值必须为整数，</span><br><span class="line">    #如果限制两秒钟一个请求，可以设置成30r/m</span><br><span class="line">    limit_req_zone $binary_remote_addr zone=allips:10m rate=20r/s;</span><br><span class="line">    #连接数限制</span><br><span class="line">    limit_conn_zone   one  $binary_remote_addr  10m;</span><br><span class="line">    ...</span><br><span class="line">    server &#123;</span><br><span class="line">        ...</span><br><span class="line">        location /***/ &#123;</span><br><span class="line">            #限制每ip每秒不超过20个请求，漏桶数burst为5</span><br><span class="line">            #brust的意思就是，如果第1-4秒请求为19个，第5秒的请求为25个是被允许的，可以不设置</span><br><span class="line">            #但是如果你第1秒就25个请求，第2秒超过20的请求返回503错误。</span><br><span class="line">            #nodelay，如果不设置该选项，严格使用平均速率限制请求数</span><br><span class="line">            #如果不设置第1秒25个请求时，5个请求放到第2秒执行，</span><br><span class="line">            #设置nodelay，25个请求将在第1秒执行。</span><br><span class="line">            #我处理时只设置了 limit_req zone=allips</span><br><span class="line">            limit_req zone=allips burst=5 nodelay;</span><br><span class="line">            </span><br><span class="line">            #连接数限制，我处理时未设置此参数</span><br><span class="line">            limit_conn one 20;          </span><br><span class="line">            #带宽限制,对单个连接限数，如果一个ip两个连接，就是500x2k，我处理时未设置此参数</span><br><span class="line">            limit_rate 500k; </span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>控制之后查看 <code>nginx</code> 的请求日志，发现许多请求已被拦截，返回 <code>503</code></p>
+<p><img src="/picture/attackLog.png" alt="nginx日志"></p>
+<p>请求未到应用层，系统压力大大降低，恶意请求绝大部分都被拦截<br>缺陷: </p>
+<ol>
+<li>恶意IP还是会有少量的请求到达应用层，致使恶意请求的次数被控制</li>
+<li>未禁止恶意IP访问，不够完美</li>
+</ol>
+<h3 id="使用Shell脚本限制恶意IP"><a href="#使用Shell脚本限制恶意IP" class="headerlink" title="使用Shell脚本限制恶意IP"></a>使用Shell脚本限制恶意IP</h3><p>我们可以使用 <code>Shell</code> 脚本，分隔日志，进行分析，找出其中的恶意IP，再将恶意IP加入 <code>nginx</code> 的配置中进行拦截</p>
+<p>1.编写 <code>Shell</code> 脚本 <code>vim /shell/nginx_cutaccesslog.sh</code></p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">#日志目录</span><br><span class="line">log_path=/var/log/nginx</span><br><span class="line">date=`date -d &quot;10 min ago&quot; +%Y%m%d-%H:%M:%S`</span><br><span class="line">cd $&#123;log_path&#125;</span><br><span class="line">#过滤appvalley-access_log中正常访问API接口并在10分钟</span><br><span class="line">#内访问量最高的100个IP，取值如果此IP访问量大于100次，则把此IP放入黑名单</span><br><span class="line">#awk &apos;&#123; print $1&#125;&apos;：取数据的低1域（第1列），第一列为访问次数，第二列为ip</span><br><span class="line">#awk &apos;&#123;if($1&gt;100) print &quot;deny &quot;$2&quot;;&quot;&#125;&apos; 第一列访问次数大于100时，将第二列的ip记录</span><br><span class="line">#sort：对IP部分进行排序。</span><br><span class="line">#uniq -c：打印每一重复行出现的次数。（并去掉重复行）</span><br><span class="line">#sort -nr -k1：按照重复行出现的次序倒序排列,-k1以第一列为标准排序。</span><br><span class="line">#head -n 100：取排在前100位的IP 。</span><br><span class="line">cat appvalley-access_log | grep -v 403 | awk &apos;&#123;print $1&#125;&apos;|sort|uniq -c | sort -nr -k1 </span><br><span class="line">| head -n 100 | awk &apos;&#123;if($1&gt;100) print &quot;deny &quot;$2&quot;;&quot;&#125;&apos; &gt; /etc/nginx/website/denyip.conf</span><br><span class="line">#将appvalley-access_log中的日志移动到accesslog.bak/中，accesslog.bak/是切割的日志</span><br><span class="line">mv $&#123;log_path&#125;/appvalley-access_log $&#123;log_path&#125;/accesslog.bak/access_$&#123;date&#125;.log</span><br><span class="line"># 重载nginx</span><br><span class="line">cd /sbin/</span><br><span class="line">nginx -s reload</span><br></pre></td></tr></table></figure>
+<p>2.修改 <code>nginx.conf</code> 使其包含 <code>denyip.conf</code>，重载 <code>nginx</code>，因为之前配置项目路径时已经加入了 <code>include /etc/nginx/website/*.conf;</code>，所以就不用再设置了</p>
+<p>3.运行 <code>Shell</code> 脚本进行验证，进入 <code>accesslog.bak/</code> 目录中，查看日志分隔是否成功</p>
+<p><img src="/picture/bakLog.jpg" alt="分隔日志"></p>
+<p>4.查看 <code>denyip.conf</code> 文件，发现已经写入了拦截的恶意IP</p>
+<p><img src="/picture/interceptor.jpg" alt="拦截IP"></p>
+<p>5.再查看 <code>nginx</code> 访问日志是否成功拦截请求</p>
+<p><img src="/picture/403.jpg" alt="nginx请求日志"></p>
+<p>6.脚本验证成功后我们可以添加定时任务，每10分钟执行一次脚本，去禁用恶意IP</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*/10 * * * * /bin/bash /shell/nginx_cutaccesslog.sh &gt; /dev/null 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
+<p><em>剩余疑问：如何获取真实IP进行拦截？</em></p>
+
+    
+  </div>
+
+  
+      <div class="git"></div>
+  
+
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持xfan</div>
+        <ul>
+        
+          <li class="item">
+            <span>微信扫一扫</span>
+            <img src="/picture/qr-wechat.png" alt>
+          </li>
+        
+          <li class="item">
+            <span>支付宝扫一扫</span>
+            <img src="/picture/qr-alipay.png" alt>
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2019/04/11/MongoDB使用/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2019/04/11/微信支付集成-JAVA/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/archives/" rel="noopener noreferrer" target="_self">
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/categories/JAVA" rel="noopener noreferrer" target="_self">
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/tags/git" rel="noopener noreferrer" target="_self">
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/link/" rel="noopener noreferrer" target="_self">
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/about/" rel="noopener noreferrer" target="_self">
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/search/" rel="noopener noreferrer" target="_self">
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'xfan';
+    
+    var disqus_url = 'https://feifaninternet.github.io/2019/04/11/如何应对恶意IP访问/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//xfan.disqus.com/count.js" async></script>
+
+
+
+    
+    
+
+    
+    
+
+    
+
+    
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

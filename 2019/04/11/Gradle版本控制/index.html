@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>Gradle版本控制 | Xfan blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Gradle,">
+  
+
+  <meta name="description" content="date: 2018-05-14 11:47:56 DescriptionGradle是一个基于Maven概念的项目自动化构建工具，它使用一个基于Groovy的特定域语言(DSL)来声明项目设置，抛弃了基于xml的繁琐配置，支持传递性依赖，支持多工程构建。 Gradle 构建脚本可以通过指定一个快捷键（&amp;lt;&amp;lt;符号表示）到 doLast 语句来简化 helloword 任务。 如果将快捷方">
+<meta name="keywords" content="Gradle">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gradle版本控制">
+<meta property="og:url" content="https://feifaninternet.github.io/2019/04/11/Gradle版本控制/index.html">
+<meta property="og:site_name" content="Xfan blog">
+<meta property="og:description" content="date: 2018-05-14 11:47:56 DescriptionGradle是一个基于Maven概念的项目自动化构建工具，它使用一个基于Groovy的特定域语言(DSL)来声明项目设置，抛弃了基于xml的繁琐配置，支持传递性依赖，支持多工程构建。 Gradle 构建脚本可以通过指定一个快捷键（&amp;lt;&amp;lt;符号表示）到 doLast 语句来简化 helloword 任务。 如果将快捷方">
+<meta property="og:locale" content="Chinese">
+<meta property="og:image" content="https://feifaninternet.github.io/picture/GradleRefer.png">
+<meta property="og:updated_time" content="2019-04-11T02:31:11.799Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Gradle版本控制">
+<meta name="twitter:description" content="date: 2018-05-14 11:47:56 DescriptionGradle是一个基于Maven概念的项目自动化构建工具，它使用一个基于Groovy的特定域语言(DSL)来声明项目设置，抛弃了基于xml的繁琐配置，支持传递性依赖，支持多工程构建。 Gradle 构建脚本可以通过指定一个快捷键（&amp;lt;&amp;lt;符号表示）到 doLast 语句来简化 helloword 任务。 如果将快捷方">
+<meta name="twitter:image" content="https://feifaninternet.github.io/picture/GradleRefer.png">
+
+  
+
+  
+    <link rel="icon" href="/picture/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/person/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">Site</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">Site</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/archives/" rel="noopener noreferrer" target="_self">
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/categories/JAVA" rel="noopener noreferrer" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/tags/git" rel="noopener noreferrer" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/link/" rel="noopener noreferrer" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/about/" rel="noopener noreferrer" target="_self">
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/search/" rel="noopener noreferrer" target="_self">
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Description"><span class="toc-text">Description</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gradle-构建脚本"><span class="toc-text">Gradle 构建脚本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gradle-依赖管理"><span class="toc-text">Gradle 依赖管理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-外部依赖"><span class="toc-text">1.外部依赖</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#存储库"><span class="toc-text">存储库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#发布文件"><span class="toc-text">发布文件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#插件"><span class="toc-text">插件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#脚本插件"><span class="toc-text">脚本插件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二进制插件"><span class="toc-text">二进制插件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#执行多个任务"><span class="toc-text">执行多个任务</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#排除任务"><span class="toc-text">排除任务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#发生故障时继续构建"><span class="toc-text">发生故障时继续构建</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#列出项目"><span class="toc-text">列出项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#列出任务"><span class="toc-text">列出任务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gradle-构建-JAVA-项目"><span class="toc-text">Gradle 构建 JAVA 项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#初始化任务执行"><span class="toc-text">初始化任务执行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#指定-JAVA-版本"><span class="toc-text">指定 JAVA 版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gradle-构建多模块项目"><span class="toc-text">Gradle 构建多模块项目</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-Gradle版本控制" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Gradle版本控制</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2019.04.11</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>xfan</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/Expand/">Expand</a>
+  </span>
+
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="https://feifaninternet.github.io//2019/04/11/Gradle版本控制/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>date: 2018-05-14 11:47:56</p>
+<h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>Gradle是一个基于Maven概念的项目自动化构建工具，它使用一个基于Groovy的特定域语言(DSL)来声明项目设置，抛弃了基于xml的繁琐配置，支持传递性依赖，支持多工程构建。</p>
+<h3 id="Gradle-构建脚本"><a href="#Gradle-构建脚本" class="headerlink" title="Gradle 构建脚本"></a>Gradle 构建脚本</h3><p>可以通过指定一个快捷键（&lt;&lt;符号表示）到 doLast 语句来简化 helloword 任务。 如果将快捷方式添加到上述 helloword 任务，它看起来如下面脚本。</p>
+   <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">task helloword &lt;&lt; &#123;</span><br><span class="line">   println <span class="string">'Yiibai gradle qick start'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用 <figure class="highlight gradle"><figcaption><span>-q helloword``` 执行上面的脚本，打印字符串"Yiibai gradle qick start";</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### 依赖任务</span><br><span class="line"></span><br><span class="line">   ```groovy</span><br><span class="line">    <span class="keyword">task</span> hello &lt;&lt; &#123;</span><br><span class="line">        <span class="keyword">println</span> <span class="string">'Hello world!'</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">task</span> intro(dependsOn: hello) &lt;&lt; &#123;</span><br><span class="line">        <span class="keyword">println</span> <span class="string">"I'm Gradle"</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>执行 intro 任务，输出如下 :</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">D:/worksp/yiibai.com/gradle-3.1/study/script&gt;gradle -q intro</span><br><span class="line">Hello world!</span><br><span class="line">I&apos;m Gradle</span><br></pre></td></tr></table></figure>
+<p>通过闭包添加任务依赖 :</p>
+   <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">task taskX &lt;&lt; &#123;</span><br><span class="line">   println <span class="string">'taskX'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">taskX.dependsOn &#123;</span><br><span class="line">   tasks.findAll &#123; </span><br><span class="line">     task -&gt; task.name.startsWith(<span class="string">'lib'</span>) </span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line">task lib1 &lt;&lt; &#123;</span><br><span class="line">   println <span class="string">'lib1'</span></span><br><span class="line">&#125;</span><br><span class="line">task lib2 &lt;&lt; &#123;</span><br><span class="line">   println <span class="string">'lib2'</span></span><br><span class="line">&#125;</span><br><span class="line">task notALib &lt;&lt; &#123;</span><br><span class="line">   println <span class="string">'notALib'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行taskX,可得一下结果</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">D:/worksp/yiibai.com/gradle-3.1/study/script&gt;gradle -q taskX</span><br><span class="line">lib1</span><br><span class="line">lib2</span><br><span class="line">taskX</span><br></pre></td></tr></table></figure>
+<p>使用关键字description向任务添加描述 :</p>
+   <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">task copy(<span class="string">type:</span> Copy) &#123;</span><br><span class="line">   description <span class="string">'Copies the resource directory to the target directory.'</span></span><br><span class="line">   from <span class="string">'resources'</span></span><br><span class="line">   into <span class="string">'target'</span></span><br><span class="line">   include(<span class="string">'**/*.txt'</span>, <span class="string">'**/*.xml'</span>, <span class="string">'**/*.properties'</span>)</span><br><span class="line">   println(<span class="string">"description applied"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Gradle-依赖管理"><a href="#Gradle-依赖管理" class="headerlink" title="Gradle 依赖管理"></a>Gradle 依赖管理</h3><h4 id="1-外部依赖"><a href="#1-外部依赖" class="headerlink" title="1.外部依赖"></a>1.外部依赖</h4><p>Gradle遵循一些特殊语法来定义依赖关系。 以下脚本定义了两个依赖项，一个是Hibernate core 3.6.7，第二个是Junit 4.0和更高版本。如下面的代码所示，可在build.gradle文件中使用此代码。</p>
+   <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">apply <span class="string">plugin:</span> <span class="string">'java'</span></span><br><span class="line"></span><br><span class="line">repositories&#123;</span><br><span class="line">    mavenCentral()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">dependencies&#123;</span><br><span class="line">    compile <span class="string">group:</span> <span class="string">'org.hibernate'</span>,<span class="string">name:</span> <span class="string">'hibernate-core'</span>,<span class="string">version:</span> <span class="string">'3.6.7.Final'</span></span><br><span class="line">    testCompile <span class="string">group:</span> <span class="string">'junit'</span>,<span class="string">name:</span> <span class="string">'junit'</span>,<span class="string">version:</span> <span class="string">'4.+'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="存储库"><a href="#存储库" class="headerlink" title="存储库"></a>存储库</h4><p>在添加外部依赖关系时， Gradle在存储库中查找它们。 存储库只是文件的集合，按分组，名称和版本来组织构造。 默认情况下，Gradle不定义任何存储库。 我们必须至少明确地定义一个存储库。 下面的代码片段定义了如何定义 maven 仓库。 在build.gradle文件中使用此代码。</p>
+   <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">repositories&#123;</span><br><span class="line">    mavenCentral()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下面的代码是定义远程maven</p>
+   <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">repositories&#123;</span><br><span class="line">    maven&#123;</span><br><span class="line">        url <span class="string">"http://repo.mycompany.com/maven2"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="发布文件"><a href="#发布文件" class="headerlink" title="发布文件"></a>发布文件</h4><p>依赖关系配置也可用于发布文件，这些已经发布的文件成为工件。但是需要告诉Gradle在哪里发布文件。可以通过将存储库附加到上传存档任务来实现此目的。 请查看以下用于发布Maven存储库的语法。 执行时，Gradle将根据项目需求生成并上传Pom.xml。</p>
+   <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">apply <span class="string">plugin:</span> <span class="string">'maven'</span></span><br><span class="line"></span><br><span class="line">uploadArchives&#123;</span><br><span class="line">    repositories&#123;</span><br><span class="line">        mavenDeployer&#123;</span><br><span class="line">            repository(<span class="string">url:</span> <span class="string">"file://localhost/tmp/myRepo/"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h3><p>Gradle 中有2种插件：脚本插件和二进制插件。脚本插件是一个额外的构建脚本，它提供了一种声明性方法来操作构建，通常在构建中使用。二进制插件是实现插进接口并采用编程方法来操作构建的类。二进制插件可以驻留在插件JAR中的一个构建脚本和项目层次结构或外部</p>
+<h4 id="脚本插件"><a href="#脚本插件" class="headerlink" title="脚本插件"></a>脚本插件</h4><p>脚本插件可以从本地文件系统上的脚本或远程位置应用。文件系统位置相对于项目目录，而远程脚本位置指定HTTP URL。看看下面的代码片段。它将other.gradle插件用于构建脚本。</p>
+   <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apply <span class="string">from:</span> <span class="string">'other.gradle'</span></span><br></pre></td></tr></table></figure>
+<h4 id="二进制插件"><a href="#二进制插件" class="headerlink" title="二进制插件"></a>二进制插件</h4><p>每个插件由插件标识。一些核心插件是使用短名称来应用它，一些社区插件是使用插件ID的完全限定名称。有时它允许指定一个插件类。</p>
+   <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apply <span class="string">plugin:</span> javaPlugin</span><br></pre></td></tr></table></figure>
+<p>使用短名称应用核心插件<br>   <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">plugins&#123;</span><br><span class="line">    id  <span class="string">'java'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>使用短名称应用社区插件<br>   <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">plugins &#123;</span><br><span class="line">   id <span class="string">"com.yiibai.bintray"</span> version <span class="string">"0.1.0"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="执行多个任务"><a href="#执行多个任务" class="headerlink" title="执行多个任务"></a>执行多个任务</h3><p>Gradle可以从单个构建文件执行多个任务。使用Gradle命令处理构建文件，此命令将按照顺序编译每个命令，并使用不同的选项执行每个任务以及依赖关系。<br>如图所示的任务关系<br><img src="/picture/GradleRefer.png" alt="相互依赖的任务"></p>
+   <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">task task1 &lt;&lt; &#123;</span><br><span class="line">   println <span class="string">'compiling source #1'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">task task2(<span class="string">dependsOn:</span> task1) &lt;&lt; &#123;</span><br><span class="line">   println <span class="string">'compiling unit tests #2'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">task task3(<span class="string">dependsOn:</span> [task1, task2]) &lt;&lt; &#123;</span><br><span class="line">   println <span class="string">'running unit tests #3'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">task task4(<span class="string">dependsOn:</span> [task1, task3]) &lt;&lt; &#123;</span><br><span class="line">   println <span class="string">'building the distribution #4'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="排除任务"><a href="#排除任务" class="headerlink" title="排除任务"></a>排除任务</h4><p>使用 -X 命令排除某任务的编译执行,比如排除任务1：</p>
+   <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle task4 -x task1</span><br></pre></td></tr></table></figure>
+<h4 id="发生故障时继续构建"><a href="#发生故障时继续构建" class="headerlink" title="发生故障时继续构建"></a>发生故障时继续构建</h4><p>Gradle将在任何任务失败时立即终止执行。我们可以使用 -continue 命令来使Gradle发生故障时继续执行，假设一个任务失败，那么相关的后续依赖任务也不会被执行。</p>
+<h3 id="列出项目"><a href="#列出项目" class="headerlink" title="列出项目"></a>列出项目</h3>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">D:/worksp/yiibai.com/gradle-3.1/study/script&gt;gradle -q projects</span><br><span class="line"></span><br><span class="line">------------------------------------------------------------</span><br><span class="line">Root project</span><br><span class="line">------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">Root project &apos;script&apos;</span><br><span class="line">No sub-projects</span><br><span class="line">    </span><br><span class="line">To see a list of the tasks of a project, run gradle &lt;project-path&gt;:tasks</span><br><span class="line">For example, try running gradle :tasks</span><br></pre></td></tr></table></figure>
+<h3 id="列出任务"><a href="#列出任务" class="headerlink" title="列出任务"></a>列出任务</h3>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle -q tasks --all</span><br></pre></td></tr></table></figure>
+<h3 id="Gradle-构建-JAVA-项目"><a href="#Gradle-构建-JAVA-项目" class="headerlink" title="Gradle 构建 JAVA 项目"></a>Gradle 构建 JAVA 项目</h3><p>首先我们要添加JAVA插件</p>
+   <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apply <span class="string">plugin:</span> <span class="string">'java'</span></span><br></pre></td></tr></table></figure>
+<p>SourceSets可用于指定不同的项目结构。例如，指定源代码存储在src文件夹中，而不是在src/main/java中。 看看下面的目录结构。</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: &apos;java&apos;</span><br><span class="line">sourceSets &#123;</span><br><span class="line">   main &#123;</span><br><span class="line">      java &#123;</span><br><span class="line">         srcDir &apos;src&apos;</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   test &#123;</span><br><span class="line">      java &#123;</span><br><span class="line">         srcDir &apos;test&apos;</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="初始化任务执行"><a href="#初始化任务执行" class="headerlink" title="初始化任务执行"></a>初始化任务执行</h3><p>Gradle还不支持多个项目模板。但它提供了一个init来初始化任务来创建一个新的Gradle项目的结构。如果没有指定其他参数，任务将创建一个Gradle项目，其中包含gradle包装器文件，build.gradle和settings.gradle文件。当使用java-library作为值并添加–type参数时，将创建一个java项目结构，build.gradle文件包含带有Junit的某个Java模板。 看看下面build.gradle文件的代码</p>
+   <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">apply <span class="string">plugin:</span> <span class="string">'java'</span></span><br><span class="line"></span><br><span class="line">repositories &#123;</span><br><span class="line">   jcenter()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">dependencies &#123;</span><br><span class="line">   compile <span class="string">'org.slf4j:slf4j-api:1.7.12'</span></span><br><span class="line">   testCompile <span class="string">'junit:junit:4.12'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在仓库(repositories)这部分中，它定义了要从哪里找到依赖。Jcenter是为了解决依赖问题。 依赖关系（dependencies）部分用于提供有关外部依赖关系的信息。</p>
+<h3 id="指定-JAVA-版本"><a href="#指定-JAVA-版本" class="headerlink" title="指定 JAVA 版本"></a>指定 JAVA 版本</h3><p>version和sourceCompatibility属性用于设置JAVA的版本和目标JRE</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">version = 0.1.1</span><br><span class="line">sourceCompatibility = 1.8</span><br></pre></td></tr></table></figure>
+<h3 id="Gradle-构建多模块项目"><a href="#Gradle-构建多模块项目" class="headerlink" title="Gradle 构建多模块项目"></a>Gradle 构建多模块项目</h3>
+    
+  </div>
+
+  
+      <div class="git"></div>
+  
+
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持xfan</div>
+        <ul>
+        
+          <li class="item">
+            <span>微信扫一扫</span>
+            <img src="/picture/qr-wechat.png" alt>
+          </li>
+        
+          <li class="item">
+            <span>支付宝扫一扫</span>
+            <img src="/picture/qr-alipay.png" alt>
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2019/04/11/HashMap-源码/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2019/04/11/HTTP协议/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/archives/" rel="noopener noreferrer" target="_self">
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/categories/JAVA" rel="noopener noreferrer" target="_self">
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/tags/git" rel="noopener noreferrer" target="_self">
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/link/" rel="noopener noreferrer" target="_self">
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/about/" rel="noopener noreferrer" target="_self">
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/search/" rel="noopener noreferrer" target="_self">
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'xfan';
+    
+    var disqus_url = 'https://feifaninternet.github.io/2019/04/11/Gradle版本控制/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//xfan.disqus.com/count.js" async></script>
+
+
+
+    
+    
+
+    
+    
+
+    
+
+    
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

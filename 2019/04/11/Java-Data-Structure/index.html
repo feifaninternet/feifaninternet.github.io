@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>Java Data Structure | Xfan blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="JAVA,">
+  
+
+  <meta name="description" content="date: 2018-01-29 10:21:52 The class and interface of the structureEnumeration ( Interface )&amp;nbsp;&amp;nbsp;Enumeration is widely used in data structure.The enumeration interface defines a way to retrieve">
+<meta name="keywords" content="JAVA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java Data Structure">
+<meta property="og:url" content="https://feifaninternet.github.io/2019/04/11/Java-Data-Structure/index.html">
+<meta property="og:site_name" content="Xfan blog">
+<meta property="og:description" content="date: 2018-01-29 10:21:52 The class and interface of the structureEnumeration ( Interface )&amp;nbsp;&amp;nbsp;Enumeration is widely used in data structure.The enumeration interface defines a way to retrieve">
+<meta property="og:locale" content="Chinese">
+<meta property="og:updated_time" content="2019-04-11T02:31:11.802Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java Data Structure">
+<meta name="twitter:description" content="date: 2018-01-29 10:21:52 The class and interface of the structureEnumeration ( Interface )&amp;nbsp;&amp;nbsp;Enumeration is widely used in data structure.The enumeration interface defines a way to retrieve">
+
+  
+
+  
+    <link rel="icon" href="/picture/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/person/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">Site</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">Site</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/archives/" rel="noopener noreferrer" target="_self">
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/categories/JAVA" rel="noopener noreferrer" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/tags/git" rel="noopener noreferrer" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/link/" rel="noopener noreferrer" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/about/" rel="noopener noreferrer" target="_self">
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/search/" rel="noopener noreferrer" target="_self">
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#The-class-and-interface-of-the-structure"><span class="toc-text">The class and interface of the structure</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Enumeration-Interface"><span class="toc-text">Enumeration ( Interface )</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BitSet"><span class="toc-text">BitSet</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Vector"><span class="toc-text">Vector</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Stack"><span class="toc-text">Stack</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HashTable"><span class="toc-text">HashTable</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Properties"><span class="toc-text">Properties</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-Java-Data-Structure" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Java Data Structure</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2019.04.11</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>xfan</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/JAVA/">JAVA</a>
+  </span>
+
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="https://feifaninternet.github.io//2019/04/11/Java-Data-Structure/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>date: 2018-01-29 10:21:52</p>
+<h3 id="The-class-and-interface-of-the-structure"><a href="#The-class-and-interface-of-the-structure" class="headerlink" title="The class and interface of the structure"></a>The class and interface of the structure</h3><h3 id="Enumeration-Interface"><a href="#Enumeration-Interface" class="headerlink" title="Enumeration ( Interface )"></a>Enumeration ( Interface )</h3><p>&nbsp;&nbsp;Enumeration is widely used in data structure.The enumeration interface defines a way to retrieve consecutive elements from the data structure.This traditional interface has been replaced by an iterator,although rarely used,but it has not been abandoned.<br>   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Vector;</span><br><span class="line">        <span class="keyword">import</span> java.util.Enumeration;</span><br><span class="line">        <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EnumerationTester</span> </span>&#123;</span><br><span class="line">           <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;</span><br><span class="line">              Enumeration&lt;String&gt; days;</span><br><span class="line">              Vector&lt;String&gt; dayNames = <span class="keyword">new</span> Vector&lt;String&gt;();</span><br><span class="line">              dayNames.add(<span class="string">"Sunday"</span>);</span><br><span class="line">              dayNames.add(<span class="string">"Monday"</span>);</span><br><span class="line">              dayNames.add(<span class="string">"Tuesday"</span>);</span><br><span class="line">              dayNames.add(<span class="string">"Wednesday"</span>);</span><br><span class="line">              dayNames.add(<span class="string">"Thursday"</span>);</span><br><span class="line">              dayNames.add(<span class="string">"Friday"</span>);</span><br><span class="line">              dayNames.add(<span class="string">"Saturday"</span>);</span><br><span class="line">              days = dayNames.elements();</span><br><span class="line">              <span class="keyword">while</span> (days.hasMoreElements())&#123;</span><br><span class="line">                 System.out.println(days.nextElement()); </span><br><span class="line">              &#125;</span><br><span class="line">           &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="BitSet"><a href="#BitSet" class="headerlink" title="BitSet"></a>BitSet</h3><p>&nbsp;&nbsp;A BitSet class creates a special type of array to hold bit values,BitSet array size will increase with the need.<br>   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.BitSet;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BitSetDemo</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;</span><br><span class="line">     BitSet bits1 = <span class="keyword">new</span> BitSet(<span class="number">16</span>);</span><br><span class="line">     BitSet bits2 = <span class="keyword">new</span> BitSet(<span class="number">16</span>);</span><br><span class="line">      </span><br><span class="line">     <span class="comment">// set some bits</span></span><br><span class="line">     <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;<span class="number">16</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>((i%<span class="number">2</span>) == <span class="number">0</span>) bits1.set(i);</span><br><span class="line">        <span class="keyword">if</span>((i%<span class="number">5</span>) != <span class="number">0</span>) bits2.set(i);</span><br><span class="line">     &#125;</span><br><span class="line">     System.out.println(<span class="string">"Initial pattern in bits1: "</span>);</span><br><span class="line">     System.out.println(bits1);</span><br><span class="line">     System.out.println(<span class="string">"\nInitial pattern in bits2: "</span>);</span><br><span class="line">     System.out.println(bits2);</span><br><span class="line"> </span><br><span class="line">     <span class="comment">// AND bits</span></span><br><span class="line">     bits2.and(bits1);</span><br><span class="line">     System.out.println(<span class="string">"\nbits2 AND bits1: "</span>);</span><br><span class="line">     System.out.println(bits2);</span><br><span class="line"> </span><br><span class="line">     <span class="comment">// OR bits</span></span><br><span class="line">     bits2.or(bits1);</span><br><span class="line">     System.out.println(<span class="string">"\nbits2 OR bits1: "</span>);</span><br><span class="line">     System.out.println(bits2);</span><br><span class="line"> </span><br><span class="line">     <span class="comment">// XOR bits</span></span><br><span class="line">     bits2.xor(bits1);</span><br><span class="line">     System.out.println(<span class="string">"\nbits2 XOR bits1: "</span>);</span><br><span class="line">     System.out.println(bits2);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Vector"><a href="#Vector" class="headerlink" title="Vector"></a>Vector</h3><p>&nbsp;&nbsp;The size of a Vector can be dynamically changed as needed.So when creating an object do not have to specify the size of it.The Vector class implements a dynamic array,and ArrayList and similar,but two are different.   </p>
+<ul>
+<li>Vector is accessed synchronously</li>
+<li>Vector contains many traditional methods,these methods do not belong to the collection framework   </li>
+</ul>
+<p>&nbsp;&nbsp;Vector class supports four kinds of construction method.</p>
+<p>1.Create a default vector,the default size is ten<br>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Vector()</span><br></pre></td></tr></table></figure></p>
+<p>2.Create a vector of the specified size<br>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Vector(int size)</span><br></pre></td></tr></table></figure></p>
+<p>3.Create a vector of the specified size,and specify the increment.Increments represent the number of elements each time the vector is incremented<br>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Vector(int size,int incr)</span><br></pre></td></tr></table></figure></p>
+<p>4.Create a vector that contains the elements of the set<br>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Vector(Collection c)</span><br></pre></td></tr></table></figure></p>
+<h3 id="Stack"><a href="#Stack" class="headerlink" title="Stack"></a>Stack</h3><p>&nbsp;&nbsp;Stack implements a back-in-first-out data structure.You can understand a stack as a vertically-distributed stack of objects, and when you add a new one, you place the new one at the top of the other.Stack is a subclass of Vector.<br>   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StackDemo</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">// push elements into the top of the stack</span></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">showPush</span><span class="params">(Stack&lt;Integer&gt; st, <span class="keyword">int</span> a)</span> </span>&#123;</span><br><span class="line">        st.push(<span class="keyword">new</span> Integer(a));</span><br><span class="line">        System.out.println(<span class="string">"push("</span> + a + <span class="string">")"</span>);</span><br><span class="line">        System.out.println(<span class="string">"stack: "</span> + st);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">// remove the object at the top of the stack</span></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">showPop</span><span class="params">(Stack&lt;Integer&gt; st)</span> </span>&#123;</span><br><span class="line">        System.out.print(<span class="string">"pop -&gt; "</span>);</span><br><span class="line">        Integer a = (Integer) st.pop();</span><br><span class="line">        System.out.println(a);</span><br><span class="line">        System.out.println(<span class="string">"stack: "</span> + st);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;</span><br><span class="line">        Stack&lt;Integer&gt; st = <span class="keyword">new</span> Stack&lt;Integer&gt;();</span><br><span class="line">        System.out.println(<span class="string">"stack: "</span> + st);</span><br><span class="line">        showpush(st, <span class="number">42</span>);</span><br><span class="line">        showpush(st, <span class="number">66</span>);</span><br><span class="line">        showpush(st, <span class="number">99</span>);</span><br><span class="line">        showpop(st);</span><br><span class="line">        showpop(st);</span><br><span class="line">        showpop(st);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            showpop(st);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (EmptyStackException e) &#123;</span><br><span class="line">            System.out.println(<span class="string">"empty stack"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="HashTable"><a href="#HashTable" class="headerlink" title="HashTable"></a>HashTable</h3><p>&nbsp;&nbsp;The HashTable class provides a means of organizing data based on user-defined key ( Hash key ) structures.The key is hashed, and the resulting hash code is used as an index for the values ​​stored in the table.<br>   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HashTableDemo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;</span><br><span class="line">      <span class="comment">// create a hash map</span></span><br><span class="line">      Hashtable balance = <span class="keyword">new</span> Hashtable();</span><br><span class="line">      Enumeration names;</span><br><span class="line">      String str;</span><br><span class="line">      <span class="keyword">double</span> bal;</span><br><span class="line">      </span><br><span class="line">      <span class="comment">// specified the key and value</span></span><br><span class="line">      balance.put(<span class="string">"key1"</span>, <span class="keyword">new</span> Double(<span class="number">3434.34</span>));</span><br><span class="line">      balance.put(<span class="string">"key2"</span>, <span class="keyword">new</span> Double(<span class="number">123.22</span>));</span><br><span class="line">      balance.put(<span class="string">"key3"</span>, <span class="keyword">new</span> Double(<span class="number">1378.00</span>));</span><br><span class="line">      balance.put(<span class="string">"key4"</span>, <span class="keyword">new</span> Double(<span class="number">99.22</span>));</span><br><span class="line">      balance.put(<span class="string">"key5"</span>, <span class="keyword">new</span> Double(-<span class="number">19.08</span>));</span><br><span class="line"></span><br><span class="line">      <span class="comment">// show all balances in hash table.</span></span><br><span class="line">      names = balance.keys();</span><br><span class="line">      <span class="keyword">while</span>(names.hasMoreElements()) &#123;</span><br><span class="line">         str = (String) names.nextElement();</span><br><span class="line">         System.out.println(str + <span class="string">": "</span> +</span><br><span class="line">         <span class="comment">// get the value from this key</span></span><br><span class="line">         balance.get(str));</span><br><span class="line">      &#125;</span><br><span class="line">      System.out.println();</span><br><span class="line">      <span class="comment">// deposit 1,000 into key1`s account</span></span><br><span class="line">      bal = ((Double)balance.get(<span class="string">"key1"</span>)).doubleValue();</span><br><span class="line">      balance.put(<span class="string">"key1"</span>, <span class="keyword">new</span> Double(bal+<span class="number">1000</span>));</span><br><span class="line">      System.out.println(<span class="string">"key1's new balance: "</span> +</span><br><span class="line">      balance.get(<span class="string">"key1"</span>));</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Properties"><a href="#Properties" class="headerlink" title="Properties"></a>Properties</h3><p>&nbsp;&nbsp;Properties inherit from the HashTable.Properties class represents a durable set of properties.Each key in the property list and its corresponding value is a string.<br>   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PropDemo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;</span><br><span class="line">      <span class="comment">// create</span></span><br><span class="line">      Properties capitals = <span class="keyword">new</span> Properties();</span><br><span class="line">      Set states;</span><br><span class="line">      String str;</span><br><span class="line">      </span><br><span class="line">      <span class="comment">// put elements</span></span><br><span class="line">      capitals.put(<span class="string">"Illinois"</span>, <span class="string">"Springfield"</span>);</span><br><span class="line">      capitals.put(<span class="string">"Missouri"</span>, <span class="string">"Jefferson City"</span>);</span><br><span class="line">      capitals.put(<span class="string">"Washington"</span>, <span class="string">"Olympia"</span>);</span><br><span class="line">      capitals.put(<span class="string">"California"</span>, <span class="string">"Sacramento"</span>);</span><br><span class="line">      capitals.put(<span class="string">"Indiana"</span>, <span class="string">"Indianapolis"</span>);</span><br><span class="line"></span><br><span class="line">      <span class="comment">// get set-view of keys</span></span><br><span class="line">      states = capitals.keySet(); </span><br><span class="line">      Iterator itr = states.iterator();</span><br><span class="line">      <span class="keyword">while</span>(itr.hasNext()) &#123;</span><br><span class="line">         str = (String) itr.next();</span><br><span class="line">         System.out.println(<span class="string">"The capital of "</span> +</span><br><span class="line">            str + <span class="string">" is "</span> + capitals.getProperty(str) + <span class="string">"."</span>);</span><br><span class="line">      &#125;</span><br><span class="line">      System.out.println();</span><br><span class="line"></span><br><span class="line">      <span class="comment">// look for state not in list -- specify default</span></span><br><span class="line">      str = capitals.getProperty(<span class="string">"Florida"</span>, <span class="string">"Not Found"</span>);</span><br><span class="line">      System.out.println(<span class="string">"The capital of Florida is "</span></span><br><span class="line">          + str + <span class="string">"."</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+    
+  </div>
+
+  
+      <div class="git"></div>
+  
+
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持xfan</div>
+        <ul>
+        
+          <li class="item">
+            <span>微信扫一扫</span>
+            <img src="/picture/qr-wechat.png" alt>
+          </li>
+        
+          <li class="item">
+            <span>支付宝扫一扫</span>
+            <img src="/picture/qr-alipay.png" alt>
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2019/04/11/Java-Array/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2019/04/11/Java-Collection/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/archives/" rel="noopener noreferrer" target="_self">
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/categories/JAVA" rel="noopener noreferrer" target="_self">
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/tags/git" rel="noopener noreferrer" target="_self">
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/link/" rel="noopener noreferrer" target="_self">
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/about/" rel="noopener noreferrer" target="_self">
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/search/" rel="noopener noreferrer" target="_self">
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'xfan';
+    
+    var disqus_url = 'https://feifaninternet.github.io/2019/04/11/Java-Data-Structure/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//xfan.disqus.com/count.js" async></script>
+
+
+
+    
+    
+
+    
+    
+
+    
+
+    
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
