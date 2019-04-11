@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>JAVA图片合成 | Xfan blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="JAVA,">
+  
+
+  <meta name="description" content="Description先说一下我遇到的场景和需求，因为之前一直没有遇到过这种需求，所以在此记录一下，并扩展延伸。需求如下：  有两张图片，一张大图，一张小图，图片都为链接形式(当然也可以是文件) 大图为不同的模板，小图为每个用户特定的二维码(每个用户二维码都不一样) 需要将小图缩放到指定大小，然后嵌入在大图的指定位置，大小和位置参数已知。 最后合成一张图片上传并返回  图片合成方法直接上代码，在注">
+<meta name="keywords" content="JAVA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JAVA图片合成">
+<meta property="og:url" content="https://feifaninternet.github.io/2018/06/27/JAVA图片合成/index.html">
+<meta property="og:site_name" content="Xfan blog">
+<meta property="og:description" content="Description先说一下我遇到的场景和需求，因为之前一直没有遇到过这种需求，所以在此记录一下，并扩展延伸。需求如下：  有两张图片，一张大图，一张小图，图片都为链接形式(当然也可以是文件) 大图为不同的模板，小图为每个用户特定的二维码(每个用户二维码都不一样) 需要将小图缩放到指定大小，然后嵌入在大图的指定位置，大小和位置参数已知。 最后合成一张图片上传并返回  图片合成方法直接上代码，在注">
+<meta property="og:locale" content="Chinese">
+<meta property="og:updated_time" content="2019-04-11T03:46:46.351Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JAVA图片合成">
+<meta name="twitter:description" content="Description先说一下我遇到的场景和需求，因为之前一直没有遇到过这种需求，所以在此记录一下，并扩展延伸。需求如下：  有两张图片，一张大图，一张小图，图片都为链接形式(当然也可以是文件) 大图为不同的模板，小图为每个用户特定的二维码(每个用户二维码都不一样) 需要将小图缩放到指定大小，然后嵌入在大图的指定位置，大小和位置参数已知。 最后合成一张图片上传并返回  图片合成方法直接上代码，在注">
+
+  
+
+  
+    <link rel="icon" href="/picture/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/person/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">Site</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">Site</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/archives/" rel="noopener noreferrer" target="_self">
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/categories/JAVA" rel="noopener noreferrer" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/tags/git" rel="noopener noreferrer" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/link/" rel="noopener noreferrer" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/about/" rel="noopener noreferrer" target="_self">
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/search/" rel="noopener noreferrer" target="_self">
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Description"><span class="toc-text">Description</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#图片合成方法"><span class="toc-text">图片合成方法</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-JAVA图片合成" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">JAVA图片合成</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2018.06.27</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>xfan</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/Expand/">Expand</a>
+  </span>
+
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="https://feifaninternet.github.io//2018/06/27/JAVA图片合成/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>先说一下我遇到的场景和需求，因为之前一直没有遇到过这种需求，所以在此记录一下，并扩展延伸。<br>需求如下：</p>
+<ul>
+<li>有两张图片，一张大图，一张小图，图片都为链接形式(当然也可以是文件)</li>
+<li>大图为不同的模板，小图为每个用户特定的二维码(每个用户二维码都不一样)</li>
+<li>需要将小图缩放到指定大小，然后嵌入在大图的指定位置，大小和位置参数已知。</li>
+<li>最后合成一张图片上传并返回</li>
+</ul>
+<h3 id="图片合成方法"><a href="#图片合成方法" class="headerlink" title="图片合成方法"></a>图片合成方法</h3><p>直接上代码，在注释中说明</p>
+   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.canplay.common.util;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.sun.image.codec.jpeg.ImageFormatException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.imageio.ImageIO;</span><br><span class="line"><span class="keyword">import</span> java.awt.*;</span><br><span class="line"><span class="keyword">import</span> java.awt.image.BufferedImage;</span><br><span class="line"><span class="keyword">import</span> java.io.ByteArrayOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.net.URL;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> xfan</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> Created on 2018/6/27 -- 15:57</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@desc</span> 图片相关工具类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PictureUtil</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 二维码图片合成工具</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> x 二维码图片嵌入处X坐标</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> y 二维码图片嵌入处Y坐标</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> backPicUrl 背景模板图链接</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> qrCodePicUrl 二维码链接</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> qrCodeHeight 二维码高度</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> qrCodeWidth 二维码宽度</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> byte 数组</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] overlapImage(<span class="keyword">int</span> x, <span class="keyword">int</span> y, String backPicUrl, String qrCodePicUrl, <span class="keyword">int</span> qrCodeHeight, <span class="keyword">int</span> qrCodeWidth) <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        ByteArrayOutputStream out = <span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line"></span><br><span class="line">        BufferedImage big = ImageIO.read(<span class="keyword">new</span> URL(backPicUrl));</span><br><span class="line">        <span class="comment">//缩放二维码到指定宽高</span></span><br><span class="line">        BufferedImage small = resize(qrCodeWidth, </span><br><span class="line">                                     qrCodeHeight, </span><br><span class="line">                                     ImageIO.read(<span class="keyword">new</span> URL(qrCodePicUrl)));</span><br><span class="line"></span><br><span class="line">        Graphics2D g = big.createGraphics();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//将二维码嵌入到坐标位置</span></span><br><span class="line">        g.drawImage(small, </span><br><span class="line">                    x,</span><br><span class="line">                    y, </span><br><span class="line">                    small.getWidth(), </span><br><span class="line">                    small.getHeight(), </span><br><span class="line">                    <span class="keyword">null</span>);</span><br><span class="line">        g.dispose();</span><br><span class="line">        ImageIO.write(big, <span class="string">"jpg"</span>, out);</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">        * 当然，你也可以直接写出一张图片</span></span><br><span class="line"><span class="comment">        * ImageIO.write(big, "jpg", new File("config/resource/BigSmall.jpg"));</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">        </span><br><span class="line">        big.flush();</span><br><span class="line">        out.flush();</span><br><span class="line">        out.close();</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> out.toByteArray();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *  将Image的宽度,高度缩放到指定width、height</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> width 缩放的宽度</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> height 缩放的高度</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> targetImage 即将缩放的目标图片</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> ImageFormatException 图片转换异常</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> BufferedImage <span class="title">resize</span><span class="params">(<span class="keyword">int</span> width, <span class="keyword">int</span> height, Image targetImage)</span> <span class="keyword">throws</span> ImageFormatException</span>&#123;</span><br><span class="line">        width = Math.max(width, <span class="number">1</span>);</span><br><span class="line">        height = Math.max(height, <span class="number">1</span>);</span><br><span class="line">        BufferedImage image = <span class="keyword">new</span> BufferedImage(width, </span><br><span class="line">                                                height, </span><br><span class="line">                                                BufferedImage.TYPE_INT_RGB);</span><br><span class="line">        <span class="comment">//按照指定大小重新构造图片</span></span><br><span class="line">        image.getGraphics().drawImage(targetImage, </span><br><span class="line">                                      <span class="number">0</span>, </span><br><span class="line">                                      <span class="number">0</span>, </span><br><span class="line">                                      width, </span><br><span class="line">                                      height, </span><br><span class="line">                                      <span class="keyword">null</span>);</span><br><span class="line">        </span><br><span class="line">        image.flush();</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> image;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 将Image的宽度、高度缩放到指定width、height，并保存在savePath目录</span></span><br><span class="line"><span class="comment">     * 这个方法就是上面缩放图片方法的另一个版本，写出文件，上面的业务没有用到这个</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> width 缩放的宽度</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> height 缩放的高度</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> savePath 保存目录</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> targetImage 即将缩放的目标图片</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 图片保存路径、名称</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> ImageFormatException 图片转换异常</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> IOException IO异常</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">resize</span><span class="params">(<span class="keyword">int</span> width, <span class="keyword">int</span> height, String savePath, Image targetImage)</span> <span class="keyword">throws</span> ImageFormatException, IOException </span>&#123;</span><br><span class="line">        width = Math.max(width, <span class="number">1</span>);</span><br><span class="line">        height = Math.max(height, <span class="number">1</span>);</span><br><span class="line">        </span><br><span class="line">        BufferedImage image = <span class="keyword">new</span> BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);</span><br><span class="line">        image.getGraphics().drawImage(targetImage, <span class="number">0</span>, <span class="number">0</span>, width, height, <span class="keyword">null</span>);</span><br><span class="line">    		</span><br><span class="line">        <span class="keyword">if</span> (StringUtils.isBlank(savePath)) &#123;</span><br><span class="line">            <span class="comment">//自己定义的默认位置</span></span><br><span class="line">            savePath = <span class="string">"D:\\new_pic.jpg"</span>; </span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//输出流</span></span><br><span class="line">        FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(<span class="keyword">new</span> File(savePath));</span><br><span class="line">        JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(fos);</span><br><span class="line">        encoder.encode(image);</span><br><span class="line">     </span><br><span class="line">        image.flush();</span><br><span class="line">        fos.flush();</span><br><span class="line">        fos.close();</span><br><span class="line">    		</span><br><span class="line">        <span class="keyword">return</span> savePath; </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//下面为延伸...</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    
+  </div>
+
+  
+      <div class="git"></div>
+  
+
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持xfan</div>
+        <ul>
+        
+          <li class="item">
+            <span>微信扫一扫</span>
+            <img src="/picture/qr-wechat.png" alt>
+          </li>
+        
+          <li class="item">
+            <span>支付宝扫一扫</span>
+            <img src="/picture/qr-alipay.png" alt>
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2018/06/26/线程池原理/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2018/06/28/探究synchronized和Lock/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/archives/" rel="noopener noreferrer" target="_self">
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/categories/JAVA" rel="noopener noreferrer" target="_self">
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/tags/git" rel="noopener noreferrer" target="_self">
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/link/" rel="noopener noreferrer" target="_self">
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/about/" rel="noopener noreferrer" target="_self">
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/search/" rel="noopener noreferrer" target="_self">
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'xfan';
+    
+    var disqus_url = 'https://feifaninternet.github.io/2018/06/27/JAVA图片合成/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//xfan.disqus.com/count.js" async></script>
+
+
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

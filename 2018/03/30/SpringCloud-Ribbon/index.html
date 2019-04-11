@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>SpringCloud Ribbon | Xfan blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="SpringCloud,">
+  
+
+  <meta name="description" content="Descriptionribbon是一个负载均衡客户端，可以很好的控制http和tcp的一些行为，它是基于Netflix Ribbon实现的。它不像服务注册中心，API网关，配置中心那样独立部署，但是他几乎存在于每个微服务的基础设施中，主要功能是 提供客户端的软件负载均衡算法，将Netflix的中间层服务连接在一起。Ribbon客户端组件提供一系列完善的配置，在配置文件中列出Load Balanc">
+<meta name="keywords" content="SpringCloud">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringCloud Ribbon">
+<meta property="og:url" content="https://feifaninternet.github.io/2018/03/30/SpringCloud-Ribbon/index.html">
+<meta property="og:site_name" content="Xfan blog">
+<meta property="og:description" content="Descriptionribbon是一个负载均衡客户端，可以很好的控制http和tcp的一些行为，它是基于Netflix Ribbon实现的。它不像服务注册中心，API网关，配置中心那样独立部署，但是他几乎存在于每个微服务的基础设施中，主要功能是 提供客户端的软件负载均衡算法，将Netflix的中间层服务连接在一起。Ribbon客户端组件提供一系列完善的配置，在配置文件中列出Load Balanc">
+<meta property="og:locale" content="Chinese">
+<meta property="og:updated_time" content="2019-04-11T03:38:08.016Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SpringCloud Ribbon">
+<meta name="twitter:description" content="Descriptionribbon是一个负载均衡客户端，可以很好的控制http和tcp的一些行为，它是基于Netflix Ribbon实现的。它不像服务注册中心，API网关，配置中心那样独立部署，但是他几乎存在于每个微服务的基础设施中，主要功能是 提供客户端的软件负载均衡算法，将Netflix的中间层服务连接在一起。Ribbon客户端组件提供一系列完善的配置，在配置文件中列出Load Balanc">
+
+  
+
+  
+    <link rel="icon" href="/picture/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/person/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">Site</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">Site</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/archives/" rel="noopener noreferrer" target="_self">
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/categories/JAVA" rel="noopener noreferrer" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/tags/git" rel="noopener noreferrer" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/link/" rel="noopener noreferrer" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/about/" rel="noopener noreferrer" target="_self">
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/search/" rel="noopener noreferrer" target="_self">
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Description"><span class="toc-text">Description</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LB-方案分类"><span class="toc-text">LB 方案分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Ribbon的主要组件与工作流程"><span class="toc-text">Ribbon的主要组件与工作流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Ribbon-提供的主要负载均衡策略"><span class="toc-text">Ribbon 提供的主要负载均衡策略</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-简单轮询负载均衡"><span class="toc-text">1. 简单轮询负载均衡</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-随机负载均衡"><span class="toc-text">2. 随机负载均衡</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-加权响应时间负载均衡"><span class="toc-text">3. 加权响应时间负载均衡</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-区域感知轮询负载均衡"><span class="toc-text">4. 区域感知轮询负载均衡</span></a></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-SpringCloud-Ribbon" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">SpringCloud Ribbon</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2018.03.30</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>xfan</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/Spring/">Spring</a>
+  </span>
+
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="https://feifaninternet.github.io//2018/03/30/SpringCloud-Ribbon/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>ribbon是一个负载均衡客户端，可以很好的控制http和tcp的一些行为，它是基于Netflix Ribbon实现的。它不像服务注册中心，API网关，配置中心那样独立部署，但是他几乎存在于每个微服务的基础设施中，主要功能是 提供客户端的软件负载均衡算法，将Netflix的中间层服务连接在一起。Ribbon客户端组件提供一系列完善的配置，在配置文件中列出Load Balancer(LB)后面所有的机器，Ribbon会自动的帮助你基于某种规则去连接这种机器。</p>
+<h3 id="LB-方案分类"><a href="#LB-方案分类" class="headerlink" title="LB 方案分类"></a>LB 方案分类</h3><p>目前主流的LB方案可分为两类：一种是集中是LB，即在服务的消费方和提供方之间使用独立的LB设施(可以是硬件，如F5，也可以是软件，如nginx)，由该设施负责把访问请求通过某种策略转发至服务的提供方；另一种是进程内LB，将LB逻辑集成到消费方，消费方从服务注册中心获知有哪些地址可用，然后自己再从这些地址中选择出一个合适的服务器。Ribbon就属于后者，它只是一个类库，集成于消费方进程，消费方通过它来获取到服务提供方的地址。</p>
+<h3 id="Ribbon的主要组件与工作流程"><a href="#Ribbon的主要组件与工作流程" class="headerlink" title="Ribbon的主要组件与工作流程"></a>Ribbon的主要组件与工作流程</h3><p>Ribbon的核心组件 :   </p>
+<ul>
+<li>ServerList   </li>
+</ul>
+<p>用于获取地址列表，它既可以是静态的(提供一组固定的地址)，也可以是动态的(从注册中心中定期查询地址列表)</p>
+<ul>
+<li>ServerListFilter</li>
+</ul>
+<p>仅当使用动态ServerList时使用，用于在原始的服务列表中使用一定的策略过滤掉一部分地址。</p>
+<ul>
+<li>IRule</li>
+</ul>
+<p>选择一个最终的服务地址作为LB结果，选择策略有轮询，根据相应时间加权，断路器等。</p>
+<p>Ribbon在工作是首选会通过ServerList来获取所有可用的服务列表，然后通过ServerListFilter过滤掉一部分地址，最后在剩下的地址中通过IRule选择传一台服务器作为最终结果。</p>
+<h3 id="Ribbon-提供的主要负载均衡策略"><a href="#Ribbon-提供的主要负载均衡策略" class="headerlink" title="Ribbon 提供的主要负载均衡策略"></a>Ribbon 提供的主要负载均衡策略</h3><h4 id="1-简单轮询负载均衡"><a href="#1-简单轮询负载均衡" class="headerlink" title="1. 简单轮询负载均衡"></a>1. 简单轮询负载均衡</h4><p>以轮询的方式依次将请求调度到不同的服务器，即每次调度执行 i = (i + 1)mod n ，并选出第 i 台服务器。</p>
+<h4 id="2-随机负载均衡"><a href="#2-随机负载均衡" class="headerlink" title="2. 随机负载均衡"></a>2. 随机负载均衡</h4><p>随机选择状态为UP 的Server</p>
+<h4 id="3-加权响应时间负载均衡"><a href="#3-加权响应时间负载均衡" class="headerlink" title="3. 加权响应时间负载均衡"></a>3. 加权响应时间负载均衡</h4><p>根据相应时间分配一个weight，响应时间越长，weight越小，被选中的可能性越低。</p>
+<h4 id="4-区域感知轮询负载均衡"><a href="#4-区域感知轮询负载均衡" class="headerlink" title="4. 区域感知轮询负载均衡"></a>4. 区域感知轮询负载均衡</h4><p>符合判断server所在区域的性能和server的可用性选择server。</p>
+
+    
+  </div>
+
+  
+      <div class="git"></div>
+  
+
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持xfan</div>
+        <ul>
+        
+          <li class="item">
+            <span>微信扫一扫</span>
+            <img src="/picture/qr-wechat.png" alt>
+          </li>
+        
+          <li class="item">
+            <span>支付宝扫一扫</span>
+            <img src="/picture/qr-alipay.png" alt>
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2018/03/30/SpringCloud-Eureka/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2018/03/31/Docker/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/archives/" rel="noopener noreferrer" target="_self">
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/categories/JAVA" rel="noopener noreferrer" target="_self">
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/tags/git" rel="noopener noreferrer" target="_self">
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/link/" rel="noopener noreferrer" target="_self">
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/about/" rel="noopener noreferrer" target="_self">
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/search/" rel="noopener noreferrer" target="_self">
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'xfan';
+    
+    var disqus_url = 'https://feifaninternet.github.io/2018/03/30/SpringCloud-Ribbon/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//xfan.disqus.com/count.js" async></script>
+
+
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

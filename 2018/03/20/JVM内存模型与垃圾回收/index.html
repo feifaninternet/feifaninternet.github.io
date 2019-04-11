@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>JVM内存模型与垃圾回收 | Xfan blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="JAVA,">
+  
+
+  <meta name="description" content="内存模型    &amp;nbsp;&amp;nbsp;堆栈的分开设计  栈存储了处理逻辑，堆存储了具体的数据，这样隔离设计更为清晰 堆栈分离使得堆可以被多个栈共享 栈保存了上下文的信息，因此只能向上增长；而堆是动态分配的    &amp;nbsp;&amp;nbsp;栈的大小可以通过-XSs设置，如果不足的话，会引起java.lang.StackOverflowError的异常    栈区&amp;nbsp;&amp;nbsp;线程私有，生命">
+<meta name="keywords" content="JAVA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JVM内存模型与垃圾回收">
+<meta property="og:url" content="https://feifaninternet.github.io/2018/03/20/JVM内存模型与垃圾回收/index.html">
+<meta property="og:site_name" content="Xfan blog">
+<meta property="og:description" content="内存模型    &amp;nbsp;&amp;nbsp;堆栈的分开设计  栈存储了处理逻辑，堆存储了具体的数据，这样隔离设计更为清晰 堆栈分离使得堆可以被多个栈共享 栈保存了上下文的信息，因此只能向上增长；而堆是动态分配的    &amp;nbsp;&amp;nbsp;栈的大小可以通过-XSs设置，如果不足的话，会引起java.lang.StackOverflowError的异常    栈区&amp;nbsp;&amp;nbsp;线程私有，生命">
+<meta property="og:locale" content="Chinese">
+<meta property="og:image" content="https://feifaninternet.github.io/picture/java-stack-model.png">
+<meta property="og:updated_time" content="2019-04-11T03:38:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JVM内存模型与垃圾回收">
+<meta name="twitter:description" content="内存模型    &amp;nbsp;&amp;nbsp;堆栈的分开设计  栈存储了处理逻辑，堆存储了具体的数据，这样隔离设计更为清晰 堆栈分离使得堆可以被多个栈共享 栈保存了上下文的信息，因此只能向上增长；而堆是动态分配的    &amp;nbsp;&amp;nbsp;栈的大小可以通过-XSs设置，如果不足的话，会引起java.lang.StackOverflowError的异常    栈区&amp;nbsp;&amp;nbsp;线程私有，生命">
+<meta name="twitter:image" content="https://feifaninternet.github.io/picture/java-stack-model.png">
+
+  
+
+  
+    <link rel="icon" href="/picture/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/person/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">Site</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">Site</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/archives/" rel="noopener noreferrer" target="_self">
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/categories/JAVA" rel="noopener noreferrer" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/tags/git" rel="noopener noreferrer" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/link/" rel="noopener noreferrer" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/about/" rel="noopener noreferrer" target="_self">
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/search/" rel="noopener noreferrer" target="_self">
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#内存模型"><span class="toc-text">内存模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#栈区"><span class="toc-text">栈区</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#堆"><span class="toc-text">堆</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#程序计数器"><span class="toc-text">程序计数器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#方法区"><span class="toc-text">方法区</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#垃圾回收"><span class="toc-text">垃圾回收</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#垃圾收集器"><span class="toc-text">垃圾收集器</span></a></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-JVM内存模型与垃圾回收" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">JVM内存模型与垃圾回收</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2018.03.20</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>xfan</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/JAVA/">JAVA</a>
+  </span>
+
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="https://feifaninternet.github.io//2018/03/20/JVM内存模型与垃圾回收/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h3 id="内存模型"><a href="#内存模型" class="headerlink" title="内存模型"></a>内存模型</h3><p><img src="/picture/java-stack-model.png" alt="Picture">   </p>
+<p>&nbsp;&nbsp;堆栈的分开设计</p>
+<ol>
+<li>栈存储了处理逻辑，堆存储了具体的数据，这样隔离设计更为清晰</li>
+<li>堆栈分离使得堆可以被多个栈共享</li>
+<li>栈保存了上下文的信息，因此只能向上增长；而堆是动态分配的  </li>
+</ol>
+<p>&nbsp;&nbsp;栈的大小可以通过-XSs设置，如果不足的话，会引起java.lang.StackOverflowError的异常   </p>
+<h4 id="栈区"><a href="#栈区" class="headerlink" title="栈区"></a>栈区</h4><p>&nbsp;&nbsp;线程私有，生命周期跟线程相同，每个方法执行的时候都会创建一个栈帧(stack frame)用于存放局部变量表，操作栈，动态链接，方法出口。   </p>
+<h4 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h4><p>&nbsp;&nbsp;存放对象实例，所有对象的内存都在这里分配。垃圾回收主要就是作用于这里。  </p>
+<ol>
+<li>堆的内存由-Xms指定，默认是物理内存的1/64；最大的内存由-Xmx指定，默认是物理内存的1/4。</li>
+<li>默认空余的堆内存小于40%时，就会增大，直到-Xmx设置的内存。具体的比例可以由-XX:MinHeapFreeRatio指定。</li>
+<li>空余的内存大于70%时，就会减少内存，直到-Xms设置的大小。具体由-XX:MaxHeapFreeRatio指定。<br>&nbsp;&nbsp;因此一般都将这两个参数设置成一样大，避免JVM不断调整大小。</li>
+</ol>
+<h4 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h4><p>&nbsp;&nbsp;这里记录了线程执行的字节码的行号，在分支，循环，跳转，异常，线程恢复等都依赖这个计数器。</p>
+<h4 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h4><p>&nbsp;&nbsp;类型信息，字段信息，方法信息，其他信息。</p>
+<h3 id="垃圾回收"><a href="#垃圾回收" class="headerlink" title="垃圾回收"></a>垃圾回收</h3><p>&nbsp;&nbsp;在Java中，如果对象实体没有引用指向的话，存储该实体的内存便成为垃圾。JVM会有一个系统线程专门负责回收垃圾。垃圾同时包括分配对象内存间的碎片。<br>&nbsp;&nbsp;判断对象可以回收的情况：</p>
+<ol>
+<li>显示的把某个引用置位 NULL 或者指向别的对象</li>
+<li>局部引用指向的对象</li>
+<li>弱引用关联的对象   </li>
+</ol>
+<p>&nbsp;&nbsp;目前JVM主要采取 Generational Collection 分代收集的方法进行回收，思想是把JVM分成不同的区域，每种区域使用不同的方法进行垃圾回收。它是Mark-Sweep标记-清除算法(会造成内存碎片)，Copying 复制算法(不涉及对象的删除，将可用的对象从一个地方拷贝到另一个地方，因此适合大量对象回收，如新生代回收)，Mark-Compact 标记-整理算法(适合解决碎片问题，但是会增加停顿)的合体。   </p>
+<p>堆内存分为3个区域：   </p>
+<ul>
+<li>新生代(Young Generation)：用于存放新创建的对象，采用复制回收方法，这里的垃圾回收叫做 Minor GC。</li>
+<li>年老代(Old Generation)：这些对象垃圾回收的频率较低，采用的标记整理方法，这里的垃圾回收叫做 Major GC。</li>
+<li>永久代(Permanent Generation)：存放 Java 本身的一些数据，当类不再使用时，也会被回收。</li>
+</ul>
+<h4 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h4><ol>
+<li>串行收集器 Serial：这种收集器就是以单线程的方式收集，垃圾回收的时候其他线程也不能工作。</li>
+<li>并行收集器 Parallel：以多线程的方式进行收集。</li>
+<li>并发标记清除收集器 Concurrent Mark Sweep Collector, CMS：大致的流程为：初始标记–并发标记–重新标记–并发清除</li>
+<li>G1收集器 Garbage First Collector：大致的流程为：初始标记–并发标记–最终标记–筛选回收</li>
+</ol>
+
+    
+  </div>
+
+  
+      <div class="git"></div>
+  
+
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持xfan</div>
+        <ul>
+        
+          <li class="item">
+            <span>微信扫一扫</span>
+            <img src="/picture/qr-wechat.png" alt>
+          </li>
+        
+          <li class="item">
+            <span>支付宝扫一扫</span>
+            <img src="/picture/qr-alipay.png" alt>
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2018/03/19/JAVA-关键字/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2018/03/20/JAVA-IO/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/archives/" rel="noopener noreferrer" target="_self">
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/categories/JAVA" rel="noopener noreferrer" target="_self">
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/tags/git" rel="noopener noreferrer" target="_self">
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/link/" rel="noopener noreferrer" target="_self">
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/about/" rel="noopener noreferrer" target="_self">
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/search/" rel="noopener noreferrer" target="_self">
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'xfan';
+    
+    var disqus_url = 'https://feifaninternet.github.io/2018/03/20/JVM内存模型与垃圾回收/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//xfan.disqus.com/count.js" async></script>
+
+
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

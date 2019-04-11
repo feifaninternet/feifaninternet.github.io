@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>Linux命令 | Xfan blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Linux,">
+  
+
+  <meta name="description" content="top 命令监控系统的运行状态，并且可以按照cpu，内存，执行时间进行排序。 pgrep/pkill 命令根据名称或者其它属性查询（发送信号）进程信息。 1.pgrep命令根据提供的条件查询进程的pid，查询条件是and方式的，对于同一个选项，使用”,”分隔可以按照or方式查询。 查询进程名为sshd，并且属主是root的进程     1pgrep -u root sshd 查询属主是root或者">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux命令">
+<meta property="og:url" content="https://feifaninternet.github.io/2018/03/29/Linux命令/index.html">
+<meta property="og:site_name" content="Xfan blog">
+<meta property="og:description" content="top 命令监控系统的运行状态，并且可以按照cpu，内存，执行时间进行排序。 pgrep/pkill 命令根据名称或者其它属性查询（发送信号）进程信息。 1.pgrep命令根据提供的条件查询进程的pid，查询条件是and方式的，对于同一个选项，使用”,”分隔可以按照or方式查询。 查询进程名为sshd，并且属主是root的进程     1pgrep -u root sshd 查询属主是root或者">
+<meta property="og:locale" content="Chinese">
+<meta property="og:updated_time" content="2019-04-11T03:38:07.998Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux命令">
+<meta name="twitter:description" content="top 命令监控系统的运行状态，并且可以按照cpu，内存，执行时间进行排序。 pgrep/pkill 命令根据名称或者其它属性查询（发送信号）进程信息。 1.pgrep命令根据提供的条件查询进程的pid，查询条件是and方式的，对于同一个选项，使用”,”分隔可以按照or方式查询。 查询进程名为sshd，并且属主是root的进程     1pgrep -u root sshd 查询属主是root或者">
+
+  
+
+  
+    <link rel="icon" href="/picture/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/person/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">Site</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">Site</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/archives/" rel="noopener noreferrer" target="_self">
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/categories/JAVA" rel="noopener noreferrer" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/tags/git" rel="noopener noreferrer" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/link/" rel="noopener noreferrer" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/about/" rel="noopener noreferrer" target="_self">
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/search/" rel="noopener noreferrer" target="_self">
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#top-命令"><span class="toc-text">top 命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pgrep-pkill-命令"><span class="toc-text">pgrep/pkill 命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#expect-命令"><span class="toc-text">expect 命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pstack-命令"><span class="toc-text">pstack 命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#strace-命令"><span class="toc-text">strace 命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#找出应用程序启动时读取的配置文件"><span class="toc-text">找出应用程序启动时读取的配置文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查找为什么程序没有打开指定文件"><span class="toc-text">查找为什么程序没有打开指定文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看为什么xxx无法连接到服务器"><span class="toc-text">查看为什么xxx无法连接到服务器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nc-命令"><span class="toc-text">nc 命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#建立一个基本的C-S模型-文件远程复制"><span class="toc-text">建立一个基本的C/S模型(文件远程复制)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#模拟HTTP请求"><span class="toc-text">模拟HTTP请求</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#端口扫描"><span class="toc-text">端口扫描</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#目录传输"><span class="toc-text">目录传输</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pstree命令"><span class="toc-text">pstree命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ss-命令"><span class="toc-text">ss 命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#显示socket的汇总信息"><span class="toc-text">显示socket的汇总信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看所有打开的网络端口"><span class="toc-text">查看所有打开的网络端口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#显示所有的TCP-UDP-Socket"><span class="toc-text">显示所有的TCP/UDP Socket</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#w-who-命令"><span class="toc-text">w/who 命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#iostat-命令"><span class="toc-text">iostat 命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#iptraf-命令"><span class="toc-text">iptraf 命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查看-Linux-的版本"><span class="toc-text">查看 Linux 的版本</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#time-命令"><span class="toc-text">time 命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tee-命令"><span class="toc-text">tee 命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#netstat-命令"><span class="toc-text">netstat 命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#perf-命令"><span class="toc-text">perf 命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#perf-stat"><span class="toc-text">perf stat</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#perf-top"><span class="toc-text">perf top</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lsof-命令"><span class="toc-text">lsof 命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#unzip-命令"><span class="toc-text">unzip 命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用pushd和popd命令快速切换目录"><span class="toc-text">使用pushd和popd命令快速切换目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SCP-命令"><span class="toc-text">SCP 命令</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-Linux命令" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Linux命令</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2018.03.29</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>xfan</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/Expand/">Expand</a>
+  </span>
+
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="https://feifaninternet.github.io//2018/03/29/Linux命令/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h3 id="top-命令"><a href="#top-命令" class="headerlink" title="top 命令"></a>top 命令</h3><p>监控系统的运行状态，并且可以按照cpu，内存，执行时间进行排序。</p>
+<h3 id="pgrep-pkill-命令"><a href="#pgrep-pkill-命令" class="headerlink" title="pgrep/pkill 命令"></a>pgrep/pkill 命令</h3><p>根据名称或者其它属性查询（发送信号）进程信息。</p>
+<p>1.pgrep命令根据提供的条件查询进程的pid，查询条件是and方式的，对于同一个选项，使用”,”分隔可以按照or方式查询。</p>
+<p>查询进程名为sshd，并且属主是root的进程 </p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pgrep -u root sshd</span><br></pre></td></tr></table></figure>
+<p>查询属主是root或者daemon的进程</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pgrep -u root,daemon</span><br></pre></td></tr></table></figure>
+<p>2.pkill 使用与pgrep类似，不过它不是用来查询进程pid，而是给进程发送信号，默认会发送 SIGTERM信号。</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pgrep -u root named # 查找named进程的pid</span><br><span class="line">pkill -HUP syslogd  # 告诉syslogd重新读取配置文件</span><br></pre></td></tr></table></figure>
+<p>查看哪些信息可用可以使用<span> kill -l </span>列出所有的信号及数值</p>
+<h3 id="expect-命令"><a href="#expect-命令" class="headerlink" title="expect 命令"></a>expect 命令</h3><ul>
+<li>send 发送一个字符串给进程</li>
+<li>expect 等待来自进程返回的字符串</li>
+<li>spawn 开始一个命令</li>
+</ul>
+<p>实现控制台 ssh 直接登录Linux服务器</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">!/usr/bin/expect</span><br><span class="line"></span><br><span class="line">set timeout 20</span><br><span class="line"></span><br><span class="line">set ip &quot;IP地址&quot;</span><br><span class="line">set user &quot;用户名&quot;</span><br><span class="line">set password &quot;密码&quot;</span><br><span class="line"></span><br><span class="line">spawn ssh &quot;$user\@$ip&quot;</span><br><span class="line"></span><br><span class="line">expect &quot;$user@$ip&apos;s password:&quot;</span><br><span class="line">send &quot;$password\r&quot;</span><br><span class="line"></span><br><span class="line">interact</span><br></pre></td></tr></table></figure>
+<h3 id="pstack-命令"><a href="#pstack-命令" class="headerlink" title="pstack 命令"></a>pstack 命令</h3><p>pstack是一个shell脚本，用于打印正在运行的进程的栈跟踪信息，它实际上是gstack的一个链接。<br>该命令只需要提供一个参数，进程的pid即可。</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo pstack $(pgrep -uroot php-fpm)</span><br></pre></td></tr></table></figure>
+<p>pstack是gdb的一部分，如果系统没有pstack命令，使用yum搜索安装gdb即可。</p>
+<h3 id="strace-命令"><a href="#strace-命令" class="headerlink" title="strace 命令"></a>strace 命令</h3><p>strace命令用于跟踪系统调用和信息。主要用于诊断，调试程序，使用该命令能够打印出进程执行的系统调用信息。   </p>
+<h4 id="找出应用程序启动时读取的配置文件"><a href="#找出应用程序启动时读取的配置文件" class="headerlink" title="找出应用程序启动时读取的配置文件"></a>找出应用程序启动时读取的配置文件</h4>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ strace php 2&gt;&amp;1 | grep php.ini</span><br></pre></td></tr></table></figure>
+<p>这里的2&gt;&amp;1是将标准错误输出重定向到标准输出</p>
+<h4 id="查找为什么程序没有打开指定文件"><a href="#查找为什么程序没有打开指定文件" class="headerlink" title="查找为什么程序没有打开指定文件"></a>查找为什么程序没有打开指定文件</h4>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ strace -e open,access 2&gt;&amp;1 |grep your-filename</span><br></pre></td></tr></table></figure>
+<p>-e参数指定了一个限定表达式用于指定要跟踪的时间和如何跟踪他们。</p>
+<p>查看进程正在执行什么操作</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@dev:~# strace -c -p 11084</span><br></pre></td></tr></table></figure>
+<h4 id="查看为什么xxx无法连接到服务器"><a href="#查看为什么xxx无法连接到服务器" class="headerlink" title="查看为什么xxx无法连接到服务器"></a>查看为什么xxx无法连接到服务器</h4>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ strace -e poll,select,connect,recvfrom,sendto nc www.news.com 80</span><br></pre></td></tr></table></figure>
+<h3 id="nc-命令"><a href="#nc-命令" class="headerlink" title="nc 命令"></a>nc 命令</h3><p>该命令用于创建任意的tcp/udp连接或者是监听连接</p>
+<h4 id="建立一个基本的C-S模型-文件远程复制"><a href="#建立一个基本的C-S模型-文件远程复制" class="headerlink" title="建立一个基本的C/S模型(文件远程复制)"></a>建立一个基本的C/S模型(文件远程复制)</h4><p>在server1上使用nc命令创建一个服务端 :</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">server1 $ nc -l 1234</span><br></pre></td></tr></table></figure>
+<p>在server2上，使用nc作为客户端连接到server1</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">server2 $ nc server1的IP地址 1234</span><br></pre></td></tr></table></figure>
+<p>上面的例子可以改造实现文件远程发送</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">server1 $ nc -l 1234 &gt; filename.out</span><br></pre></td></tr></table></figure>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">server2 $ nc server1的IP地址 1234 &lt; filename.in</span><br></pre></td></tr></table></figure>
+<p>-l指定了nc应该作为server端监听指定的端口</p>
+<h4 id="模拟HTTP请求"><a href="#模拟HTTP请求" class="headerlink" title="模拟HTTP请求"></a>模拟HTTP请求</h4>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># echo -n &quot;GET / HTTP/1.0\r\n\r\n&quot; | nc php.net 80</span><br><span class="line">HTTP/1.1 400 Bad Request</span><br><span class="line">Server: nginx/1.6.2</span><br><span class="line">Date: Tue, 16 Dec 2014 08:09:35 GMT</span><br><span class="line">Content-Type: text/html</span><br><span class="line">Content-Length: 172</span><br><span class="line">Connection: close</span><br><span class="line"></span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;&lt;title&gt;400 Bad Request&lt;/title&gt;&lt;/head&gt;</span><br><span class="line">&lt;body bgcolor=&quot;white&quot;&gt;</span><br><span class="line">&lt;center&gt;&lt;h1&gt;400 Bad Request&lt;/h1&gt;&lt;/center&gt;</span><br><span class="line">&lt;hr&gt;&lt;center&gt;nginx/1.6.2&lt;/center&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h3><p>端口扫描的作用还是比较大的，使用nc可以方便的进行端口扫描</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># nc -z letv.com 1-100</span><br></pre></td></tr></table></figure>
+<p>这里的1-100指定了扫描的端口范围，-z参数告诉nc命令只报告开放的端口。<br>默认nc命令发送的是tcp请求，通过指定参数-u可以发送udp请求。</p>
+<h4 id="目录传输"><a href="#目录传输" class="headerlink" title="目录传输"></a>目录传输</h4><p>将server2的phpredis-master目录拷贝到server1。</p>
+<p>server1 :</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># nc -l 1234|tar zxvf -</span><br></pre></td></tr></table></figure>
+<p>server2 :</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># tar zcvf - phpredis-master|nc server1的IP地址 1234</span><br></pre></td></tr></table></figure>
+<h3 id="pstree命令"><a href="#pstree命令" class="headerlink" title="pstree命令"></a>pstree命令</h3><p>该命令用于显示进程树，以树的形式显示在运行的进程，树的根节点是指定的pid</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@cdn ~]# pstree -p $(pgrep -uroot php-fpm)</span><br></pre></td></tr></table></figure>
+<h3 id="ss-命令"><a href="#ss-命令" class="headerlink" title="ss 命令"></a>ss 命令</h3><p>ss命令用于显示socket的统计信息。</p>
+<h4 id="显示socket的汇总信息"><a href="#显示socket的汇总信息" class="headerlink" title="显示socket的汇总信息"></a>显示socket的汇总信息</h4><p>-s选项用于显示汇总信息</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># ss -s</span><br></pre></td></tr></table></figure>
+<h4 id="查看所有打开的网络端口"><a href="#查看所有打开的网络端口" class="headerlink" title="查看所有打开的网络端口"></a>查看所有打开的网络端口</h4><p>-l选项用于列出当前正在监听的socket</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># ss -l</span><br></pre></td></tr></table></figure>
+<p>使用ss -pl可以查看使用网络端口的进程名称，这里的-p选项用于显示进程信息</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># ss -pl</span><br></pre></td></tr></table></figure>
+<h4 id="显示所有的TCP-UDP-Socket"><a href="#显示所有的TCP-UDP-Socket" class="headerlink" title="显示所有的TCP/UDP Socket"></a>显示所有的TCP/UDP Socket</h4><p>参数-a用于显示所有的socket，-t指定是TCP，-u是UDP，-w是RAW，-x是UNIX。</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># ss -t -a</span><br><span class="line"># ss -u -a</span><br><span class="line"># ss -w -a</span><br><span class="line"># ss -x -a</span><br></pre></td></tr></table></figure>
+<h3 id="w-who-命令"><a href="#w-who-命令" class="headerlink" title="w/who 命令"></a>w/who 命令</h3><p>w命令用于查看当前哪些用户登录到系统和他们正在做什么，who命令仅用于查看哪些用户登录系统</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># w</span><br></pre></td></tr></table></figure>
+<h3 id="iostat-命令"><a href="#iostat-命令" class="headerlink" title="iostat 命令"></a>iostat 命令</h3>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># iostat</span><br></pre></td></tr></table></figure>
+<p>通过指定 -d 参数可以设定自动按照指定时间间隔显示统计信息。<br>例如，下列命令每隔2s显示一次。</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># iostat -d 2</span><br></pre></td></tr></table></figure>
+<h3 id="iptraf-命令"><a href="#iptraf-命令" class="headerlink" title="iptraf 命令"></a>iptraf 命令</h3><p>实时网络统计，交互式的IP网络实时监控工具，图形化界面，比较方便</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># iptraf</span><br></pre></td></tr></table></figure>
+<h4 id="查看-Linux-的版本"><a href="#查看-Linux-的版本" class="headerlink" title="查看 Linux 的版本"></a>查看 Linux 的版本</h4><p>在RedHat和Cent OS下，查看当前系统的版本</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cat /etc/centos-release</span><br></pre></td></tr></table></figure>
+<h3 id="time-命令"><a href="#time-命令" class="headerlink" title="time 命令"></a>time 命令</h3><p>统计程序执行时间，这些时间包括程序从被调用到终止的时间，用户CPU时间，系统CPU时间。</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ time ls</span><br></pre></td></tr></table></figure>
+<h3 id="tee-命令"><a href="#tee-命令" class="headerlink" title="tee 命令"></a>tee 命令</h3><p>用于将标准输入拷贝到标准输出</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ echo &quot;hello,world&quot;|tee -a test.txt</span><br></pre></td></tr></table></figure>
+<p>上述命令将hello，world字符串输出到test.txt文件中，”-a”默认情况下，tee命令会使用”&gt;”覆盖输出到文件，使用”-a”属性，会使用”&gt;&gt;”追加方式</p>
+<h3 id="netstat-命令"><a href="#netstat-命令" class="headerlink" title="netstat 命令"></a>netstat 命令</h3><p>查看端口占用情况</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># netstat -apn</span><br></pre></td></tr></table></figure>
+<ul>
+<li>-a：显示所有的socket信息</li>
+<li>-p：显示每个socket所属于的进程名称和pid</li>
+<li>-n：显示数字形式的地址而不是符号化的主机名/端口或者用户名</li>
+</ul>
+<h3 id="perf-命令"><a href="#perf-命令" class="headerlink" title="perf 命令"></a>perf 命令</h3><p>perf命令是随Linux内核代码一同发布和维护的性能诊断工具，它还可以用于内核代码的性能统计和分析<br>没有该命令的话，可以使用yum进行安装</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># yum install perf</span><br></pre></td></tr></table></figure>
+<h4 id="perf-stat"><a href="#perf-stat" class="headerlink" title="perf stat"></a>perf stat</h4><p>perf stat通过概括精简的方式提供被调试程序运行的整体情况和汇总数据。</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ perf stat ./test</span><br></pre></td></tr></table></figure>
+<h4 id="perf-top"><a href="#perf-top" class="headerlink" title="perf top"></a>perf top</h4><p>用于实时显示当前系统的性能统计信息。该命令主要用来观察整个系统当前的状态，比如可以通过查看该命令的输出来查看当前系统最耗时的内核函数或某个用户进程。<br>执行该命令需要root权限。   </p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo perf top</span><br></pre></td></tr></table></figure>
+<h3 id="lsof-命令"><a href="#lsof-命令" class="headerlink" title="lsof 命令"></a>lsof 命令</h3><p>工具lsof是一个可以列出操作系统打开的文件的工具，常用参数：</p>
+<ul>
+<li>lsof filename 显示打开指定文件的所有进程</li>
+<li>lsof -a 表示两个参数都必须满足时才显示结果</li>
+<li>lsof -c string 显示COMMAND列中包含指定字符的进程所有打开的文件</li>
+<li>lsof -u username 显示所属user进程打开的文件</li>
+<li>lsof -g gid 显示归属gid的进程情况</li>
+<li>lsof +d /DIR/ 显示目录下被进程打开的文件</li>
+<li>lsof +D /DIR/ 同上，但是会搜索目录下的所有目录，时间相对较长</li>
+<li>lsof -d FD 显示指定文件描述符的进程</li>
+<li>lsof -n 不将IP转换为hostname，缺省是不加上-n参数</li>
+<li>lsof -i 用以显示符合条件的进程情况</li>
+<li>lsof -p PID 选择指定PID</li>
+<li><p>lsof -i[46] protocol[:service|port]</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">46: IPv4 or IPv6</span><br><span class="line">protocol: TCP or UDP</span><br><span class="line">hostname: Internet host name</span><br><span class="line">hostaddr: IPv4地址</span><br><span class="line">service: /etc/service中的 service name (可以不只一个)</span><br><span class="line">port: 端口号 (可以不只一个)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="unzip-命令"><a href="#unzip-命令" class="headerlink" title="unzip 命令"></a>unzip 命令</h3><p>unzip命令用于解压.zip文件，常用参数：</p>
+<ul>
+<li>-f：只更新磁盘上已经存在的文件</li>
+<li>-u：更新磁盘上存在的文件，文件不存在则创建</li>
+<li>-o：如果文件已经存在则直接覆盖，不提示</li>
+<li>d：指定解压到的目录</li>
+</ul>
+<p>解压test.zip到/var/www目录，部署web站点</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># unzip -u -o -d /var/www test.zip</span><br><span class="line"># chown -R www:www /var/www</span><br></pre></td></tr></table></figure>
+<h3 id="使用pushd和popd命令快速切换目录"><a href="#使用pushd和popd命令快速切换目录" class="headerlink" title="使用pushd和popd命令快速切换目录"></a>使用pushd和popd命令快速切换目录</h3>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ pwd</span><br><span class="line">/Users/mylxsw/codes/php/lecloud/api</span><br><span class="line">$ pushd .</span><br><span class="line">~/codes/php/lecloud/api ~/codes/php/lecloud/api</span><br><span class="line">$ cd ../album/</span><br><span class="line">$ pwd</span><br><span class="line">/Users/mylxsw/codes/php/lecloud/album</span><br><span class="line">$ popd</span><br><span class="line">~/codes/php/lecloud/api</span><br><span class="line">$ pwd</span><br><span class="line">/Users/mylxsw/codes/php/lecloud/api</span><br></pre></td></tr></table></figure>
+<h3 id="SCP-命令"><a href="#SCP-命令" class="headerlink" title="SCP 命令"></a>SCP 命令</h3><p>服务器和本地计算机之间传递文件。<br>从服务器下载文件</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp username@服务器地址:/path/文件名 本地保存路径</span><br></pre></td></tr></table></figure>
+<p>上传文件到服务器</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp 本地文件路径 username@服务器地址:/保存到服务器的路径</span><br></pre></td></tr></table></figure>
+
+    
+  </div>
+
+  
+      <div class="git"></div>
+  
+
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持xfan</div>
+        <ul>
+        
+          <li class="item">
+            <span>微信扫一扫</span>
+            <img src="/picture/qr-wechat.png" alt>
+          </li>
+        
+          <li class="item">
+            <span>支付宝扫一扫</span>
+            <img src="/picture/qr-alipay.png" alt>
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2018/03/28/MongoDB使用/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2018/03/30/SpringCloud-Eureka/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/archives/" rel="noopener noreferrer" target="_self">
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/categories/JAVA" rel="noopener noreferrer" target="_self">
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/tags/git" rel="noopener noreferrer" target="_self">
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/link/" rel="noopener noreferrer" target="_self">
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/about/" rel="noopener noreferrer" target="_self">
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/search/" rel="noopener noreferrer" target="_self">
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'xfan';
+    
+    var disqus_url = 'https://feifaninternet.github.io/2018/03/29/Linux命令/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//xfan.disqus.com/count.js" async></script>
+
+
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>Java Array | Xfan blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="JAVA,">
+  
+
+  <meta name="description" content="Description&amp;nbsp;&amp;nbsp;The same type of data collection.In fact, the array is a container.We can automatically number the elements in the array from 0 to facilitate the operation of these elements.Arr">
+<meta name="keywords" content="JAVA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java Array">
+<meta property="og:url" content="https://feifaninternet.github.io/2018/02/01/Java-Array/index.html">
+<meta property="og:site_name" content="Xfan blog">
+<meta property="og:description" content="Description&amp;nbsp;&amp;nbsp;The same type of data collection.In fact, the array is a container.We can automatically number the elements in the array from 0 to facilitate the operation of these elements.Arr">
+<meta property="og:locale" content="Chinese">
+<meta property="og:updated_time" content="2019-04-11T03:35:25.236Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java Array">
+<meta name="twitter:description" content="Description&amp;nbsp;&amp;nbsp;The same type of data collection.In fact, the array is a container.We can automatically number the elements in the array from 0 to facilitate the operation of these elements.Arr">
+
+  
+
+  
+    <link rel="icon" href="/picture/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/person/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">Site</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">Site</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/archives/" rel="noopener noreferrer" target="_self">
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/categories/JAVA" rel="noopener noreferrer" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/tags/git" rel="noopener noreferrer" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/link/" rel="noopener noreferrer" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/about/" rel="noopener noreferrer" target="_self">
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/search/" rel="noopener noreferrer" target="_self">
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Description"><span class="toc-text">Description</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#The-name-of-the-array"><span class="toc-text">The name of the array</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Initialization-of-the-array"><span class="toc-text">Initialization of the array</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Array-traversal"><span class="toc-text">Array traversal</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Array-common-exception"><span class="toc-text">Array common exception</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#The-way-to-sort-array"><span class="toc-text">The way to sort array</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Using-arrays-comes-with-methods"><span class="toc-text">1.Using arrays comes with methods</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Bubble-sorting-algorithm"><span class="toc-text">2.Bubble sorting algorithm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Select-sorting-algorithm"><span class="toc-text">3.Select sorting algorithm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Insert-sorting-algorithm"><span class="toc-text">4.Insert sorting algorithm</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-Java-Array" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Java Array</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2018.02.01</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>xfan</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/JAVA/">JAVA</a>
+  </span>
+
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="https://feifaninternet.github.io//2018/02/01/Java-Array/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>&nbsp;&nbsp;The same type of data collection.In fact, the array is a container.We can automatically number the elements in the array from 0 to facilitate the operation of these elements.Array is a way to store data.And array can hold any type of data.   </p>
+<h3 id="The-name-of-the-array"><a href="#The-name-of-the-array" class="headerlink" title="The name of the array"></a>The name of the array</h3>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// type [] arrayName = new type[size]</span><br><span class="line">int[] arr = new int[5];</span><br><span class="line"></span><br><span class="line">// type [] arrayName = new type[]&#123;element, element,...&#125;</span><br><span class="line">int[] arr = new int[]&#123;1,2,3,4&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="Initialization-of-the-array"><a href="#Initialization-of-the-array" class="headerlink" title="Initialization of the array"></a>Initialization of the array</h3>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">int[] arr = &#123; 1, 2, 3, 4, 5 &#125;;</span><br><span class="line">int[] arr2 = new int[] &#123; 1, 2, 3, 4, 5 &#125;;</span><br><span class="line"></span><br><span class="line">int[] arr3 = new int[3];</span><br><span class="line">arr3[0] = 1;</span><br><span class="line">arr3[1] = 5;</span><br><span class="line">arr3[2] = 6;</span><br></pre></td></tr></table></figure>
+<h3 id="Array-traversal"><a href="#Array-traversal" class="headerlink" title="Array traversal"></a>Array traversal</h3>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line"></span><br><span class="line">int[] x = &#123; 1, 2, 3 &#125;;</span><br><span class="line"></span><br><span class="line">for (int y = 0; y &lt; x.length; y++) &#123;</span><br><span class="line"></span><br><span class="line">    System.out.println(x[y]);</span><br><span class="line">    </span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Array-common-exception"><a href="#Array-common-exception" class="headerlink" title="Array common exception"></a>Array common exception</h3><ul>
+<li>java.lang.NullPointerException   </li>
+<li>java.lang.ArrayIndexOutOfBoundsException</li>
+</ul>
+<h3 id="The-way-to-sort-array"><a href="#The-way-to-sort-array" class="headerlink" title="The way to sort array"></a>The way to sort array</h3><h3 id="1-Using-arrays-comes-with-methods"><a href="#1-Using-arrays-comes-with-methods" class="headerlink" title="1.Using arrays comes with methods"></a>1.Using arrays comes with methods</h3>   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ArraySort</span></span>&#123;     </span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] sortWithArrays( <span class="keyword">int</span>[] args)&#123;            </span><br><span class="line">            <span class="keyword">if</span>(args == <span class="keyword">null</span>|| args.length &lt; <span class="number">2</span>)&#123;  </span><br><span class="line">                    <span class="keyword">return</span> args;  </span><br><span class="line">            &#125; </span><br><span class="line">            Arrays.sort(args); </span><br><span class="line">            <span class="keyword">return</span> args; </span><br><span class="line">        &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-Bubble-sorting-algorithm"><a href="#2-Bubble-sorting-algorithm" class="headerlink" title="2.Bubble sorting algorithm"></a>2.Bubble sorting algorithm</h3>   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BubbleSort</span></span>&#123;     </span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] sortWithBubble(<span class="keyword">int</span>[] args)&#123;  </span><br><span class="line">            <span class="keyword">if</span>(args == <span class="keyword">null</span>|| args.length &lt; <span class="number">2</span>)&#123;  </span><br><span class="line">                <span class="keyword">return</span> args;  </span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; args.length-<span class="number">1</span>;i++)&#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> j = i+<span class="number">1</span>;j &lt; args.length;j++)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(args[j] &lt; args[i])&#123;</span><br><span class="line">                        <span class="keyword">int</span> temp = args[i]; </span><br><span class="line">                        args[i] = args[j];</span><br><span class="line">                        args[j] = temp;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;    </span><br><span class="line">            <span class="keyword">return</span> args;</span><br><span class="line">        &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-Select-sorting-algorithm"><a href="#3-Select-sorting-algorithm" class="headerlink" title="3.Select sorting algorithm"></a>3.Select sorting algorithm</h3>   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SelectSort</span></span>&#123;     </span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] sortWithSelect(<span class="keyword">int</span>[] args)&#123;</span><br><span class="line">            <span class="keyword">int</span> minIndex;</span><br><span class="line">            <span class="keyword">int</span> temp;</span><br><span class="line">            <span class="keyword">if</span>(args == <span class="keyword">null</span> || args.length &lt; <span class="number">2</span>)&#123;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; args.length-<span class="number">1</span>;i++)&#123;</span><br><span class="line">                minIndex = i;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> j = i+<span class="number">1</span>;j &lt; args.length;j++)&#123;</span><br><span class="line">                    <span class="keyword">if</span> (args[j] &lt; args[minIndex])&#123;</span><br><span class="line">                       minIndex = j;                          </span><br><span class="line">                    &#125;          </span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(minIndex != i)&#123;</span><br><span class="line">                    temp = args[i];</span><br><span class="line">                    args[i] = args[minIndex];</span><br><span class="line">                    args[minIndex] = temp;</span><br><span class="line">                &#125;    </span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> args;</span><br><span class="line">        &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-Insert-sorting-algorithm"><a href="#4-Insert-sorting-algorithm" class="headerlink" title="4.Insert sorting algorithm"></a>4.Insert sorting algorithm</h3>   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InsertSort</span></span>&#123;     </span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] sortWithInsert(<span class="keyword">int</span>[] args)&#123;</span><br><span class="line">            <span class="keyword">if</span>(args == <span class="keyword">null</span> || args.length &lt; <span class="number">2</span>)&#123;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt; args.length;i++)&#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> j = i;j &gt; <span class="number">0</span>;j--)&#123;</span><br><span class="line">                    <span class="keyword">if</span> (args[j] &lt; args[j-<span class="number">1</span>])&#123;</span><br><span class="line">                        <span class="keyword">int</span> temp = args[j];</span><br><span class="line">                        args[j] = args[j-<span class="number">1</span>];</span><br><span class="line">                        args[j-<span class="number">1</span>] = temp;</span><br><span class="line">                    &#125;      </span><br><span class="line">                &#125;                   </span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> args;           </span><br><span class="line">        &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+    
+  </div>
+
+  
+      <div class="git"></div>
+  
+
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持xfan</div>
+        <ul>
+        
+          <li class="item">
+            <span>微信扫一扫</span>
+            <img src="/picture/qr-wechat.png" alt>
+          </li>
+        
+          <li class="item">
+            <span>支付宝扫一扫</span>
+            <img src="/picture/qr-alipay.png" alt>
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2018/01/29/Java-Data-Structure/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2018/02/02/JAVA-Linked-List/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/archives/" rel="noopener noreferrer" target="_self">
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/categories/JAVA" rel="noopener noreferrer" target="_self">
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/tags/git" rel="noopener noreferrer" target="_self">
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/link/" rel="noopener noreferrer" target="_self">
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/about/" rel="noopener noreferrer" target="_self">
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/search/" rel="noopener noreferrer" target="_self">
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'xfan';
+    
+    var disqus_url = 'https://feifaninternet.github.io/2018/02/01/Java-Array/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//xfan.disqus.com/count.js" async></script>
+
+
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

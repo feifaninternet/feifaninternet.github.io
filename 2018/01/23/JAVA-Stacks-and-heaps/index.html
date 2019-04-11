@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>JAVA Stacks And Heaps | Xfan blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="JAVA,">
+  
+
+  <meta name="description" content="About&amp;nbsp;&amp;nbsp;Some basic types of variables defined in the function and the object reference variables are allocated in the function’s stack memory.&amp;nbsp;&amp;nbsp;Define a variable in a block of code,">
+<meta name="keywords" content="JAVA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JAVA Stacks And Heaps">
+<meta property="og:url" content="https://feifaninternet.github.io/2018/01/23/JAVA-Stacks-and-heaps/index.html">
+<meta property="og:site_name" content="Xfan blog">
+<meta property="og:description" content="About&amp;nbsp;&amp;nbsp;Some basic types of variables defined in the function and the object reference variables are allocated in the function’s stack memory.&amp;nbsp;&amp;nbsp;Define a variable in a block of code,">
+<meta property="og:locale" content="Chinese">
+<meta property="og:updated_time" content="2019-04-11T03:38:08.014Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JAVA Stacks And Heaps">
+<meta name="twitter:description" content="About&amp;nbsp;&amp;nbsp;Some basic types of variables defined in the function and the object reference variables are allocated in the function’s stack memory.&amp;nbsp;&amp;nbsp;Define a variable in a block of code,">
+
+  
+
+  
+    <link rel="icon" href="/picture/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/person/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">Site</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">Site</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/archives/" rel="noopener noreferrer" target="_self">
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/categories/JAVA" rel="noopener noreferrer" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/tags/git" rel="noopener noreferrer" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/link/" rel="noopener noreferrer" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/about/" rel="noopener noreferrer" target="_self">
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/search/" rel="noopener noreferrer" target="_self">
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#About"><span class="toc-text">About</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Memory-allocation-strategy"><span class="toc-text">Memory allocation strategy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Heap-and-stacks-in-Java"><span class="toc-text">Heap and stacks in Java</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-JAVA-Stacks-and-heaps" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">JAVA Stacks And Heaps</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2018.01.23</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>xfan</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/JAVA/">JAVA</a>
+  </span>
+
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="https://feifaninternet.github.io//2018/01/23/JAVA-Stacks-and-heaps/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h3 id="About"><a href="#About" class="headerlink" title="About"></a>About</h3><p>&nbsp;&nbsp;Some basic types of variables defined in the function and the object reference variables are allocated in the function’s stack memory.<br>&nbsp;&nbsp;Define a variable in a block of code, java on the stack for this variable to allocate memory space,when the scope of variables beyond,java will automatically release the memory space of the variable, the memory space can be used for other purposes.<br>&nbsp;&nbsp;Heap memory is used to store objects and arrays created by new. The allocated memory in the heap is managed by the java virtual machine’s automatic garbage collector. After an array or object is created in the heap,you can also define a special variable in the stack whose value is equal to the first address of the array or object in the heap memory. This special variable in the stack becomes Arrays or objects referenced variables can be used in the program after the reference variable in the stack memory to access the heap array or object,the reference variable is equivalent to an array or object from an alias, or code.<br>&nbsp;&nbsp;For arrays, objects, the heap memory occupied by arrays and objects themselves will not be released,even if the program runs into the code block where the statements they produce are located. Arrays and objects become garbage when they are not referenced by variables. It can no longer be used, but still occupies memory and is freed by the garbage collector at a later time. This is also the main reason for java memory, in fact, the stack variable points to the heap memory variables, this is the pointer in Java</p>
+<h3 id="Memory-allocation-strategy"><a href="#Memory-allocation-strategy" class="headerlink" title="Memory allocation strategy"></a>Memory allocation strategy</h3><p>&nbsp;&nbsp;Memory allocation has three strategies, namely static, stack, and heap.      </p>
+<ul>
+<li>&nbsp;&nbsp;Static storage allocation refers to the storage space that each data object needs to be determined at compile time so that fixed memory space can be allocated at compile time.This allocation strategy requires that variable data is not allowed in the program code The existence of structures, such as mutable arrays, also does not allow nested or recursive structures to appear as they all result in the compiler not being able to calculate the exact memory requirements.   </li>
+<li>&nbsp;&nbsp;Stacked storage allocation can also be referred to as dynamic storage allocation, implemented by a stack-like runtime stack. In a storied storage strategy, the program’s data area requirements are completely unknown at compile time and are not known until runtime , But when entering a program module on the fly it is necessary to know the size of the data area required by the program module to allocate memory for it.As with the well-known stack in the data structure, the stack memory allocation is advanced Principle of distribution.   </li>
+<li>&nbsp;&nbsp;Heap storage allocations are solely responsible for allocating memory allocations for data structures that store requirements, such as variable length strings and object instances, at compile time or at runtime module entries. The heap is made up of large blocks of available or free blocks, The memory can be allocated and released in any order.<br>&nbsp;&nbsp;A heap is an application that requires the operating system to allocate memory at run time and takes up time to allocate and destroy, so using heaps is inefficient, but the heap has the advantage that the compiler does not have to know how much memory to allocate from the heap , And you do not have to know how long the stored data stays in the heap, so you have greater flexibility in saving data with the heap. In fact, object-oriented polymorphism, heap memory allocation is essential, because the storage space required for polymorphic variables can only be determined after the object has been created at run time.When executing the code to create the object, it will be in the heap Automatically save the data, but it takes more time to save in the heap.   </li>
+</ul>
+<h3 id="Heap-and-stacks-in-Java"><a href="#Heap-and-stacks-in-Java" class="headerlink" title="Heap and stacks in Java"></a>Heap and stacks in Java</h3><p>&nbsp;&nbsp;JVM is a stack-based virtual machine.JVM for each newly created thread is assigned a stack.That is, for a Java program, it runs through the stack to complete the operation. The stack saves the state of the thread in frames. The JVM performs only two operations on the stack: push and pop operations on a frame-by-frame basis.When a java method is activated,the JVM pushes a new frame into the thread’s stack, called the current frame, to hold parameters, local variables, intermediate calculations, and other data.<br>&nbsp;&nbsp;When creating an object in Java, memory is allocated both in the stack and in the heap. The memory allocated in the heap actually establishes that for sex, and the memory allocated on the stack is just a pointer to the heap.<br>&nbsp;&nbsp;Stacks and heaps are all used by Java to store data in Ram. Unlike C ++, Java automatically manages stacks and heaps.Java heap is a runtime data area, the object of the class from which to allocate space. They do not need to be explicitly released by the program code, but are responsible for garbage collection, Java’s garbage collector will automatically take away the data is no longer in use. Stack has a very important special, that is, there is data in the stack can be shared.</p>
+
+    
+  </div>
+
+  
+      <div class="git"></div>
+  
+
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持xfan</div>
+        <ul>
+        
+          <li class="item">
+            <span>微信扫一扫</span>
+            <img src="/picture/qr-wechat.png" alt>
+          </li>
+        
+          <li class="item">
+            <span>支付宝扫一扫</span>
+            <img src="/picture/qr-alipay.png" alt>
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="hide pull-left" href="/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2018/01/24/Springboot-Learning/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/archives/" rel="noopener noreferrer" target="_self">
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/categories/JAVA" rel="noopener noreferrer" target="_self">
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/tags/git" rel="noopener noreferrer" target="_self">
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/link/" rel="noopener noreferrer" target="_self">
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/about/" rel="noopener noreferrer" target="_self">
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/search/" rel="noopener noreferrer" target="_self">
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'xfan';
+    
+    var disqus_url = 'https://feifaninternet.github.io/2018/01/23/JAVA-Stacks-and-heaps/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//xfan.disqus.com/count.js" async></script>
+
+
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

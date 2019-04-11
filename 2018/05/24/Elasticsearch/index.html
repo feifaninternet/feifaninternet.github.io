@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>Elasticsearch | Xfan blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Elastic,">
+  
+
+  <meta name="description" content="About找了很久找到了一个很不错的学习资源  GitBook – ElasticsearchspringBoot的整合非常简单，就不说了。我们可以了解一下spring data 对elasticsearch 的整合Spring date – Elasticsearch整合时建议使用5.5.0左右的版本，要特别注意框架版本引起的兼容问题。 DescriptionElasticsearch 是一个高">
+<meta name="keywords" content="Elastic">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Elasticsearch">
+<meta property="og:url" content="https://feifaninternet.github.io/2018/05/24/Elasticsearch/index.html">
+<meta property="og:site_name" content="Xfan blog">
+<meta property="og:description" content="About找了很久找到了一个很不错的学习资源  GitBook – ElasticsearchspringBoot的整合非常简单，就不说了。我们可以了解一下spring data 对elasticsearch 的整合Spring date – Elasticsearch整合时建议使用5.5.0左右的版本，要特别注意框架版本引起的兼容问题。 DescriptionElasticsearch 是一个高">
+<meta property="og:locale" content="Chinese">
+<meta property="og:image" content="https://feifaninternet.github.io/picture/Elasticsearch01.png">
+<meta property="og:updated_time" content="2019-04-11T03:35:25.231Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Elasticsearch">
+<meta name="twitter:description" content="About找了很久找到了一个很不错的学习资源  GitBook – ElasticsearchspringBoot的整合非常简单，就不说了。我们可以了解一下spring data 对elasticsearch 的整合Spring date – Elasticsearch整合时建议使用5.5.0左右的版本，要特别注意框架版本引起的兼容问题。 DescriptionElasticsearch 是一个高">
+<meta name="twitter:image" content="https://feifaninternet.github.io/picture/Elasticsearch01.png">
+
+  
+
+  
+    <link rel="icon" href="/picture/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/person/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">Site</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">Site</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/archives/" rel="noopener noreferrer" target="_self">
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/categories/JAVA" rel="noopener noreferrer" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/tags/git" rel="noopener noreferrer" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/link/" rel="noopener noreferrer" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/about/" rel="noopener noreferrer" target="_self">
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/search/" rel="noopener noreferrer" target="_self">
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#About"><span class="toc-text">About</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Description"><span class="toc-text">Description</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Elasticsearch-的基本概念"><span class="toc-text">Elasticsearch 的基本概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#简单的索引和查询"><span class="toc-text">简单的索引和查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Elasticsearch-的数据复制模型"><span class="toc-text">Elasticsearch 的数据复制模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#基本写入模型"><span class="toc-text">基本写入模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#基本读取模型"><span class="toc-text">基本读取模型</span></a></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-Elasticsearch" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Elasticsearch</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2018.05.24</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>xfan</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/Expand/">Expand</a>
+  </span>
+
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="https://feifaninternet.github.io//2018/05/24/Elasticsearch/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h3 id="About"><a href="#About" class="headerlink" title="About"></a>About</h3><p>找了很久找到了一个很不错的学习资源  <a href="https://es.xiaoleilu.com/010_Intro/25_Tutorial_Indexing.html" target="_blank" rel="noopener">GitBook – Elasticsearch</a><br>springBoot的整合非常简单，就不说了。我们可以了解一下spring data 对elasticsearch 的整合<a href="https://docs.spring.io/spring-data/elasticsearch/docs/current/reference/html/#repositories.query-methods" target="_blank" rel="noopener">Spring date – Elasticsearch</a><br>整合时建议使用5.5.0左右的版本，要特别注意框架版本引起的兼容问题。</p>
+<h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>Elasticsearch 是一个高度可扩展的开源全文搜索和分析引擎。它可以快速，实时地存储，搜索和分析大量数据。它通常用作支持具有复杂搜索功能和需求的应用程序的底层引擎/技术。</p>
+<p>案例：</p>
+<ul>
+<li>你运营一家在线网上商店，让您的客户可以搜索您销售的产品。在这种情况下，您可以使用Elasticsearch来存储您的整个产品目录和库存，并为其提供搜索和自动填充建议。</li>
+<li>你希望收集日志或交易数据，并且想要分析和挖掘此数据以查找趋势，统计数据，汇总或异常情况。在这种情况下，您可以使用Logstash（Elasticsearch/Logstash/Kibana堆栈的一部分）来收集，汇总和分析数据，然后使用Logstash将此数据提供给Elasticsearch。一旦数据在Elasticsearch中，您就可以运行搜索和聚合来挖掘您感兴趣的任何信息。</li>
+<li>您需要分析/商业智能需求，并且希望快速调查，分析，可视化并针对大量数据提出临时问题（可以考虑数百万或数十亿条记录）。在这种情况下，您可以使用Elasticsearch存储数据，然后使用Kibana（Elasticsearch/Logstash/Kibana堆栈的一部分）来构建自定义仪表板，以便可视化数据对您很重要的各个方面。另外，您可以使用Elasticsearch聚合功能对数据执行复杂的商业智能查询。</li>
+</ul>
+<h3 id="Elasticsearch-的基本概念"><a href="#Elasticsearch-的基本概念" class="headerlink" title="Elasticsearch 的基本概念"></a>Elasticsearch 的基本概念</h3><p>理解 Elasticsearch 的基本概念可以极大的帮助我们简化学习过程</p>
+<ul>
+<li><p>近实时(NRT)<br>Elasticsearch是一个接近实时的搜索平台，这意味着从索引文档的时间到可搜索的时间之间存在轻微的延迟(通常为1秒)。</p>
+</li>
+<li><p>集群<br>集群是一个或者多个节点(服务器)的集合，他们一起保存整个数据，并提供所有节点的联合索引和搜索功能。集群由默认名称为”elasticsearch”的唯一名称标识。此名称很重要，因为如果节点设置为通过名称加入集群，则节点只能成为集群的一部分。<br>确保不要在不同的环境中重复使用相同的集群名称，否则可能会导致节点加入错误的集群。例如，您可以使用logging-dev，logging-stage以及logging-prod 开发，分段和生产集群。<br>请注意，有一个只有一个节点的集群是完全正确的。此外，您还可能拥有多个独立的群集，每个群集都有自己的唯一群集名称。</p>
+</li>
+<li><p>节点<br>节点是属于集群一部分的单个服务器，存储数据并参数集群的索引和搜索功能。每个节点也有一个名称来标识，默认情况下，该名称是在启动时分配给节点的随机通用唯一标识符(UUID)，可以将节点配置为按集群名称加入特定集群，默认情况下每个节点都加入集群elasticsearch。<br>在单个群集中，您可以拥有任意数量的节点。此外，如果网络上当前没有其他Elasticsearch节点正在运行，则默认情况下启动单个节点将形成名为的新单节点群集elasticsearch。</p>
+</li>
+<li><p>索引<br>索引是一些具有相似特征的文档集合。例如，您可以拥有客户数据的索引，产品目录的另一个索引以及订单数据的另一个索引。索引由名称（必须全部为小写）标识，并且此名称用于在对其中的文档执行索引，搜索，更新和删除操作时引用索引。在单个群集中，您可以根据需要定义多个索引。<br>索引相当于mongo 数据库中的集合或者关系型数据库中的库。es 建立索引时的 mapping 字段则相当于mongo 数据库中的表。<br>以 MongoDB 为例，mongo 数据库中有 order 集合，order 下有 info， 其中order_id 为 info 表的索引。</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">//mongo 数据</span><br><span class="line">use order</span><br><span class="line">db.info.find()</span><br><span class="line">&#123;</span><br><span class="line">   &quot;did&quot;: 490873,</span><br><span class="line">   &quot;order_id&quot;: 3</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line">//es 数据</span><br><span class="line">&#123;                                                </span><br><span class="line"> &quot;_index&quot;: &quot;order&quot;,                         </span><br><span class="line"> &quot;_type&quot;: &quot;info&quot;,</span><br><span class="line"> &quot;_source&quot;: &#123;</span><br><span class="line">   &quot;did&quot;: 490873,</span><br><span class="line">   &quot;order_id&quot;: 3</span><br><span class="line">   ....</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>文档<br>文档是可被索引的基本信息单位。在索引/类型中，您可以根据需要存储任意数量的文档。请注意，尽管文档实际上驻留在索引中，但实际上文档必须被索引/分配给索引内的类型。</p>
+</li>
+<li><p>分片和副本<br>1)索引可能潜在地存储大量数据，这些数据可能会超出单个节点的硬件限制。例如，占用1TB磁盘空间的十亿份文档的单个索引可能不适合单个节点的磁盘，或者可能太慢而无法单独向单个节点提供搜索请求。为了解决这个问题，Elasticsearch提供了将索引细分为多个碎片的能力。当您创建索引时，您可以简单地定义所需的碎片数量。每个分片本身都是一个功能齐全且独立的“索引”，可以在集群中的任何节点上进行托管。<br>当数据量达到单机物理极限时，可以使用分片进行水平扩展，即将数据分割为更小的单元，存储在不同的服务器上，每一个分片负责一部分数据的处理，总的查询将在各个分片查询结束后，汇总结果返回给调用方。因此一个索引的数据会分布在不同的物理机上。<br>分片很重要，主要有两个原因：<br>1.它允许水平分割/缩放内容量<br>2.它允许跨越分片（可能在多个节点上）分发和并行化操作，从而提高性能/吞吐量。<br>在任何时候都可能出现故障的网络/云环境中，非常有用并且强烈建议拥有故障切换机制，以防碎片/节点以某种方式脱机或因任何原因而消失。为此，Elasticsearch允许您将索引碎片的一个或多个副本制作为简称为副本碎片或副本。<br>2)副本集主要用于数据容灾和提高查询的吞吐量，每个分片可以有多个副本集，副本集只是分片的一个复制，可以认为存储了几份相同的数据。分片和其对应的副本集之间，有一个主分片对外提供服务，当主分片故障或其他原因不可用时，将会从副本集中选择一个作为主分片，继续对外提供服务<br>副本很重要，主要有两个原因：<br>1.它在碎片/节点失败的情况下提供高可用性。由于这个原因，需要注意的是，副本分片永远不会分配到与从中复制的原始/主分片相同的节点上。<br>2.它允许您扩展搜索量/吞吐量，因为搜索可以在所有副本上并行执行。<br>如果不指定，es 将默认使用 5 个分片和 1个副本。<br><img src="/picture/Elasticsearch01.png" alt="分片与副本的关系结构图"><br>总而言之，每个索引可以分成多个分片。索引也可以被复制为零（意味着没有副本）或更多次。一旦复制，每个索引将具有主分片（从中复制的原始分片）和副本分片（主分片的副本）。在创建索引时，可以为每个索引定义分片和副本的数量。在创建索引之后，您可以随时更改动态副本的数量，但您无法在事后更改碎片的数量。<br>默认情况下，Elasticsearch中的每个索引都分配了5个主分片和1个副本，这意味着如果群集中至少有两个节点，则索引将包含5个主分片和另外5个副本分片（1个完整副本），总共每个索引10个碎片。</p>
+</li>
+</ul>
+<h3 id="简单的索引和查询"><a href="#简单的索引和查询" class="headerlink" title="简单的索引和查询"></a>简单的索引和查询</h3><p>1.创建一个索引</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PUT /customer?pretty</span><br><span class="line">GET / _cat / indices？v</span><br></pre></td></tr></table></figure>
+<p>2.将文档编入索引，id 为 1</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">PUT / customer / _doc / 1?pretty</span><br><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;：&quot;John Doe&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在没有显式 ID 的情况下将文档编入索引，将返回实际 ID，Elasticsearch生成</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">POST  / customer / _doc?pretty</span><br><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;：&quot;John Doe&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>响应：</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;_index&quot; : &quot;customer&quot;,</span><br><span class="line">  &quot;_type&quot; : &quot;_doc&quot;,</span><br><span class="line">  &quot;_id&quot; : &quot;1&quot;,</span><br><span class="line">  &quot;_version&quot; : 1,</span><br><span class="line">  &quot;result&quot; : &quot;created&quot;,</span><br><span class="line">  &quot;_shards&quot; : &#123;</span><br><span class="line">    &quot;total&quot; : 2,</span><br><span class="line">    &quot;successful&quot; : 1,</span><br><span class="line">    &quot;failed&quot; : 0</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;_seq_no&quot; : 0,</span><br><span class="line">  &quot;_primary_term&quot; : 1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>3.检索编入索引的文档</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET / customer / _doc / 1?pretty</span><br></pre></td></tr></table></figure>
+<p>响应：</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;_index&quot; : &quot;customer&quot;,</span><br><span class="line">  &quot;_type&quot; : &quot;_doc&quot;,</span><br><span class="line">  &quot;_id&quot; : &quot;1&quot;,</span><br><span class="line">  &quot;_version&quot; : 1,</span><br><span class="line">  &quot;found&quot; : true,</span><br><span class="line">  &quot;_source&quot; : &#123; &quot;name&quot;: &quot;John Doe&quot; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Elasticsearch-的数据复制模型"><a href="#Elasticsearch-的数据复制模型" class="headerlink" title="Elasticsearch 的数据复制模型"></a>Elasticsearch 的数据复制模型</h3><p>每个碎片中的副本被称为复制组，并且在文档增加删除时必须保持同步，这是为了保证从一个副本读取与从另一个副本读取的结果相同。保持分片副本同步并提供读取操作同步的过程就是数据复制模型。</p>
+<p>Elasticsearch的数据复制模型基于主要备份模型，在微软研究院的<a href="https://www.microsoft.com/en-us/research/publication/pacifica-replication-in-log-based-distributed-storage-systems/" target="_blank" rel="noopener">PacificA论文</a>中有很好的描述。该模型基于具有充当主碎片的复制组中的单个副本。其他副本称为副本碎片。主要作为所有索引操作的主要入口点。它负责验证它们并确保它们是正确的。一旦索引操作被主服务器接受，主服务器也负责将操作复制到其他副本。</p>
+<h4 id="基本写入模型"><a href="#基本写入模型" class="headerlink" title="基本写入模型"></a>基本写入模型</h4><p>Elasticsearch中的每个索引操作首先使用路由（通常基于文档ID）解析到复制组。一旦确定了复制组，操作就会在内部转发到组的当前主分片。主分片负责验证操作并将其转发给其他副本。由于副本可以脱机，因此主节点不需要复制到所有副本。相反，Elasticsearch维护应该接收操作的分片副本列表。该列表称为同步副本并由主节点维护。顾名思义，这是一组“好”的分片副本，保证已经处理了已经向用户确认的所有索引和删除操作。主要负责维护此不变量，因此必须将所有操作复制到此集合中的每个副本。</p>
+<p>主要碎片遵循以下基本流程：</p>
+<ol>
+<li>如果结构无效，验证传入操作并拒绝它（例如：有一个对象字段，其中数字是预期的）</li>
+<li>在本地执行操作，即索引或删除相关文档。这也将验证字段的内容并在需要时拒绝（例如：关键字值在Lucene中索引太长）。</li>
+<li>将操作转发到当前同步副本集中的每个副本。如果有多个副本，这是并行完成的。</li>
+<li>一旦所有副本都成功执行操作并响应主服务器，主服务器就会确认向客户端成功完成请求。</li>
+</ol>
+<h4 id="基本读取模型"><a href="#基本读取模型" class="headerlink" title="基本读取模型"></a>基本读取模型</h4><p>Elasticsearch中的读取操作可以通过ID进行非常轻量级的查找，也可以通过复杂的聚合进行繁重的搜索请求，这些请求会占用不重要的CPU功率。主要备份模型的一个优点是它可以保持所有分片副本一致（除飞行操作外）。因此，单个同步副本足以满足读取请求。</p>
+<p>当节点收到读取请求时，该节点负责将其转发到保存相关分片的节点，整理响应并响应客户端。我们称该节点为该请求的协调节点。基本流程如下：</p>
+<ol>
+<li>将读取请求解析为相关的分片。请注意，由于大多数搜索将被发送到一个或多个索引，它们通常需要从多个碎片中读取，每个碎片表示不同的数据子集。</li>
+<li>从分片复制组中选择每个相关分片的活动副本。这可以是主要的或副本。默认情况下，Elasticsearch只会在分片之间循环。</li>
+<li>将碎片级读取请求发送到选定的副本。</li>
+<li>结合结果并做出回应。请注意，在通过ID查找得到的情况下，只有一个分片是相关的，并且该步骤可以被跳过。</li>
+</ol>
+
+    
+  </div>
+
+  
+      <div class="git"></div>
+  
+
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持xfan</div>
+        <ul>
+        
+          <li class="item">
+            <span>微信扫一扫</span>
+            <img src="/picture/qr-wechat.png" alt>
+          </li>
+        
+          <li class="item">
+            <span>支付宝扫一扫</span>
+            <img src="/picture/qr-alipay.png" alt>
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2018/05/24/JQuery-zTree树插件/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2018/06/07/String-源码/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/archives/" rel="noopener noreferrer" target="_self">
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/categories/JAVA" rel="noopener noreferrer" target="_self">
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/tags/git" rel="noopener noreferrer" target="_self">
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/link/" rel="noopener noreferrer" target="_self">
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/about/" rel="noopener noreferrer" target="_self">
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/search/" rel="noopener noreferrer" target="_self">
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'xfan';
+    
+    var disqus_url = 'https://feifaninternet.github.io/2018/05/24/Elasticsearch/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//xfan.disqus.com/count.js" async></script>
+
+
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
