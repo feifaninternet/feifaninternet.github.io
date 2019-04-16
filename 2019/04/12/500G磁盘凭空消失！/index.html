@@ -15,20 +15,20 @@
     <meta name="keywords" content="http,">
   
 
-  <meta name="description" content="Description最近有一台磁盘容量500G的机器频繁出现磁盘容量不足，每次出现都只能重新启动机器，次数多了就想用一个一劳永逸的办法给他解决掉 问题查看步骤1.查看磁盘空间剩余容量    1df -h 2.如果磁盘容量已经用尽，找出占用容量最大的目录    1du -s /* | sort -nr  3.假设 /root 目录占用最多，查看root目录下哪个目录占用磁盘最多    1du -s">
+  <meta name="description" content="Description最近有一台磁盘容量500G的机器频繁出现磁盘容量不足，每次出现都只能重新启动机器，次数多了就想用一个一劳永逸的办法给他解决掉 问题查看步骤1.查看磁盘空间剩余容量    1df -h 2.如果磁盘容量已经用尽，找出占用容量最大的目录    1du -s /* | sort -nr        3.假设 /root 目录占用最多，查看root目录下哪个目录占用磁盘最多">
 <meta name="keywords" content="http">
 <meta property="og:type" content="article">
 <meta property="og:title" content="500G磁盘凭空消失！">
 <meta property="og:url" content="https://feifaninternet.github.io/2019/04/12/500G磁盘凭空消失！/index.html">
 <meta property="og:site_name" content="Xfan blog">
-<meta property="og:description" content="Description最近有一台磁盘容量500G的机器频繁出现磁盘容量不足，每次出现都只能重新启动机器，次数多了就想用一个一劳永逸的办法给他解决掉 问题查看步骤1.查看磁盘空间剩余容量    1df -h 2.如果磁盘容量已经用尽，找出占用容量最大的目录    1du -s /* | sort -nr  3.假设 /root 目录占用最多，查看root目录下哪个目录占用磁盘最多    1du -s">
+<meta property="og:description" content="Description最近有一台磁盘容量500G的机器频繁出现磁盘容量不足，每次出现都只能重新启动机器，次数多了就想用一个一劳永逸的办法给他解决掉 问题查看步骤1.查看磁盘空间剩余容量    1df -h 2.如果磁盘容量已经用尽，找出占用容量最大的目录    1du -s /* | sort -nr        3.假设 /root 目录占用最多，查看root目录下哪个目录占用磁盘最多">
 <meta property="og:locale" content="Chinese">
 <meta property="og:image" content="https://feifaninternet.github.io/picture/http/du-s.jpg">
 <meta property="og:image" content="https://feifaninternet.github.io/picture/http/cronjob.jpg">
-<meta property="og:updated_time" content="2019-04-11T07:32:32.291Z">
+<meta property="og:updated_time" content="2019-04-16T10:40:30.749Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="500G磁盘凭空消失！">
-<meta name="twitter:description" content="Description最近有一台磁盘容量500G的机器频繁出现磁盘容量不足，每次出现都只能重新启动机器，次数多了就想用一个一劳永逸的办法给他解决掉 问题查看步骤1.查看磁盘空间剩余容量    1df -h 2.如果磁盘容量已经用尽，找出占用容量最大的目录    1du -s /* | sort -nr  3.假设 /root 目录占用最多，查看root目录下哪个目录占用磁盘最多    1du -s">
+<meta name="twitter:description" content="Description最近有一台磁盘容量500G的机器频繁出现磁盘容量不足，每次出现都只能重新启动机器，次数多了就想用一个一劳永逸的办法给他解决掉 问题查看步骤1.查看磁盘空间剩余容量    1df -h 2.如果磁盘容量已经用尽，找出占用容量最大的目录    1du -s /* | sort -nr        3.假设 /root 目录占用最多，查看root目录下哪个目录占用磁盘最多">
 <meta name="twitter:image" content="https://feifaninternet.github.io/picture/http/du-s.jpg">
 
   
@@ -209,7 +209,12 @@
    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df -h</span><br></pre></td></tr></table></figure>
 <p>2.如果磁盘容量已经用尽，找出占用容量最大的目录</p>
    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">du -s /* | sort -nr</span><br></pre></td></tr></table></figure>
-<p><img src="/picture/http/du-s.jpg" alt="各目录占用情况"></p>
+<div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;"><br>    <img src="/picture/http/du-s.jpg"><br></div>
+
+
 <p>3.假设 <code>/root</code> 目录占用最多，查看root目录下哪个目录占用磁盘最多</p>
    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">du -s /root/* |sort -nr</span><br></pre></td></tr></table></figure>
 <p>4.找到占用最多的文件，选择性的进行删除，如果删除后仍未解决，可以查看被删除的文件是否仍然被进程所占用而没有实际删除</p>
@@ -266,10 +271,10 @@
 
    
   <div class="box-prev-next clearfix">
-    <a class="show pull-left" href="/2019/04/11/MongoDB函数/">
+    <a class="show pull-left" href="/2019/03/13/如何应对恶意IP访问/">
         <i class="icon icon-angle-left"></i>
     </a>
-    <a class="hide pull-right" href="/">
+    <a class="show pull-right" href="/2019/04/15/实时分布式消息传递平台-NSQ/">
         <i class="icon icon-angle-right"></i>
     </a>
   </div>
