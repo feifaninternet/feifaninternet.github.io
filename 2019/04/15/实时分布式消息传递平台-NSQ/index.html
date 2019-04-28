@@ -25,7 +25,7 @@
 <meta property="og:locale" content="Chinese">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/14001673-adcf8b01a5004396.gif">
 <meta property="og:image" content="https://feifaninternet.github.io/picture/nsq/nsqadmin.jpg">
-<meta property="og:updated_time" content="2019-04-26T10:02:33.748Z">
+<meta property="og:updated_time" content="2019-04-28T10:56:53.357Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="实时分布式消息传递平台 -- NSQ">
 <meta name="twitter:description" content="Description网上关于 NSQ 在 java 平台使用的资料非常少，我们来看下 NSQ 到底与其他消息中间件有何不同，到底应该如何使用？ NSQ简介NSQ 是一个基于 go 语言开发的分布式实时消息架构。NSQ 主要用于处理大规模消息任务，每天可以处理的任务可达十亿级别。 特点 分布式，去中心化拓扑 可伸缩，横向扩展 操作友好，简单的配置&amp;amp;部署  主要模块 nsqlookupd :">
@@ -217,7 +217,11 @@
 <li><strong><a href="https://nsq.io/components/nsqadmin.html" target="_blank" rel="noopener">nsqadmin</a></strong> : <code>Web UI</code>，可实时查看聚合的群集统计信息并执行各种管理任务。</li>
 <li><strong><a href="https://nsq.io/components/utilities.html" target="_blank" rel="noopener">utilities</a></strong> : 常见基础功能，数据流处理 <code>nsq_stat</code> <code>nsq_to_file</code>等</li>
 </ol>
-<p><img src="https://upload-images.jianshu.io/upload_images/14001673-adcf8b01a5004396.gif" alt="发布与消费"></p>
+<div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;"><br>    <img src="https://upload-images.jianshu.io/upload_images/14001673-adcf8b01a5004396.gif" alt="发布与消费"><br></div>
+
 <h4 id="主要角色"><a href="#主要角色" class="headerlink" title="主要角色"></a>主要角色</h4><h5 id="生产者-Producer"><a href="#生产者-Producer" class="headerlink" title="生产者 Producer"></a>生产者 Producer</h5><p>连接<code>nsqd</code>发布消息到<code>topic</code></p>
 <p><code>Producer</code>断线后需要手动重连，<code>Consumer</code>断线后会自动重连，<code>Consumer</code>的重连时间默认为60s，可设置短一点<br><code>Producer</code>不能发布空<code>message</code>否则会导致<code>panic</code><br>如果<code>Producer</code>连接的<code>nsqd</code>中断，那么<code>message</code>就会发布失败，所以我们也要考虑这种情况，做好备用方案。</p>
 <h5 id="消费者-Consumer"><a href="#消费者-Consumer" class="headerlink" title="消费者 Consumer"></a>消费者 Consumer</h5><p>消费者有两种方式与<code>nsqd</code>建立连接。</p>
@@ -296,7 +300,12 @@
    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nsqadmin --lookupd-http-address=127.0.0.1:4161</span><br></pre></td></tr></table></figure>
 <p>4.创建<code>topic</code>和<code>channel</code>，发布消息</p>
    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#创建topic</span><br><span class="line">curl -X POST http://127.0.0.1:4151/topic/create?topic=name</span><br><span class="line">#创建channel</span><br><span class="line">    curl -X POST http://127.0.0.1:4151/channel/create?topic=name&amp;channel=name</span><br><span class="line">#发布消息</span><br><span class="line">curl -d &quot;&lt;message&gt;&quot; http://127.0.0.1:4151/pub?topic=name</span><br></pre></td></tr></table></figure>
-<p>5.在浏览器输入<code>127.0.0.1:4171</code>查看消息与连接状态<br><img src="/picture/nsq/nsqadmin.jpg" alt="nsq的WebUI"></p>
+<p>5.在浏览器输入<code>127.0.0.1:4171</code>查看消息与连接状态</p>
+<div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;"><br>    <img src="/picture/nsq/nsqadmin.jpg" alt="nsq的WebUI"><br></div>
+
 <h3 id="JAVA-NSQ"><a href="#JAVA-NSQ" class="headerlink" title="JAVA + NSQ"></a>JAVA + NSQ</h3><p>关于<code>java</code>使用NSQ的</p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3>
     
