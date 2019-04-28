@@ -15,18 +15,21 @@
     <meta name="keywords" content="NSQ,">
   
 
-  <meta name="description" content="Description网上关于 NSQ 在 java 平台使用的资料非常少，">
+  <meta name="description" content="Description网上关于 NSQ 在 java 平台使用的资料非常少，我们来看下 NSQ 到底与其他消息中间件有何不同，到底应该如何使用？ NSQ简介NSQ 是一个基于 go 语言开发的分布式实时消息架构。NSQ 主要用于处理大规模消息任务，每天可以处理的任务可达十亿级别。 特点 分布式，去中心化拓扑 可伸缩，横向扩展 操作友好，简单的配置&amp;amp;部署  主要模块 nsqlookupd :">
 <meta name="keywords" content="NSQ">
 <meta property="og:type" content="article">
 <meta property="og:title" content="实时分布式消息传递平台 -- NSQ">
 <meta property="og:url" content="https://feifaninternet.github.io/2019/04/15/实时分布式消息传递平台-NSQ/index.html">
 <meta property="og:site_name" content="Xfan blog">
-<meta property="og:description" content="Description网上关于 NSQ 在 java 平台使用的资料非常少，">
+<meta property="og:description" content="Description网上关于 NSQ 在 java 平台使用的资料非常少，我们来看下 NSQ 到底与其他消息中间件有何不同，到底应该如何使用？ NSQ简介NSQ 是一个基于 go 语言开发的分布式实时消息架构。NSQ 主要用于处理大规模消息任务，每天可以处理的任务可达十亿级别。 特点 分布式，去中心化拓扑 可伸缩，横向扩展 操作友好，简单的配置&amp;amp;部署  主要模块 nsqlookupd :">
 <meta property="og:locale" content="Chinese">
-<meta property="og:updated_time" content="2019-04-16T09:06:24.140Z">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/14001673-adcf8b01a5004396.gif">
+<meta property="og:image" content="https://feifaninternet.github.io/picture/nsq/nsqadmin.jpg">
+<meta property="og:updated_time" content="2019-04-26T10:02:33.748Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="实时分布式消息传递平台 -- NSQ">
-<meta name="twitter:description" content="Description网上关于 NSQ 在 java 平台使用的资料非常少，">
+<meta name="twitter:description" content="Description网上关于 NSQ 在 java 平台使用的资料非常少，我们来看下 NSQ 到底与其他消息中间件有何不同，到底应该如何使用？ NSQ简介NSQ 是一个基于 go 语言开发的分布式实时消息架构。NSQ 主要用于处理大规模消息任务，每天可以处理的任务可达十亿级别。 特点 分布式，去中心化拓扑 可伸缩，横向扩展 操作友好，简单的配置&amp;amp;部署  主要模块 nsqlookupd :">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/14001673-adcf8b01a5004396.gif">
 
   
 
@@ -150,7 +153,7 @@
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Description"><span class="toc-text">Description</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Description"><span class="toc-text">Description</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NSQ简介"><span class="toc-text">NSQ简介</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#特点"><span class="toc-text">特点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#主要模块"><span class="toc-text">主要模块</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#主要角色"><span class="toc-text">主要角色</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#生产者-Producer"><span class="toc-text">生产者 Producer</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#消费者-Consumer"><span class="toc-text">消费者 Consumer</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NSQ与Kafka比较"><span class="toc-text">NSQ与Kafka比较</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NSQ的安装和环境变量配置"><span class="toc-text">NSQ的安装和环境变量配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JAVA-NSQ"><span class="toc-text">JAVA + NSQ</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol>
   </div>
 
 
@@ -201,8 +204,101 @@
 
   <div class="article-content">
     
-      <h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>网上关于 <code>NSQ</code> 在 <code>java</code> 平台使用的资料非常少，</p>
-
+      <h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>网上关于 <code>NSQ</code> 在 <code>java</code> 平台使用的资料非常少，我们来看下 <code>NSQ</code> 到底与其他消息中间件有何不同，到底应该如何使用？</p>
+<h3 id="NSQ简介"><a href="#NSQ简介" class="headerlink" title="NSQ简介"></a>NSQ简介</h3><p><code>NSQ</code> 是一个基于 <code>go</code> 语言开发的分布式实时消息架构。<code>NSQ</code> 主要用于处理大规模消息任务，每天可以处理的任务可达十亿级别。</p>
+<h4 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h4><ul>
+<li>分布式，去中心化拓扑</li>
+<li>可伸缩，横向扩展</li>
+<li>操作友好，简单的配置&amp;部署</li>
+</ul>
+<h4 id="主要模块"><a href="#主要模块" class="headerlink" title="主要模块"></a>主要模块</h4><ol>
+<li><strong><a href="https://nsq.io/components/nsqlookupd.html" target="_blank" rel="noopener">nsqlookupd</a></strong> : 管理拓扑信息的守护程序。客户端查询<code>nsqlookupd</code>以发现<code>nsqd</code>特定主题的生产者，并且<code>nsqd</code>节点广播主题和信道信息。</li>
+<li><strong><a href="https://nsq.io/components/nsqd.html" target="_blank" rel="noopener">nsqd</a></strong> : 守护进程，它接收，排队并向客户端发送消息，可独立运行。</li>
+<li><strong><a href="https://nsq.io/components/nsqadmin.html" target="_blank" rel="noopener">nsqadmin</a></strong> : <code>Web UI</code>，可实时查看聚合的群集统计信息并执行各种管理任务。</li>
+<li><strong><a href="https://nsq.io/components/utilities.html" target="_blank" rel="noopener">utilities</a></strong> : 常见基础功能，数据流处理 <code>nsq_stat</code> <code>nsq_to_file</code>等</li>
+</ol>
+<p><img src="https://upload-images.jianshu.io/upload_images/14001673-adcf8b01a5004396.gif" alt="发布与消费"></p>
+<h4 id="主要角色"><a href="#主要角色" class="headerlink" title="主要角色"></a>主要角色</h4><h5 id="生产者-Producer"><a href="#生产者-Producer" class="headerlink" title="生产者 Producer"></a>生产者 Producer</h5><p>连接<code>nsqd</code>发布消息到<code>topic</code></p>
+<p><code>Producer</code>断线后需要手动重连，<code>Consumer</code>断线后会自动重连，<code>Consumer</code>的重连时间默认为60s，可设置短一点<br><code>Producer</code>不能发布空<code>message</code>否则会导致<code>panic</code><br>如果<code>Producer</code>连接的<code>nsqd</code>中断，那么<code>message</code>就会发布失败，所以我们也要考虑这种情况，做好备用方案。</p>
+<h5 id="消费者-Consumer"><a href="#消费者-Consumer" class="headerlink" title="消费者 Consumer"></a>消费者 Consumer</h5><p>消费者有两种方式与<code>nsqd</code>建立连接。</p>
+<ol>
+<li>消费者直连<code>nsqd</code>，这是最简单的方式，缺点是<code>nsqd</code>服务无法实现动态伸缩了</li>
+<li>消费者通过<code>http</code> 查询<code>nsqlookupd</code>获取该<code>nsqlookupd</code>上所有<code>nsqd</code>的连接地址，然后再分别和这些<code>nsqd</code>建立连接 (官方推荐的做法)，但是客户端会不停的向<code>nsqlookupd</code>查询最新的<code>nsqd</code>地址目录</li>
+</ol>
+<h3 id="NSQ与Kafka比较"><a href="#NSQ与Kafka比较" class="headerlink" title="NSQ与Kafka比较"></a>NSQ与Kafka比较</h3><table>
+<thead>
+<tr>
+<th>类别</th>
+<th>NSQ</th>
+<th>Kafka</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>存储</td>
+<td>默认是把消息放到内存中，只有当队列里消息的数量超过–mem-queue-size配置的限制时，才会对消息进行持久化</td>
+<td>写到磁盘中进行持久化，并通过顺序读写磁盘来保障性能。持久化能够让Kafka做更多的事情：消息的重新消费（重置offset）；让数据更加安全，不那么容易丢失。同时Kafka还通过partition的机制，对消息做了备份，进一步增强了消息的安全性</td>
+</tr>
+<tr>
+<td>推拉模型</td>
+<td>使用推模型，推模型能够使得时延非常小，消息到了马上就能够推送给下游消费，但是下游消费能够无法控制，推送过快可能导致下游过载</td>
+<td>使用拉模型，拉模型能够让消费者自己掌握节奏，但是这样轮询会让整个消费的时延增加，不过消息队列本身对时延的要求不是很大，这一点影响不是很大</td>
+</tr>
+<tr>
+<td>消息的顺序性</td>
+<td>不能把特性消息和消费者对应起来，所以无法实现消息的有序性</td>
+<td>因为消息在Partition中写入是有序的，同时一个Partition只能够被一个Consumer消费，这样就可能实现消息在Partition中的有序。自定义写入哪个Partition的规则能够让需要有序消费的相关消息都进入同一个Partition中被消费，这样达到”全局有序“</td>
+</tr>
+<tr>
+<td>数据备份</td>
+<td>只把消息存储到一台机器中，不做任何备份，一旦机器奔溃，磁盘损坏，消息就永久丢失了</td>
+<td>通过partition的机制，对消息做了备份，增强了消息的安全性</td>
+</tr>
+<tr>
+<td>消息投递</td>
+<td>支持至少一次，也就是说，消息有可能被多次投递，消费者必须自己保证消息处理的幂等性</td>
+<td>支持准确一次</td>
+</tr>
+<tr>
+<td>吞吐</td>
+<td>一般</td>
+<td>高</td>
+</tr>
+<tr>
+<td>是否可回溯</td>
+<td>否</td>
+<td>是</td>
+</tr>
+<tr>
+<td>requeue和defer</td>
+<td>消费失败requeue，延时消费defer</td>
+<td>无</td>
+</tr>
+<tr>
+<td>生态</td>
+<td>无</td>
+<td>Hadoop</td>
+</tr>
+</tbody>
+</table>
+<h3 id="NSQ的安装和环境变量配置"><a href="#NSQ的安装和环境变量配置" class="headerlink" title="NSQ的安装和环境变量配置"></a>NSQ的安装和环境变量配置</h3><p>安装配置<a href="https://golang.google.cn/dl/" target="_blank" rel="noopener">Go</a>开发环境</p>
+<p>1.下载<a href="https://nsq.io/deployment/installing.html" target="_blank" rel="noopener">nsq</a><br>2.解压</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xvf /downloads/NSQ-1.1.0.darwin-amd64.go1.10.3.tar.gz</span><br></pre></td></tr></table></figure>
+<p>3.删除压缩包，解压后到文件移动到<code>/usr/local</code></p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rm -rf /downloads/NSQ-1.1.0.darwin-amd64.go1.10.3.tar.gz</span><br><span class="line">mv NSQ-1.1.0.darwin-amd64.go1.10.3 /usr/local/nsq</span><br></pre></td></tr></table></figure>
+<p>4.配置环境变量</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#打开配置文件</span><br><span class="line">vim /etc/profile</span><br><span class="line"></span><br><span class="line">#在最后面加上下面的配置</span><br><span class="line">export NSQ_HOME=/usr/local/nsq</span><br><span class="line">export PATH=$PATH:$NSQ_HOME/bin</span><br><span class="line"></span><br><span class="line">#使环境变量生效</span><br><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
+<p>5.测试使用<br>1.启动<code>nsqlookupd</code></p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nsqlookupd</span><br></pre></td></tr></table></figure>
+<p>2.启动<code>nsqd</code></p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nsqd --lookupd-tcp-address=127.0.0.1:4160 -broadcast-address=127.0.0.1</span><br></pre></td></tr></table></figure>
+<p>3.启动<code>nsqadmin</code></p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nsqadmin --lookupd-http-address=127.0.0.1:4161</span><br></pre></td></tr></table></figure>
+<p>4.创建<code>topic</code>和<code>channel</code>，发布消息</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#创建topic</span><br><span class="line">curl -X POST http://127.0.0.1:4151/topic/create?topic=name</span><br><span class="line">#创建channel</span><br><span class="line">    curl -X POST http://127.0.0.1:4151/channel/create?topic=name&amp;channel=name</span><br><span class="line">#发布消息</span><br><span class="line">curl -d &quot;&lt;message&gt;&quot; http://127.0.0.1:4151/pub?topic=name</span><br></pre></td></tr></table></figure>
+<p>5.在浏览器输入<code>127.0.0.1:4171</code>查看消息与连接状态<br><img src="/picture/nsq/nsqadmin.jpg" alt="nsq的WebUI"></p>
+<h3 id="JAVA-NSQ"><a href="#JAVA-NSQ" class="headerlink" title="JAVA + NSQ"></a>JAVA + NSQ</h3><p>关于<code>java</code>使用NSQ的</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3>
     
   </div>
 

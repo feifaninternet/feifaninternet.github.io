@@ -25,7 +25,7 @@
 <meta property="og:locale" content="Chinese">
 <meta property="og:image" content="https://feifaninternet.github.io/picture/http/du-s.jpg">
 <meta property="og:image" content="https://feifaninternet.github.io/picture/http/cronjob.jpg">
-<meta property="og:updated_time" content="2019-04-16T10:43:01.434Z">
+<meta property="og:updated_time" content="2019-04-16T10:46:03.337Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="500G磁盘凭空消失！">
 <meta name="twitter:description" content="Description最近有一台磁盘容量500G的机器频繁出现磁盘容量不足，每次出现都只能重新启动机器，次数多了就想用一个一劳永逸的办法给他解决掉 问题查看步骤1.查看磁盘空间剩余容量    1df -h 2.如果磁盘容量已经用尽，找出占用容量最大的目录    1du -s /* | sort -nr        3.假设 /root 目录占用最多，查看root目录下哪个目录占用磁盘最多">
@@ -209,10 +209,10 @@
    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df -h</span><br></pre></td></tr></table></figure>
 <p>2.如果磁盘容量已经用尽，找出占用容量最大的目录</p>
    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">du -s /* | sort -nr</span><br></pre></td></tr></table></figure>
-<div class="wrap effect" style="box-shadow:0px 2px 8px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
-    webkit-box-shadow:0px 2px 8px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
-    moz-box-shadow:0px 2px 8px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
-    o-box-shadow:0px 2px 8px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;"><br>    <img src="/picture/http/du-s.jpg"><br></div>
+<div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;"><br>    <img src="/picture/http/du-s.jpg"><br></div>
 
 
 <p>3.假设 <code>/root</code> 目录占用最多，查看root目录下哪个目录占用磁盘最多</p>
@@ -233,7 +233,12 @@
    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crontab /app/app.cron &gt; /var/log/corn.log</span><br></pre></td></tr></table></figure>
 <p>2.5查看</p>
    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crontab -l</span><br></pre></td></tr></table></figure>
-<p><img src="/picture/http/cronjob.jpg" alt="任务"><br>3.</p>
+<div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;"><br>    <img src="/picture/http/cronjob.jpg" alt="定时任务"><br></div>
+
+<p>3.</p>
 
     
   </div>
