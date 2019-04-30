@@ -25,7 +25,7 @@
 <meta property="og:locale" content="Chinese">
 <meta property="og:image" content="https://feifaninternet.github.io/picture/HashMapRedBlankTree.jpg">
 <meta property="og:image" content="https://feifaninternet.github.io/picture/HashMapInsert.jpg">
-<meta property="og:updated_time" content="2019-04-11T03:35:25.226Z">
+<meta property="og:updated_time" content="2019-04-30T10:24:48.477Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HashMap 源码">
 <meta name="twitter:description" content="DescriptionHashMap的源码是很有代表性的，涉及的方面也很多，我们需要仔细的学习。关于HashMap的几个知识点：  HashMap是根据键值对存储的，并且存储时数据的键不能相同，如果相同，该键对应的值会被覆盖，如果想要保证HashMap能够正确的存储数据，要确保作为键的类已经正确覆写了equals()方法。 HashMap存储数据的位置与添加数据的键的hashCode()返回值有关">
@@ -213,7 +213,11 @@
 <li>HashMap是线程不安全的，如果需要多线程的情况下使用，可以用Collections.synchronizedMap(Map map)方法使hashMap具有线程安全能力，或者使用ConcurrentHashMap。</li>
 </ol>
 <h3 id="HashMap-的存储结构"><a href="#HashMap-的存储结构" class="headerlink" title="HashMap 的存储结构"></a>HashMap 的存储结构</h3><p>HashMap的存储结构在JDK 1.7和1.8之间有很大的变化，JDK1.7中先添加的元素总是放在数组相应的角标位置，而原来处于该角标位置的节点作为next节点放到新节点的后面，在JDK1.8之后解决hash冲突就不单单是使用数组加上单链表的组合了，因为如果hash值冲突较多，链表的长度就会越来越长，时间复杂度会达到0(n)，在1.8之后，新增节点导致链表长度超过TREEIFY_THRESHOLD = 8的时候，就会在添加元素的同时将原来的单链表转化为红黑树。</p>
-<p><img src="/picture/HashMapRedBlankTree.jpg" alt="HashMap的红黑树"></p>
+<div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;"><br>    <img src="/picture/HashMapRedBlankTree.jpg" alt="HashMap的红黑树" title="HashMap的红黑树"><br></div>
+
 <h3 id="HashMap-的重要参数"><a href="#HashMap-的重要参数" class="headerlink" title="HashMap 的重要参数"></a>HashMap 的重要参数</h3><h4 id="1-哈希桶-buckets"><a href="#1-哈希桶-buckets" class="headerlink" title="1.哈希桶(buckets)"></a>1.哈希桶(buckets)</h4><p>在 HashMap 的注释里使用哈希桶来形象的表示数组中每个地址位置。注意这里并不是数组本身，数组是装哈希桶的，他可以被称为哈希表。</p>
 <h4 id="2-初始容量-initial-capacity"><a href="#2-初始容量-initial-capacity" class="headerlink" title="2.初始容量(initial capacity)"></a>2.初始容量(initial capacity)</h4><p>哈希表中哈希桶的初始数量。如果没有通过构造方法修改，这个容量值默认为DEFAULT_INITIAL_CAPACITY = 1&lt;&lt;4(即16)。值得注意的是为了保证 HashMap 添加和查找的高效性，HashMap 的容量总是 2^n 的形式。</p>
 <h4 id="3-加载因子-load-factor"><a href="#3-加载因子-load-factor" class="headerlink" title="3.加载因子(load factor)"></a>3.加载因子(load factor)</h4><p>加载因子是哈希表（散列表）在其容量自动增加之前被允许获得的最大数量的度量。当哈希表中的条目数量超过负载因子和当前容量的乘积时，散列表就会被重新映射（即重建内部数据结构），重新创建的散列表容量大约是之前散列表哈系统桶数量的两倍。默认加载因子（0.75）在时间和空间成本之间提供了良好的折中。加载因子过大会导致很容易链表过长，加载因子很小又容易导致频繁的扩容。所以不要轻易试着去改变这个默认值。</p>

@@ -15,19 +15,19 @@
     <meta name="keywords" content="JAVA,">
   
 
-  <meta name="description" content="内存模型    &amp;nbsp;&amp;nbsp;堆栈的分开设计  栈存储了处理逻辑，堆存储了具体的数据，这样隔离设计更为清晰 堆栈分离使得堆可以被多个栈共享 栈保存了上下文的信息，因此只能向上增长；而堆是动态分配的    &amp;nbsp;&amp;nbsp;栈的大小可以通过-XSs设置，如果不足的话，会引起java.lang.StackOverflowError的异常    栈区&amp;nbsp;&amp;nbsp;线程私有，生命">
+  <meta name="description" content="内存模型       &amp;nbsp;&amp;nbsp;堆栈的分开设计  栈存储了处理逻辑，堆存储了具体的数据，这样隔离设计更为清晰 堆栈分离使得堆可以被多个栈共享 栈保存了上下文的信息，因此只能向上增长；而堆是动态分配的    &amp;nbsp;&amp;nbsp;栈的大小可以通过-XSs设置，如果不足的话，会引起java.lang.StackOverflowError的异常    栈区&amp;nbsp;&amp;nbsp;线程私有">
 <meta name="keywords" content="JAVA">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JVM内存模型与垃圾回收">
 <meta property="og:url" content="https://feifaninternet.github.io/2018/03/20/JVM内存模型与垃圾回收/index.html">
 <meta property="og:site_name" content="Xfan blog">
-<meta property="og:description" content="内存模型    &amp;nbsp;&amp;nbsp;堆栈的分开设计  栈存储了处理逻辑，堆存储了具体的数据，这样隔离设计更为清晰 堆栈分离使得堆可以被多个栈共享 栈保存了上下文的信息，因此只能向上增长；而堆是动态分配的    &amp;nbsp;&amp;nbsp;栈的大小可以通过-XSs设置，如果不足的话，会引起java.lang.StackOverflowError的异常    栈区&amp;nbsp;&amp;nbsp;线程私有，生命">
+<meta property="og:description" content="内存模型       &amp;nbsp;&amp;nbsp;堆栈的分开设计  栈存储了处理逻辑，堆存储了具体的数据，这样隔离设计更为清晰 堆栈分离使得堆可以被多个栈共享 栈保存了上下文的信息，因此只能向上增长；而堆是动态分配的    &amp;nbsp;&amp;nbsp;栈的大小可以通过-XSs设置，如果不足的话，会引起java.lang.StackOverflowError的异常    栈区&amp;nbsp;&amp;nbsp;线程私有">
 <meta property="og:locale" content="Chinese">
 <meta property="og:image" content="https://feifaninternet.github.io/picture/java-stack-model.png">
-<meta property="og:updated_time" content="2019-04-11T03:38:08.000Z">
+<meta property="og:updated_time" content="2019-04-30T10:24:48.486Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM内存模型与垃圾回收">
-<meta name="twitter:description" content="内存模型    &amp;nbsp;&amp;nbsp;堆栈的分开设计  栈存储了处理逻辑，堆存储了具体的数据，这样隔离设计更为清晰 堆栈分离使得堆可以被多个栈共享 栈保存了上下文的信息，因此只能向上增长；而堆是动态分配的    &amp;nbsp;&amp;nbsp;栈的大小可以通过-XSs设置，如果不足的话，会引起java.lang.StackOverflowError的异常    栈区&amp;nbsp;&amp;nbsp;线程私有，生命">
+<meta name="twitter:description" content="内存模型       &amp;nbsp;&amp;nbsp;堆栈的分开设计  栈存储了处理逻辑，堆存储了具体的数据，这样隔离设计更为清晰 堆栈分离使得堆可以被多个栈共享 栈保存了上下文的信息，因此只能向上增长；而堆是动态分配的    &amp;nbsp;&amp;nbsp;栈的大小可以通过-XSs设置，如果不足的话，会引起java.lang.StackOverflowError的异常    栈区&amp;nbsp;&amp;nbsp;线程私有">
 <meta name="twitter:image" content="https://feifaninternet.github.io/picture/java-stack-model.png">
 
   
@@ -203,7 +203,11 @@
 
   <div class="article-content">
     
-      <h3 id="内存模型"><a href="#内存模型" class="headerlink" title="内存模型"></a>内存模型</h3><p><img src="/picture/java-stack-model.png" alt="Picture">   </p>
+      <h3 id="内存模型"><a href="#内存模型" class="headerlink" title="内存模型"></a>内存模型</h3><div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;"><br>    <img src="/picture/java-stack-model.png" alt="Picture" title="Picture"><br></div> 
+
 <p>&nbsp;&nbsp;堆栈的分开设计</p>
 <ol>
 <li>栈存储了处理逻辑，堆存储了具体的数据，这样隔离设计更为清晰</li>

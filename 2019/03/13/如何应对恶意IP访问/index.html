@@ -15,23 +15,23 @@
     <meta name="keywords" content="http,">
   
 
-  <meta name="description" content="Description最近上线的一个项目，上线几天突然崩溃了，客户反馈的时候我也是纳闷，啥也没有改动呀，上服务器一看访问日志，很明显是有人在恶意攻击，项目运行内存不足挂掉了。  遇到这种情况，我们应该如何应对呢？ 限制单个IP访问接口的频率在拦截器中使用 Guava Cache 实现    1234567891011//初始化 cache ，定义过期时间 public final static C">
+  <meta name="description" content="Description最近上线的一个项目，上线几天突然崩溃了，客户反馈的时候我也是纳闷，啥也没有改动呀，上服务器一看访问日志，很明显是有人在恶意攻击，项目运行内存不足挂掉了。       遇到这种情况，我们应该如何应对呢？ 限制单个IP访问接口的频率在拦截器中使用 Guava Cache 实现    1234567891011//初始化 cache ，定义过期时间 public final sta">
 <meta name="keywords" content="http">
 <meta property="og:type" content="article">
 <meta property="og:title" content="如何应对恶意IP访问">
 <meta property="og:url" content="https://feifaninternet.github.io/2019/03/13/如何应对恶意IP访问/index.html">
 <meta property="og:site_name" content="Xfan blog">
-<meta property="og:description" content="Description最近上线的一个项目，上线几天突然崩溃了，客户反馈的时候我也是纳闷，啥也没有改动呀，上服务器一看访问日志，很明显是有人在恶意攻击，项目运行内存不足挂掉了。  遇到这种情况，我们应该如何应对呢？ 限制单个IP访问接口的频率在拦截器中使用 Guava Cache 实现    1234567891011//初始化 cache ，定义过期时间 public final static C">
+<meta property="og:description" content="Description最近上线的一个项目，上线几天突然崩溃了，客户反馈的时候我也是纳闷，啥也没有改动呀，上服务器一看访问日志，很明显是有人在恶意攻击，项目运行内存不足挂掉了。       遇到这种情况，我们应该如何应对呢？ 限制单个IP访问接口的频率在拦截器中使用 Guava Cache 实现    1234567891011//初始化 cache ，定义过期时间 public final sta">
 <meta property="og:locale" content="Chinese">
 <meta property="og:image" content="https://feifaninternet.github.io/picture/reqLog.jpg">
 <meta property="og:image" content="https://feifaninternet.github.io/picture/attackLog.png">
 <meta property="og:image" content="https://feifaninternet.github.io/picture/bakLog.jpg">
 <meta property="og:image" content="https://feifaninternet.github.io/picture/interceptor.jpg">
 <meta property="og:image" content="https://feifaninternet.github.io/picture/403.jpg">
-<meta property="og:updated_time" content="2019-04-11T03:38:07.977Z">
+<meta property="og:updated_time" content="2019-04-30T10:17:12.061Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何应对恶意IP访问">
-<meta name="twitter:description" content="Description最近上线的一个项目，上线几天突然崩溃了，客户反馈的时候我也是纳闷，啥也没有改动呀，上服务器一看访问日志，很明显是有人在恶意攻击，项目运行内存不足挂掉了。  遇到这种情况，我们应该如何应对呢？ 限制单个IP访问接口的频率在拦截器中使用 Guava Cache 实现    1234567891011//初始化 cache ，定义过期时间 public final static C">
+<meta name="twitter:description" content="Description最近上线的一个项目，上线几天突然崩溃了，客户反馈的时候我也是纳闷，啥也没有改动呀，上服务器一看访问日志，很明显是有人在恶意攻击，项目运行内存不足挂掉了。       遇到这种情况，我们应该如何应对呢？ 限制单个IP访问接口的频率在拦截器中使用 Guava Cache 实现    1234567891011//初始化 cache ，定义过期时间 public final sta">
 <meta name="twitter:image" content="https://feifaninternet.github.io/picture/reqLog.jpg">
 
   
@@ -208,7 +208,11 @@
   <div class="article-content">
     
       <h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>最近上线的一个项目，上线几天突然崩溃了，客户反馈的时候我也是纳闷，啥也没有改动呀，上服务器一看访问日志，很明显是有人在恶意攻击，项目运行内存不足挂掉了。</p>
-<p><img src="/picture/reqLog.jpg" alt="请求日志"></p>
+<div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;"><br>    <img src="/picture/reqLog.jpg" alt="请求日志" title="请求日志"><br></div>
+
 <p>遇到这种情况，我们应该如何应对呢？</p>
 <h3 id="限制单个IP访问接口的频率"><a href="#限制单个IP访问接口的频率" class="headerlink" title="限制单个IP访问接口的频率"></a>限制单个IP访问接口的频率</h3><p>在拦截器中使用 <code>Guava Cache</code> 实现</p>
    <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//初始化 cache ，定义过期时间</span></span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> Cache&lt;Object, Object&gt; IP_CONTROL = CacheBuilder.newBuilder()</span><br><span class="line">             .expireAfterAccess(<span class="number">1</span>, TimeUnit.SECONDS).build();</span><br><span class="line"> </span><br><span class="line"> <span class="comment">//拦截在限制时间内的单ip访问相同接口</span></span><br><span class="line"> <span class="keyword">if</span> (IP_CONTROL.getIfPresent(ip + url) != <span class="keyword">null</span>)&#123;</span><br><span class="line">     logger.warn(<span class="string">"拦截恶意请求, ip:&#123;&#125;, url:&#123;&#125;"</span>, ip, url);</span><br><span class="line">     <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="comment">//通过的ip放入缓存</span></span><br><span class="line"> IP_CONTROL.put(ip + url, <span class="string">"pass"</span>);</span><br></pre></td></tr></table></figure>
@@ -227,7 +231,11 @@
 <h3 id="Nginx-限制单IP并发访问数量和访问速度"><a href="#Nginx-限制单IP并发访问数量和访问速度" class="headerlink" title="Nginx 限制单IP并发访问数量和访问速度"></a>Nginx 限制单IP并发访问数量和访问速度</h3><p>1.在 <code>nginx</code> 相应的配置文件中加入下面的配置，然后重启 <code>nginx</code></p>
    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">    #定义一个名为allips的limit_req_zone用来存储session，大小是10M内存，</span><br><span class="line">    #以$binary_remote_addr 为key,限制平均每秒的请求为20个，</span><br><span class="line">    #1M能存储16000个状态，rete的值必须为整数，</span><br><span class="line">    #如果限制两秒钟一个请求，可以设置成30r/m</span><br><span class="line">    limit_req_zone $binary_remote_addr zone=allips:10m rate=20r/s;</span><br><span class="line">    #连接数限制</span><br><span class="line">    limit_conn_zone   one  $binary_remote_addr  10m;</span><br><span class="line">    ...</span><br><span class="line">    server &#123;</span><br><span class="line">        ...</span><br><span class="line">        location /***/ &#123;</span><br><span class="line">            #限制每ip每秒不超过20个请求，漏桶数burst为5</span><br><span class="line">            #brust的意思就是，如果第1-4秒请求为19个，第5秒的请求为25个是被允许的，可以不设置</span><br><span class="line">            #但是如果你第1秒就25个请求，第2秒超过20的请求返回503错误。</span><br><span class="line">            #nodelay，如果不设置该选项，严格使用平均速率限制请求数</span><br><span class="line">            #如果不设置第1秒25个请求时，5个请求放到第2秒执行，</span><br><span class="line">            #设置nodelay，25个请求将在第1秒执行。</span><br><span class="line">            #我处理时只设置了 limit_req zone=allips</span><br><span class="line">            limit_req zone=allips burst=5 nodelay;</span><br><span class="line">            </span><br><span class="line">            #连接数限制，我处理时未设置此参数</span><br><span class="line">            limit_conn one 20;          </span><br><span class="line">            #带宽限制,对单个连接限数，如果一个ip两个连接，就是500x2k，我处理时未设置此参数</span><br><span class="line">            limit_rate 500k; </span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>控制之后查看 <code>nginx</code> 的请求日志，发现许多请求已被拦截，返回 <code>503</code></p>
-<p><img src="/picture/attackLog.png" alt="nginx日志"></p>
+<div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;"><br>    <img src="/picture/attackLog.png" alt="nginx日志" title="nginx日志"><br></div>
+
 <p>请求未到应用层，系统压力大大降低，恶意请求绝大部分都被拦截<br>缺陷: </p>
 <ol>
 <li>恶意IP还是会有少量的请求到达应用层，致使恶意请求的次数被控制</li>
@@ -238,11 +246,23 @@
    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">#日志目录</span><br><span class="line">log_path=/var/log/nginx</span><br><span class="line">date=`date -d &quot;10 min ago&quot; +%Y%m%d-%H:%M:%S`</span><br><span class="line">cd $&#123;log_path&#125;</span><br><span class="line">#过滤appvalley-access_log中正常访问API接口并在10分钟</span><br><span class="line">#内访问量最高的100个IP，取值如果此IP访问量大于100次，则把此IP放入黑名单</span><br><span class="line">#awk &apos;&#123; print $1&#125;&apos;：取数据的低1域（第1列），第一列为访问次数，第二列为ip</span><br><span class="line">#awk &apos;&#123;if($1&gt;100) print &quot;deny &quot;$2&quot;;&quot;&#125;&apos; 第一列访问次数大于100时，将第二列的ip记录</span><br><span class="line">#sort：对IP部分进行排序。</span><br><span class="line">#uniq -c：打印每一重复行出现的次数。（并去掉重复行）</span><br><span class="line">#sort -nr -k1：按照重复行出现的次序倒序排列,-k1以第一列为标准排序。</span><br><span class="line">#head -n 100：取排在前100位的IP 。</span><br><span class="line">cat appvalley-access_log | grep -v 403 | awk &apos;&#123;print $1&#125;&apos;|sort|uniq -c | sort -nr -k1 </span><br><span class="line">| head -n 100 | awk &apos;&#123;if($1&gt;100) print &quot;deny &quot;$2&quot;;&quot;&#125;&apos; &gt; /etc/nginx/website/denyip.conf</span><br><span class="line">#将appvalley-access_log中的日志移动到accesslog.bak/中，accesslog.bak/是切割的日志</span><br><span class="line">mv $&#123;log_path&#125;/appvalley-access_log $&#123;log_path&#125;/accesslog.bak/access_$&#123;date&#125;.log</span><br><span class="line"># 重载nginx</span><br><span class="line">cd /sbin/</span><br><span class="line">nginx -s reload</span><br></pre></td></tr></table></figure>
 <p>2.修改 <code>nginx.conf</code> 使其包含 <code>denyip.conf</code>，重载 <code>nginx</code>，因为之前配置项目路径时已经加入了 <code>include /etc/nginx/website/*.conf;</code>，所以就不用再设置了</p>
 <p>3.运行 <code>Shell</code> 脚本进行验证，进入 <code>accesslog.bak/</code> 目录中，查看日志分隔是否成功</p>
-<p><img src="/picture/bakLog.jpg" alt="分隔日志"></p>
+<div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;"><br>    <img src="/picture/bakLog.jpg" alt="分隔日志" title="分隔日志"><br></div>
+
 <p>4.查看 <code>denyip.conf</code> 文件，发现已经写入了拦截的恶意IP</p>
-<p><img src="/picture/interceptor.jpg" alt="拦截IP"></p>
+<div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;"><br>    <img src="/picture/interceptor.jpg" alt="拦截IP" title="拦截IP"><br></div>
+
 <p>5.再查看 <code>nginx</code> 访问日志是否成功拦截请求</p>
-<p><img src="/picture/403.jpg" alt="nginx请求日志"></p>
+<div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;"><br>    <img src="/picture/403.jpg" alt="nginx请求日志" title="nginx请求日志"><br></div>
+
 <p>6.脚本验证成功后我们可以添加定时任务，每10分钟执行一次脚本，去禁用恶意IP</p>
    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*/10 * * * * /bin/bash /shell/nginx_cutaccesslog.sh &gt; /dev/null 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
 <p><em>剩余疑问：如何获取真实IP进行拦截？</em></p>

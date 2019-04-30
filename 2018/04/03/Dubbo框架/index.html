@@ -15,22 +15,22 @@
     <meta name="keywords" content="Dubbo,">
   
 
-  <meta name="description" content="DescriptionDubbo是Alibaba开源的分布式服务框架，它最大的特点是按照分层的方式来架构，使用这种方式可以使各个层之间解耦合。从服务模型的角度来看，Dubbo采用的是一种非常简单的模型，要么是提供方提供服务，要么是消费方消费服务，所以基于这一点可以抽象出服务提供方和服务消费方两个角色。详细框架介绍可见Alibba官方Dubbo文档 总体架构 Dubbo框架设计一共划分了10个层，而">
+  <meta name="description" content="DescriptionDubbo是Alibaba开源的分布式服务框架，它最大的特点是按照分层的方式来架构，使用这种方式可以使各个层之间解耦合。从服务模型的角度来看，Dubbo采用的是一种非常简单的模型，要么是提供方提供服务，要么是消费方消费服务，所以基于这一点可以抽象出服务提供方和服务消费方两个角色。详细框架介绍可见Alibba官方Dubbo文档 总体架构      Dubbo框架设计一共划分了1">
 <meta name="keywords" content="Dubbo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Dubbo框架">
 <meta property="og:url" content="https://feifaninternet.github.io/2018/04/03/Dubbo框架/index.html">
 <meta property="og:site_name" content="Xfan blog">
-<meta property="og:description" content="DescriptionDubbo是Alibaba开源的分布式服务框架，它最大的特点是按照分层的方式来架构，使用这种方式可以使各个层之间解耦合。从服务模型的角度来看，Dubbo采用的是一种非常简单的模型，要么是提供方提供服务，要么是消费方消费服务，所以基于这一点可以抽象出服务提供方和服务消费方两个角色。详细框架介绍可见Alibba官方Dubbo文档 总体架构 Dubbo框架设计一共划分了10个层，而">
+<meta property="og:description" content="DescriptionDubbo是Alibaba开源的分布式服务框架，它最大的特点是按照分层的方式来架构，使用这种方式可以使各个层之间解耦合。从服务模型的角度来看，Dubbo采用的是一种非常简单的模型，要么是提供方提供服务，要么是消费方消费服务，所以基于这一点可以抽象出服务提供方和服务消费方两个角色。详细框架介绍可见Alibba官方Dubbo文档 总体架构      Dubbo框架设计一共划分了1">
 <meta property="og:locale" content="Chinese">
 <meta property="og:image" content="https://feifaninternet.github.io/picture/DubboArchitecture.png">
 <meta property="og:image" content="https://feifaninternet.github.io/picture/dubboModules.jpg">
 <meta property="og:image" content="https://feifaninternet.github.io/picture/dubboRefer.jpg">
 <meta property="og:image" content="https://feifaninternet.github.io/picture/DubboInvok.jpg">
-<meta property="og:updated_time" content="2019-04-11T03:21:00.662Z">
+<meta property="og:updated_time" content="2019-04-30T10:24:48.495Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Dubbo框架">
-<meta name="twitter:description" content="DescriptionDubbo是Alibaba开源的分布式服务框架，它最大的特点是按照分层的方式来架构，使用这种方式可以使各个层之间解耦合。从服务模型的角度来看，Dubbo采用的是一种非常简单的模型，要么是提供方提供服务，要么是消费方消费服务，所以基于这一点可以抽象出服务提供方和服务消费方两个角色。详细框架介绍可见Alibba官方Dubbo文档 总体架构 Dubbo框架设计一共划分了10个层，而">
+<meta name="twitter:description" content="DescriptionDubbo是Alibaba开源的分布式服务框架，它最大的特点是按照分层的方式来架构，使用这种方式可以使各个层之间解耦合。从服务模型的角度来看，Dubbo采用的是一种非常简单的模型，要么是提供方提供服务，要么是消费方消费服务，所以基于这一点可以抽象出服务提供方和服务消费方两个角色。详细框架介绍可见Alibba官方Dubbo文档 总体架构      Dubbo框架设计一共划分了1">
 <meta name="twitter:image" content="https://feifaninternet.github.io/picture/DubboArchitecture.png">
 
   
@@ -207,7 +207,11 @@
   <div class="article-content">
     
       <h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>Dubbo是Alibaba开源的分布式服务框架，它最大的特点是按照分层的方式来架构，使用这种方式可以使各个层之间解耦合。从服务模型的角度来看，Dubbo采用的是一种非常简单的模型，要么是提供方提供服务，要么是消费方消费服务，所以基于这一点可以抽象出服务提供方和服务消费方两个角色。<br>详细框架介绍可见<a href="http://dubbo.io/books/dubbo-dev-book/design.html" target="_blank" rel="noopener">Alibba官方Dubbo文档</a></p>
-<h3 id="总体架构"><a href="#总体架构" class="headerlink" title="总体架构"></a>总体架构</h3><p><img src="/picture/DubboArchitecture.png" alt="Dubbo总体架构"></p>
+<h3 id="总体架构"><a href="#总体架构" class="headerlink" title="总体架构"></a>总体架构</h3><div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;"><br>    <img src="/picture/DubboArchitecture.png" alt="Dubbo总体架构" title="Dubbo总体架构"><br></div>
+
 <p>Dubbo框架设计一共划分了10个层，而最上面的Service层是留给实际想要使用Dubbo开发分布式服务的开发者实现业务逻辑的接口层。</p>
 <ol>
 <li>服务接口层(Service)：该层是与实际业务逻辑相关的，根据服务提供方和服务消费方的业务设计对应的接口和实现。</li>
@@ -230,7 +234,11 @@
 <li>而 Remoting 实现是 Dubbo 协议的实现，如果你选择 RMI 协议，整个 Remoting 都不会用上，Remoting 内部再划为 Transport 传输层和 Exchange 信息交换层，Transport 层只负责单向消息传输，是对 Mina, Netty, Grizzly 的抽象，它也可以扩展 UDP 传输，而 Exchange 层是在传输层之上封装了 Request-Response 语义。</li>
 <li>Registry 和 Monitor 实际上不算一层，而是一个独立的节点，只是为了全局概览，用层的方式画在一起。</li>
 </ul>
-<h3 id="模块分包"><a href="#模块分包" class="headerlink" title="模块分包"></a>模块分包</h3><p><img src="/picture/dubboModules.jpg" alt="Dubbo模块分包"></p>
+<h3 id="模块分包"><a href="#模块分包" class="headerlink" title="模块分包"></a>模块分包</h3><div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;"><br>    <img src="/picture/dubboModules.jpg" alt="Dubbo模块分包" title="Dubbo模块分包"><br></div>
+
 <p>模块说明：</p>
 <ul>
 <li>dubbo-common 公共逻辑模块：包括 Util 类和通用模型。</li>
@@ -265,14 +273,21 @@
 <li>Netty</li>
 <li>Grizzly</li>
 </ul>
-<h3 id="依赖关系"><a href="#依赖关系" class="headerlink" title="依赖关系"></a>依赖关系</h3><p><img src="/picture/dubboRefer.jpg" alt="Dubbo依赖关系"></p>
+<h3 id="依赖关系"><a href="#依赖关系" class="headerlink" title="依赖关系"></a>依赖关系</h3><div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;"><br>    <img src="/picture/dubboRefer.jpg" alt="Dubbo依赖关系" title="Dubbo依赖关系"><br></div>
+
 <p>业务调用流程</p>
 <ol>
 <li>服务提供方发布服务到服务注册中心</li>
 <li>服务消费方从服务注册中心订阅服务</li>
 <li>服务消费方调用已经注册的可用服务</li>
 </ol>
-<h3 id="调用链"><a href="#调用链" class="headerlink" title="调用链"></a>调用链</h3><p><img src="/picture/DubboInvok.jpg" alt="Dubbo调用链"></p>
+<h3 id="调用链"><a href="#调用链" class="headerlink" title="调用链"></a>调用链</h3><div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;"><br>    <img src="/picture/DubboInvok.jpg" alt="Dubbo调用链" title="Dubbo调用链"><br></div>
 
     
   </div>

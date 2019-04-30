@@ -24,7 +24,7 @@
 <meta property="og:description" content="Http 简介HTTP协议(HyperText Transfer Protocol,超文本传输协议)是用于WWW 服务器传输超文本到本地浏览器的传送协议，它可以使浏览器更加高效，使网络传输减少。 计算机之间的通信TCP/IP 协议计算机之间的通信是通过TCP/IP协议在因特网上进行的，实际上这是两个协议：  IP:网际协议，计算机之间的通信 IP协议是计算机用来相互识别的通信的一种机制，每台计算机">
 <meta property="og:locale" content="Chinese">
 <meta property="og:image" content="https://feifaninternet.github.io/picture/protocol.jpg">
-<meta property="og:updated_time" content="2019-04-11T03:35:25.223Z">
+<meta property="og:updated_time" content="2019-04-30T10:24:48.497Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTTP协议">
 <meta name="twitter:description" content="Http 简介HTTP协议(HyperText Transfer Protocol,超文本传输协议)是用于WWW 服务器传输超文本到本地浏览器的传送协议，它可以使浏览器更加高效，使网络传输减少。 计算机之间的通信TCP/IP 协议计算机之间的通信是通过TCP/IP协议在因特网上进行的，实际上这是两个协议：  IP:网际协议，计算机之间的通信 IP协议是计算机用来相互识别的通信的一种机制，每台计算机">
@@ -214,7 +214,11 @@
 </ul>
 <p>TCP确保数据包以正确的次序到达，并且尝试确认数据包的内容没有改变。当应用程序希望通过 TCP 与另一个应用程序通信时，它会发送一个通信请求。这个请求必须被送到一个确切的地址。在双方“握手”之后，TCP 将在两个应用程序之间建立一个全双工 (full-duplex) 通信(双向同时通信，即通信的双方可以同时发送和接口信息的信息交互方式)，占用两个计算机之间整个的通信线路。TCP 用于从应用程序到网络的数据传输控制，负责在数据传送之前将它们分割为 IP 包，然后在它们到达的时候将它们重组。</p>
 <h3 id="HTTP-所在协议层"><a href="#HTTP-所在协议层" class="headerlink" title="HTTP 所在协议层"></a>HTTP 所在协议层</h3><p>HTTP是基于TCP协议之上的，它是应用层协议。</p>
-<p><img src="/picture/protocol.jpg" alt="各层的协议"></p>
+<div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;"><br>    <img src="/picture/protocol.jpg" alt="各层的协议" title="各层的协议"><br></div>
+
 <h3 id="HTTP的请求响应"><a href="#HTTP的请求响应" class="headerlink" title="HTTP的请求响应"></a>HTTP的请求响应</h3><p>HTTP由请求和响应构成，是一个标准的客户端服务器模型（B/S）。HTTP协议永远都是客户端发起请求，服务器回送响应。<br>HTTP是一个无状态协议。无状态是指客户端和服务器不需要建立持久的连接，当客户端的请求得到了服务器的响应，连接就被关闭了，在服务器端不保留连接的有关信息，HTTP遵循请求应答模型(Request Response)。</p>
 <h3 id="HTTP工作工程"><a href="#HTTP工作工程" class="headerlink" title="* HTTP工作工程"></a>* HTTP工作工程</h3><p>1.地址解析<br>如果客户端浏览器请求这个页面：<a href="http://localhost:8080/index.html" target="_blank" rel="noopener">http://localhost:8080/index.html</a><br>从中分解出协议名，主机名，端口，对象路径等，解析结果如下:</p>
 <ul>
