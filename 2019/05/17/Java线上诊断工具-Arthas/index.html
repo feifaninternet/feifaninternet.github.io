@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://feifaninternet.github.io/picture/arthas/tt-l.jpg">
 <meta property="og:image" content="https://feifaninternet.github.io/picture/arthas/tt查看具体信息.jpg">
 <meta property="og:image" content="https://feifaninternet.github.io/picture/arthas/模拟调用.jpg">
-<meta property="og:updated_time" content="2019-05-27T10:04:10.847Z">
+<meta property="og:updated_time" content="2019-05-27T10:10:47.109Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java 线上诊断工具 Arthas">
 <meta name="twitter:description" content="Description对于很多线上发生的问题，我们无法在线上debug，线下也无法重现，这个时候我们便可以使用这个工具来进行诊断，它可以监控jvm实时运行状态，可以观察指定类中的某个方法的内部调用路径，也可以对监控后的请求进行重现 相关命令和使用场景更多命令查阅官方文档 1.启动   1234java -jar arthas-boot.jar#打印更多详细信息java -jar arthas-bo">
@@ -215,14 +215,13 @@
       <h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>对于很多线上发生的问题，我们无法在线上debug，线下也无法重现，这个时候我们便可以使用这个工具来进行诊断，它可以监控jvm实时运行状态，<br>可以观察指定类中的某个方法的内部调用路径，也可以对监控后的请求进行重现</p>
 <h3 id="相关命令和使用场景"><a href="#相关命令和使用场景" class="headerlink" title="相关命令和使用场景"></a>相关命令和使用场景</h3><p>更多命令查阅<a href="https://alibaba.github.io/arthas/install-detail.html" target="_blank" rel="noopener">官方文档</a></p>
 <h4 id="1-启动"><a href="#1-启动" class="headerlink" title="1.启动"></a>1.启动</h4>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">java -jar arthas-boot.jar</span><br><span class="line"></span><br><span class="line">#打印更多详细信息</span><br><span class="line">java -jar arthas-boot.jar -h</span><br></pre></td></tr></table></figure>
-<p>如果有多个应用，输入响应数字选择就好了</p>
+<p>如果有多个应用，输入相应数字选择</p>
 <div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
     webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
     moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
     o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;"><br>    <img src="/picture/arthas/aras启动.jpg" alt="aras启动" title="aras启动"><br></div>
 
 <h4 id="2-查看当前进程信息"><a href="#2-查看当前进程信息" class="headerlink" title="2.查看当前进程信息"></a>2.查看当前进程信息</h4><p><strong><a href="https://alibaba.github.io/arthas/dashboard.html#dashboard" target="_blank" rel="noopener">dashboard命令</a></strong></p>
-   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dashboard</span><br></pre></td></tr></table></figure>
 <div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
     webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
     moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
@@ -232,11 +231,12 @@
 <h4 id="3-查看进程信息"><a href="#3-查看进程信息" class="headerlink" title="3.查看进程信息"></a>3.查看进程信息</h4><p><strong><a href="https://alibaba.github.io/arthas/thread.html#thread" target="_blank" rel="noopener">thread命令</a></strong>: 查看当前线程信息，查看线程的堆栈</p>
    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#显示所有线程信息</span><br><span class="line">thread</span><br><span class="line"></span><br><span class="line">#打印线程ID 1的栈</span><br><span class="line">thread 1</span><br><span class="line"></span><br><span class="line">#显示最忙的前n个线程，打印堆栈</span><br><span class="line">thread -n 3</span><br><span class="line"></span><br><span class="line">#找出阻塞其他线程的线程</span><br><span class="line">thread -b</span><br></pre></td></tr></table></figure>
 <h4 id="4-方法执行数据观测"><a href="#4-方法执行数据观测" class="headerlink" title="4.方法执行数据观测"></a>4.方法执行数据观测</h4><p><strong><a href="https://alibaba.github.io/arthas/watch.html#watch" target="_blank" rel="noopener">watch命令</a></strong>: 观察指定方法的调用情况(返回值、抛出异常、入参)</p>
-<p>请求观察的方法后即可观察到</p>
+<p>请求观察的方法后即可观察到控制台输出</p>
 <div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
     webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
     moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
     o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;"><br>    <img src="/picture/arthas/watch演示.jpg" alt="watch演示" title="watch演示"><br></div>
+
 
 <table>
 <thead>
@@ -293,9 +293,9 @@
 <p>数据过滤</p>
    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ watch demo.MathGame primeFactors &apos;&#123;params, returnObj&#125;&apos; &apos;#cost&gt;200&apos; -x 2</span><br><span class="line">Press Ctrl+C to abort.</span><br><span class="line">Affect(class-cnt:1 , method-cnt:1) cost in 66 ms.</span><br><span class="line">ts=2018-12-03 19:40:28; [cost=2112.168897ms] result=@ArrayList[</span><br><span class="line">    @Object[][</span><br><span class="line">        @Integer[2141897465],</span><br><span class="line">    ],</span><br><span class="line">    @ArrayList[</span><br><span class="line">        @Integer[5],</span><br><span class="line">        @Integer[428379493],</span><br><span class="line">    ],</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
 <p><strong>观察某个类以及类的属性，可实现线上断点的效果，非常方便</strong></p>
-<p>查看方法运行前后，当前对象中的属性，可以使用<code>target</code>关键字，代表当前对象</p>
+<p>1.查看方法运行前后，当前对象中的属性，可以使用<code>target</code>关键字，代表当前对象</p>
    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ watch demo.MathGame primeFactors &apos;target&apos;</span><br><span class="line">Press Ctrl+C to abort.</span><br><span class="line">Affect(class-cnt:1 , method-cnt:1) cost in 52 ms.</span><br><span class="line">ts=2018-12-03 19:41:52; [cost=0.477882ms] result=@MathGame[</span><br><span class="line">    random=@Random[java.util.Random@522b408a],</span><br><span class="line">    illegalArgumentCount=@Integer[13355],</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-<p>然后使用<code>target.field_name</code>访问当前对象的某个属性</p>
+<p>2.使用<code>target.field_name</code>访问当前对象的某个属性</p>
    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ watch demo.MathGame primeFactors &apos;target.illegalArgumentCount&apos;</span><br><span class="line">Press Ctrl+C to abort.</span><br><span class="line">Affect(class-cnt:1 , method-cnt:1) cost in 67 ms.</span><br><span class="line">ts=2018-12-03 20:04:34; [cost=131.303498ms] result=@Integer[8]</span><br><span class="line">ts=2018-12-03 20:04:35; [cost=0.961441ms] result=@Integer[8]</span><br></pre></td></tr></table></figure>
 <p>测试请求时，查看某个<code>service</code>中的属性和相应方法中的对象的属性</p>
 <div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
