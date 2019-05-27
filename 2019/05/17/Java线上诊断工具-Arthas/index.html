@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>Java 线上诊断工具 Arthas | Xfan blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Arthas,">
+  
+
+  <meta name="description" content="Description对于很多线上发生的问题，我们无法在线上debug，线下也无法重现，这个时候我们便可以使用这个工具来进行诊断，它可以监控jvm实时运行状态，可以观察指定类中的某个方法的内部调用路径，也可以对监控后的请求进行重现 相关命令和使用场景更多命令查阅官方文档 1.启动   1234java -jar arthas-boot.jar#打印更多详细信息java -jar arthas-bo">
+<meta name="keywords" content="Arthas">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 线上诊断工具 Arthas">
+<meta property="og:url" content="https://feifaninternet.github.io/2019/05/17/Java线上诊断工具-Arthas/index.html">
+<meta property="og:site_name" content="Xfan blog">
+<meta property="og:description" content="Description对于很多线上发生的问题，我们无法在线上debug，线下也无法重现，这个时候我们便可以使用这个工具来进行诊断，它可以监控jvm实时运行状态，可以观察指定类中的某个方法的内部调用路径，也可以对监控后的请求进行重现 相关命令和使用场景更多命令查阅官方文档 1.启动   1234java -jar arthas-boot.jar#打印更多详细信息java -jar arthas-bo">
+<meta property="og:locale" content="Chinese">
+<meta property="og:image" content="https://feifaninternet.github.io/picture/arthas/aras启动.jpg">
+<meta property="og:image" content="https://feifaninternet.github.io/picture/arthas/dashboard.jpg">
+<meta property="og:image" content="https://feifaninternet.github.io/picture/arthas/watch演示.jpg">
+<meta property="og:image" content="https://feifaninternet.github.io/picture/arthas/watch断点.jpg">
+<meta property="og:image" content="https://feifaninternet.github.io/picture/arthas/trace耗时.jpg">
+<meta property="og:image" content="https://feifaninternet.github.io/picture/arthas/stack.jpg">
+<meta property="og:image" content="https://feifaninternet.github.io/picture/arthas/jobs.jpg">
+<meta property="og:image" content="https://feifaninternet.github.io/picture/arthas/tt-l.jpg">
+<meta property="og:image" content="https://feifaninternet.github.io/picture/arthas/tt查看具体信息.jpg">
+<meta property="og:image" content="https://feifaninternet.github.io/picture/arthas/模拟调用.jpg">
+<meta property="og:updated_time" content="2019-05-27T10:04:10.847Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java 线上诊断工具 Arthas">
+<meta name="twitter:description" content="Description对于很多线上发生的问题，我们无法在线上debug，线下也无法重现，这个时候我们便可以使用这个工具来进行诊断，它可以监控jvm实时运行状态，可以观察指定类中的某个方法的内部调用路径，也可以对监控后的请求进行重现 相关命令和使用场景更多命令查阅官方文档 1.启动   1234java -jar arthas-boot.jar#打印更多详细信息java -jar arthas-bo">
+<meta name="twitter:image" content="https://feifaninternet.github.io/picture/arthas/aras启动.jpg">
+
+  
+
+  
+    <link rel="icon" href="/picture/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/person/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">Site</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">Site</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/archives/" rel="noopener noreferrer" target="_self">
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/categories/JAVA" rel="noopener noreferrer" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/tags/git" rel="noopener noreferrer" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/link/" rel="noopener noreferrer" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/about/" rel="noopener noreferrer" target="_self">
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/search/" rel="noopener noreferrer" target="_self">
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Description"><span class="toc-text">Description</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#相关命令和使用场景"><span class="toc-text">相关命令和使用场景</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-启动"><span class="toc-text">1.启动</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-查看当前进程信息"><span class="toc-text">2.查看当前进程信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-查看进程信息"><span class="toc-text">3.查看进程信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-方法执行数据观测"><span class="toc-text">4.方法执行数据观测</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-查看方法内部调用路径及耗时"><span class="toc-text">5.查看方法内部调用路径及耗时</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-查看方法完整调用路径"><span class="toc-text">6.查看方法完整调用路径</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-记录指定方法的调用"><span class="toc-text">7.记录指定方法的调用</span></a></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-Java线上诊断工具-Arthas" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Java 线上诊断工具 Arthas</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2019.05.17</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>xfan</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/Expand/">Expand</a>
+  </span>
+
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="https://feifaninternet.github.io//2019/05/17/Java线上诊断工具-Arthas/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>对于很多线上发生的问题，我们无法在线上debug，线下也无法重现，这个时候我们便可以使用这个工具来进行诊断，它可以监控jvm实时运行状态，<br>可以观察指定类中的某个方法的内部调用路径，也可以对监控后的请求进行重现</p>
+<h3 id="相关命令和使用场景"><a href="#相关命令和使用场景" class="headerlink" title="相关命令和使用场景"></a>相关命令和使用场景</h3><p>更多命令查阅<a href="https://alibaba.github.io/arthas/install-detail.html" target="_blank" rel="noopener">官方文档</a></p>
+<h4 id="1-启动"><a href="#1-启动" class="headerlink" title="1.启动"></a>1.启动</h4>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">java -jar arthas-boot.jar</span><br><span class="line"></span><br><span class="line">#打印更多详细信息</span><br><span class="line">java -jar arthas-boot.jar -h</span><br></pre></td></tr></table></figure>
+<p>如果有多个应用，输入响应数字选择就好了</p>
+<div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;"><br>    <img src="/picture/arthas/aras启动.jpg" alt="aras启动" title="aras启动"><br></div>
+
+<h4 id="2-查看当前进程信息"><a href="#2-查看当前进程信息" class="headerlink" title="2.查看当前进程信息"></a>2.查看当前进程信息</h4><p><strong><a href="https://alibaba.github.io/arthas/dashboard.html#dashboard" target="_blank" rel="noopener">dashboard命令</a></strong></p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dashboard</span><br></pre></td></tr></table></figure>
+<div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;"><br>    <img src="/picture/arthas/dashboard.jpg" alt="dashboard" title="dashboard"><br></div>
+
+<p>信息会自动刷新，cpu使用比例，堆内存使用情况，应用GC次数，应用GC耗时都很清楚。<br><code>ctrl+c</code> 可中断执行，可查看<code>main</code>方法的线程id，通过<code>thread id</code>的命令来获取<code>Main Class</code></p>
+<h4 id="3-查看进程信息"><a href="#3-查看进程信息" class="headerlink" title="3.查看进程信息"></a>3.查看进程信息</h4><p><strong><a href="https://alibaba.github.io/arthas/thread.html#thread" target="_blank" rel="noopener">thread命令</a></strong>: 查看当前线程信息，查看线程的堆栈</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#显示所有线程信息</span><br><span class="line">thread</span><br><span class="line"></span><br><span class="line">#打印线程ID 1的栈</span><br><span class="line">thread 1</span><br><span class="line"></span><br><span class="line">#显示最忙的前n个线程，打印堆栈</span><br><span class="line">thread -n 3</span><br><span class="line"></span><br><span class="line">#找出阻塞其他线程的线程</span><br><span class="line">thread -b</span><br></pre></td></tr></table></figure>
+<h4 id="4-方法执行数据观测"><a href="#4-方法执行数据观测" class="headerlink" title="4.方法执行数据观测"></a>4.方法执行数据观测</h4><p><strong><a href="https://alibaba.github.io/arthas/watch.html#watch" target="_blank" rel="noopener">watch命令</a></strong>: 观察指定方法的调用情况(返回值、抛出异常、入参)</p>
+<p>请求观察的方法后即可观察到</p>
+<div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;"><br>    <img src="/picture/arthas/watch演示.jpg" alt="watch演示" title="watch演示"><br></div>
+
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>class-pattern</td>
+<td>类名表达式匹配</td>
+</tr>
+<tr>
+<td>method-pattern</td>
+<td>方法名表达式匹配</td>
+</tr>
+<tr>
+<td>express</td>
+<td>观察表达式</td>
+</tr>
+<tr>
+<td>condition-express</td>
+<td>条件表达式</td>
+</tr>
+<tr>
+<td>[b]</td>
+<td>在方法调用之前观察</td>
+</tr>
+<tr>
+<td>[e]</td>
+<td>在方法异常之后观察</td>
+</tr>
+<tr>
+<td>[s]</td>
+<td>在方法返回之后观察</td>
+</tr>
+<tr>
+<td>[f]</td>
+<td>在方法结束之后(正常返回和异常返回)观察</td>
+</tr>
+<tr>
+<td>[E]</td>
+<td>开启正则表达式匹配，默认为通配符匹配</td>
+</tr>
+<tr>
+<td>[x:]</td>
+<td>指定输出结果的属性遍历深度，默认为 1</td>
+</tr>
+</tbody>
+</table>
+<p>条件表达式</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ watch demo.MathGame primeFactors &quot;&#123;params[0],target&#125;&quot; &quot;params[0]&lt;0&quot;</span><br><span class="line">Press Ctrl+C to abort.</span><br><span class="line">Affect(class-cnt:1 , method-cnt:1) cost in 68 ms.</span><br><span class="line">ts=2018-12-03 19:36:04; [cost=0.530255ms] result=@ArrayList[</span><br><span class="line">    @Integer[-18178089],</span><br><span class="line">    @MathGame[demo.MathGame@41cf53f9],</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>数据过滤</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ watch demo.MathGame primeFactors &apos;&#123;params, returnObj&#125;&apos; &apos;#cost&gt;200&apos; -x 2</span><br><span class="line">Press Ctrl+C to abort.</span><br><span class="line">Affect(class-cnt:1 , method-cnt:1) cost in 66 ms.</span><br><span class="line">ts=2018-12-03 19:40:28; [cost=2112.168897ms] result=@ArrayList[</span><br><span class="line">    @Object[][</span><br><span class="line">        @Integer[2141897465],</span><br><span class="line">    ],</span><br><span class="line">    @ArrayList[</span><br><span class="line">        @Integer[5],</span><br><span class="line">        @Integer[428379493],</span><br><span class="line">    ],</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p><strong>观察某个类以及类的属性，可实现线上断点的效果，非常方便</strong></p>
+<p>查看方法运行前后，当前对象中的属性，可以使用<code>target</code>关键字，代表当前对象</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ watch demo.MathGame primeFactors &apos;target&apos;</span><br><span class="line">Press Ctrl+C to abort.</span><br><span class="line">Affect(class-cnt:1 , method-cnt:1) cost in 52 ms.</span><br><span class="line">ts=2018-12-03 19:41:52; [cost=0.477882ms] result=@MathGame[</span><br><span class="line">    random=@Random[java.util.Random@522b408a],</span><br><span class="line">    illegalArgumentCount=@Integer[13355],</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>然后使用<code>target.field_name</code>访问当前对象的某个属性</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ watch demo.MathGame primeFactors &apos;target.illegalArgumentCount&apos;</span><br><span class="line">Press Ctrl+C to abort.</span><br><span class="line">Affect(class-cnt:1 , method-cnt:1) cost in 67 ms.</span><br><span class="line">ts=2018-12-03 20:04:34; [cost=131.303498ms] result=@Integer[8]</span><br><span class="line">ts=2018-12-03 20:04:35; [cost=0.961441ms] result=@Integer[8]</span><br></pre></td></tr></table></figure>
+<p>测试请求时，查看某个<code>service</code>中的属性和相应方法中的对象的属性</p>
+<div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;"><br>    <img src="/picture/arthas/watch断点.jpg" alt="watch断点" title="watch断点"><br></div>
+
+<h4 id="5-查看方法内部调用路径及耗时"><a href="#5-查看方法内部调用路径及耗时" class="headerlink" title="5.查看方法内部调用路径及耗时"></a>5.查看方法内部调用路径及耗时</h4><p><strong><a href="https://alibaba.github.io/arthas/trace.html#trace" target="_blank" rel="noopener">trace命令</a></strong>: 方法内部调用路径，并输出方法路径上的每个节点上耗时</p>
+<p>可以找出某个请求速度慢的原因所在</p>
+<div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;"><br>    <img src="/picture/arthas/trace耗时.jpg" alt="trace耗时" title="trace耗时"><br></div>
+
+<p>查看多个类多个函数</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">trace -E com.test.ClassA|org.test.ClassB method1|method2|method3</span><br></pre></td></tr></table></figure>
+<h4 id="6-查看方法完整调用路径"><a href="#6-查看方法完整调用路径" class="headerlink" title="6.查看方法完整调用路径"></a>6.查看方法完整调用路径</h4><p><strong><a href="https://alibaba.github.io/arthas/stack.html#stack" target="_blank" rel="noopener">stack命令</a></strong>: 输出当前方法被调用的调用路径</p>
+<div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;"><br>    <img src="/picture/arthas/stack.jpg" alt="stack" title="stack"><br></div>
+
+<h4 id="7-记录指定方法的调用"><a href="#7-记录指定方法的调用" class="headerlink" title="7.记录指定方法的调用"></a>7.记录指定方法的调用</h4><p><strong><a href="https://alibaba.github.io/arthas/tt.html#tt" target="_blank" rel="noopener">tt命令</a></strong>: 记录下指定方法的调用，后续对其进行筛选，查看，重现等</p>
+<p><code>tt</code>和<code>watch</code>命令我们通常都会在后台执行，并输出到相应日志文件保存，以便后续操作</p>
+<p>在线上请求量过多的时候一定要设置<code>-n</code>的值，请求数量达到这个值后便会停止记录，将请求记录到相应日志文件中，<code>watch</code>通常也这样使用</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tt -t -n 3 com.test.testM.service.TestService test &gt;&gt; /data1/test.log &amp;</span><br></pre></td></tr></table></figure>
+<p>通过<code>jobs</code>查看后台执行的任务，已经删除任务</p>
+<div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;"><br>    <img src="/picture/arthas/jobs.jpg" alt="查看后台执行的任务" title="查看后台执行的任务"><br></div>
+
+<p>查看所有记录</p>
+<div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;"><br>    <img src="/picture/arthas/tt-l.jpg" alt="查看所有记录" title="查看所有记录"><br></div>
+
+<p>对参数进行筛选</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tt -s &quot;params[0].testId==&apos;xfan_test_id&apos;&quot;</span><br></pre></td></tr></table></figure>
+<p>查看具体的记录信息</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tt -i 1006</span><br></pre></td></tr></table></figure>
+<div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;"><br>    <img src="/picture/arthas/tt查看具体信息.jpg" alt="查看具体信息" title="查看具体信息"><br></div>
+
+<p>重新模拟一次调用</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tt -i 1006 -p</span><br></pre></td></tr></table></figure>
+<div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;"><br>    <img src="/picture/arthas/模拟调用.jpg" alt="模拟调用" title="模拟调用"><br></div>
+
+<p>好了，最常用的这些命令先整理到这里，更多命令及详细使用方法查阅<a href="https://alibaba.github.io/arthas/install-detail.html" target="_blank" rel="noopener">官方文档</a></p>
+
+    
+  </div>
+
+  
+      <div class="git"></div>
+  
+
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持xfan</div>
+        <ul>
+        
+          <li class="item">
+            <span>微信扫一扫</span>
+            <img src="/picture/qr-wechat.png" alt>
+          </li>
+        
+          <li class="item">
+            <span>支付宝扫一扫</span>
+            <img src="/picture/qr-alipay.png" alt>
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2019/04/15/实时分布式消息传递平台-NSQ/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/archives/" rel="noopener noreferrer" target="_self">
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/categories/JAVA" rel="noopener noreferrer" target="_self">
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/tags/git" rel="noopener noreferrer" target="_self">
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/link/" rel="noopener noreferrer" target="_self">
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/about/" rel="noopener noreferrer" target="_self">
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/search/" rel="noopener noreferrer" target="_self">
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'xfan';
+    
+    var disqus_url = 'https://feifaninternet.github.io/2019/05/17/Java线上诊断工具-Arthas/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//xfan.disqus.com/count.js" async></script>
+
+
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
