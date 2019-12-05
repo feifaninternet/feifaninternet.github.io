@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>NOSQL数据库--SSDB | Xfan blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="NSQ,">
+  
+
+  <meta name="description" content="DescriptionSSDB 是一个 C/C++ 语言开发的高性能 NoSQL 数据库, 支持 KV, list, map(hash), zset(sorted set) 等数据结构， 用来替代或者与 Redis 配合存储十亿级别列表的数据 为什么要学习SSDB？SSDB是Redis的替代和增强方案，SSDB的QPS在某些时候略高于Redis，读写效率也很高，有必要了解学习一下 SSDB的基本组">
+<meta name="keywords" content="NSQ">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NOSQL数据库--SSDB">
+<meta property="og:url" content="https://feifaninternet.github.io/2019/04/15/NOSQL数据库-SSDB/index.html">
+<meta property="og:site_name" content="Xfan blog">
+<meta property="og:description" content="DescriptionSSDB 是一个 C/C++ 语言开发的高性能 NoSQL 数据库, 支持 KV, list, map(hash), zset(sorted set) 等数据结构， 用来替代或者与 Redis 配合存储十亿级别列表的数据 为什么要学习SSDB？SSDB是Redis的替代和增强方案，SSDB的QPS在某些时候略高于Redis，读写效率也很高，有必要了解学习一下 SSDB的基本组">
+<meta property="og:locale" content="Chinese">
+<meta property="og:updated_time" content="2019-08-26T07:11:16.155Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NOSQL数据库--SSDB">
+<meta name="twitter:description" content="DescriptionSSDB 是一个 C/C++ 语言开发的高性能 NoSQL 数据库, 支持 KV, list, map(hash), zset(sorted set) 等数据结构， 用来替代或者与 Redis 配合存储十亿级别列表的数据 为什么要学习SSDB？SSDB是Redis的替代和增强方案，SSDB的QPS在某些时候略高于Redis，读写效率也很高，有必要了解学习一下 SSDB的基本组">
+
+  
+
+  
+    <link rel="icon" href="/picture/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/person/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">Site</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">Site</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/archives/" rel="noopener noreferrer" target="_self">
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/categories/JAVA" rel="noopener noreferrer" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/tags/git" rel="noopener noreferrer" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/link/" rel="noopener noreferrer" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/about/" rel="noopener noreferrer" target="_self">
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/search/" rel="noopener noreferrer" target="_self">
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Description"><span class="toc-text">Description</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#为什么要学习SSDB？"><span class="toc-text">为什么要学习SSDB？</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SSDB的基本组件和工作原理"><span class="toc-text">SSDB的基本组件和工作原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#搭建SSDB高可用集群"><span class="toc-text">搭建SSDB高可用集群</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-NOSQL数据库-SSDB" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">NOSQL数据库--SSDB</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2019.04.15</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>xfan</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/Expand/">Expand</a>
+  </span>
+
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="https://feifaninternet.github.io//2019/04/15/NOSQL数据库-SSDB/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>SSDB 是一个 C/C++ 语言开发的高性能 NoSQL 数据库, 支持 KV, list, map(hash), zset(sorted set) 等数据结构， 用来替代或者与 Redis 配合存储十亿级别列表的数据</p>
+<h4 id="为什么要学习SSDB？"><a href="#为什么要学习SSDB？" class="headerlink" title="为什么要学习SSDB？"></a>为什么要学习SSDB？</h4><p>SSDB是Redis的替代和增强方案，SSDB的QPS在某些时候略高于Redis，读写效率也很高，有必要了解学习一下</p>
+<h3 id="SSDB的基本组件和工作原理"><a href="#SSDB的基本组件和工作原理" class="headerlink" title="SSDB的基本组件和工作原理"></a>SSDB的基本组件和工作原理</h3><h3 id="搭建SSDB高可用集群"><a href="#搭建SSDB高可用集群" class="headerlink" title="搭建SSDB高可用集群"></a>搭建SSDB高可用集群</h3><p>我们先来了解一下SSDB的配置文件</p>
+<pre><code># ssdb-server config
+
+work_dir = ./var
+pidfile = ./var/ssdb.pid
+
+server:
+        ip: 127.0.0.1
+        port: 8888
+        # bind to public ip
+        #ip: 0.0.0.0
+        # format: allow|deny: all|ip_prefix
+        # multiple allows or denys is supported
+        #deny: all
+        #allow: 127.0.0.1
+        #allow: 192.168
+        # auth password must be at least 32 characters
+        #auth: very-strong-password
+        #readonly: yes
+        # in ms, to log slowlog with WARN level
+        #slowlog_timeout: 5
+
+replication:
+        binlog: yes
+        # Limit sync speed to *MB/s, -1: no limit
+        sync_speed: -1
+        slaveof:
+                # to identify a master even if it moved(ip, port changed)
+                # if set to empty or not defined, ip:port will be used.
+                id: node-1
+                # sync|mirror, default is sync
+                type: sync
+                host: 120.76.78.6
+                port: 8888
+
+logger:
+    level: info
+    output: log.txt
+    rotate:
+        size: 1000000000
+
+leveldb:
+    # in MB
+    cache_size: 500
+    # in KB
+    block_size: 32
+    # in MB
+    write_buffer_size: 64
+    # in MB
+    compaction_speed: 100
+    # yes|no
+    compression: yes
+</code></pre><ul>
+<li><p><code>work_dir</code>: ssdb-server 的工作目录, 启动后, 会在这个目录下生成 data 和 meta 两个目录, 用来保存 LevelDB 的数据库文件. 这个目录是相对于 ssdb.conf 的相对路径, 也可以指定绝对路径.</p>
+</li>
+<li><p><code>server</code>: </p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ip</td>
+<td>默认的配置文件监听 127.0.0.1 本地回路网络, 所以无法从其它机器上连接此 SSDB 服务器. 如果你希望从其它机器上连接 SSDB 服务器, 必须把 127.0.0.1 改为 0.0.0.0，但是出于安全考虑我们一般不会这样配置  </td>
+</tr>
+<tr>
+<td>port</td>
+<td>端口</td>
+<td></td>
+</tr>
+<tr>
+<td>format</td>
+<td>设置拦截和放行规则</td>
+<td></td>
+</tr>
+<tr>
+<td>deny</td>
+<td>拦截访问</td>
+<td></td>
+</tr>
+<tr>
+<td>allow</td>
+<td>允许访问</td>
+<td></td>
+</tr>
+<tr>
+<td>auth</td>
+<td>访问密钥</td>
+<td></td>
+</tr>
+<tr>
+<td>readonly</td>
+<td>只读，只读设置下，所有的写操作都会被拒绝</td>
+<td></td>
+</tr>
+<tr>
+<td>slowlog_timeout</td>
+<td>脚本执行超过多长时间，就可以记录到日志文件</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><code>replication</code>: </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>binlog</td>
+<td>记录数据库更新的语句，类似mysql </td>
+</tr>
+<tr>
+<td>sync_speed</td>
+<td>同步速率</td>
+<td></td>
+</tr>
+<tr>
+<td>slaveof</td>
+<td>指向的节点信息</td>
+<td>可有多个</td>
+</tr>
+<tr>
+<td>id</td>
+<td>节点标识id</td>
+<td></td>
+</tr>
+<tr>
+<td>type</td>
+<td>类型，sync主从，mirror双主</td>
+<td>主从：所有子节点指向master节点，双主：各自指向对方节点，多主：每个节点要指向其他n-1个节点</td>
+</tr>
+<tr>
+<td>host</td>
+<td>指向的节点的域名</td>
+<td></td>
+</tr>
+<tr>
+<td>port</td>
+<td>指向的节点的端口</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><code>logger</code>: </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>level</td>
+<td>日志等级</td>
+<td>debug, info, warn, error, fatal，一般我们设置为debug</td>
+</tr>
+<tr>
+<td>output</td>
+<td>日志输出</td>
+<td>输出到指定文件，如果要改为输出到控制台，则配置为 stdout</td>
+</tr>
+<tr>
+<td>rotate</td>
+<td>指向的节点信息</td>
+<td>可有多个</td>
+</tr>
+<tr>
+<td>size</td>
+<td>日志拆分时的大小</td>
+<td>日志会按 1000MB 大小进行切分, 切分后的文件名格式如: log.txt.20150723-230422.切分后的日志文件不会自动被清理, 你需要自己写 crontab 脚本来清理.</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><code>leveldb</code>: </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cache_size</td>
+<td>内存缓存大小, 单位 MB</td>
+<td>一般地, 这个数字越大, 性能越好, 你可设置为物理内存的一半. 如果你的机器内存较小, 那就把它改小, 最小值是 16.</td>
+</tr>
+<tr>
+<td>block_size</td>
+<td>不用关心</td>
+<td>官方说不用关心 = =</td>
+</tr>
+<tr>
+<td>write_buffer_size</td>
+<td>写缓冲区大小, 单位 MB</td>
+<td>如果你的机器内存小, 那就把它改小, 否则改大. 它应该在这个范围内: [4, 128];</td>
+</tr>
+<tr>
+<td>compaction_speed</td>
+<td>压缩速率</td>
+<td>一般情况下, 不用关心. 如果你的硬盘性能非常差, 同时, 你的数据几乎不变动, 也没有什么新数据写入, 可以把它改小(最好大于 50).                        </td>
+</tr>
+<tr>
+<td>compression</td>
+<td>压缩硬盘上的数据</td>
+<td>最好设置为 yes! 如果是 yes, 一般你能存储 10 倍硬盘空间的数据, 而且性能会更好.</td>
+</tr>
+</tbody>
+</table>
+
+    
+  </div>
+
+  
+      <div class="git"></div>
+  
+
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持xfan</div>
+        <ul>
+        
+          <li class="item">
+            <span>微信扫一扫</span>
+            <img src="/picture/qr-wechat.png" alt>
+          </li>
+        
+          <li class="item">
+            <span>支付宝扫一扫</span>
+            <img src="/picture/qr-alipay.png" alt>
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2019/04/12/500G磁盘凭空消失！/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2019/04/15/实时分布式消息传递平台-NSQ/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/archives/" rel="noopener noreferrer" target="_self">
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/categories/JAVA" rel="noopener noreferrer" target="_self">
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/tags/git" rel="noopener noreferrer" target="_self">
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/link/" rel="noopener noreferrer" target="_self">
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/about/" rel="noopener noreferrer" target="_self">
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/search/" rel="noopener noreferrer" target="_self">
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'xfan';
+    
+    var disqus_url = 'https://feifaninternet.github.io/2019/04/15/NOSQL数据库-SSDB/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//xfan.disqus.com/count.js" async></script>
+
+
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
