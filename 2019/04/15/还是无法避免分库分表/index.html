@@ -7,26 +7,27 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
-  <title>Xfan blog</title>
+  <title>还是无法避免分库分表 | Xfan blog</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="Java,Spring,frame">
+    <meta name="keywords" content="sharding-jdbc,">
   
 
-  <meta name="description" content="title: 还是无法避免分库分表date: 2020-01-10 14:29:27tags: sharding-jdbc categories: Expand为什么要分库分表数据库慢了不是可以优化sql和索引，加缓存，memcached,redis，数据库读写分离来解决吗，当然可以，不过，数据量太大，这些方案就会不足以应对 一个表格对比    类别 分库分表前 分库分表后     并发情况 M">
+  <meta name="description" content="为什么要分库分表数据库慢了不是可以优化sql和索引，加缓存，memcached,redis，数据库读写分离来解决吗，当然可以，不过，数据量太大，这些方案就会不足以应对 一个表格对比    类别 分库分表前 分库分表后     并发情况 Mysql单机，支撑不了高并发 Mysql集群，并发加倍   磁盘情况 磁盘容量几乎撑满 拆分多个表，磁盘使用率降低   SQL性能 数据量加大，SQL越来越慢 单">
+<meta name="keywords" content="sharding-jdbc">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Xfan blog">
-<meta property="og:url" content="https://feifaninternet.github.io/2020/01/14/还是无法避免分库分表/index.html">
+<meta property="og:title" content="还是无法避免分库分表">
+<meta property="og:url" content="https://feifaninternet.github.io/2019/04/15/还是无法避免分库分表/index.html">
 <meta property="og:site_name" content="Xfan blog">
-<meta property="og:description" content="title: 还是无法避免分库分表date: 2020-01-10 14:29:27tags: sharding-jdbc categories: Expand为什么要分库分表数据库慢了不是可以优化sql和索引，加缓存，memcached,redis，数据库读写分离来解决吗，当然可以，不过，数据量太大，这些方案就会不足以应对 一个表格对比    类别 分库分表前 分库分表后     并发情况 M">
+<meta property="og:description" content="为什么要分库分表数据库慢了不是可以优化sql和索引，加缓存，memcached,redis，数据库读写分离来解决吗，当然可以，不过，数据量太大，这些方案就会不足以应对 一个表格对比    类别 分库分表前 分库分表后     并发情况 Mysql单机，支撑不了高并发 Mysql集群，并发加倍   磁盘情况 磁盘容量几乎撑满 拆分多个表，磁盘使用率降低   SQL性能 数据量加大，SQL越来越慢 单">
 <meta property="og:locale" content="Chinese">
 <meta property="og:image" content="https://feifaninternet.github.io/picture/sharding/datebase.jpg">
-<meta property="og:updated_time" content="2020-01-14T02:54:08.937Z">
+<meta property="og:updated_time" content="2020-01-14T03:52:34.926Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Xfan blog">
-<meta name="twitter:description" content="title: 还是无法避免分库分表date: 2020-01-10 14:29:27tags: sharding-jdbc categories: Expand为什么要分库分表数据库慢了不是可以优化sql和索引，加缓存，memcached,redis，数据库读写分离来解决吗，当然可以，不过，数据量太大，这些方案就会不足以应对 一个表格对比    类别 分库分表前 分库分表后     并发情况 M">
+<meta name="twitter:title" content="还是无法避免分库分表">
+<meta name="twitter:description" content="为什么要分库分表数据库慢了不是可以优化sql和索引，加缓存，memcached,redis，数据库读写分离来解决吗，当然可以，不过，数据量太大，这些方案就会不足以应对 一个表格对比    类别 分库分表前 分库分表后     并发情况 Mysql单机，支撑不了高并发 Mysql集群，并发加倍   磁盘情况 磁盘容量几乎撑满 拆分多个表，磁盘使用率降低   SQL性能 数据量加大，SQL越来越慢 单">
 <meta name="twitter:image" content="https://feifaninternet.github.io/picture/sharding/datebase.jpg">
 
   
@@ -151,7 +152,7 @@
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#categories-Expand"><span class="toc-text">categories: Expand</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#为什么要分库分表"><span class="toc-text">为什么要分库分表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常用的分库分表中间件"><span class="toc-text">常用的分库分表中间件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sharding-jdbc使用案例"><span class="toc-text">sharding-jdbc使用案例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mycat使用案例"><span class="toc-text">mycat使用案例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Zebra使用案例"><span class="toc-text">Zebra使用案例</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#为什么要分库分表"><span class="toc-text">为什么要分库分表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常用的分库分表中间件"><span class="toc-text">常用的分库分表中间件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sharding-jdbc使用案例"><span class="toc-text">sharding-jdbc使用案例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mycat使用案例"><span class="toc-text">mycat使用案例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Zebra使用案例"><span class="toc-text">Zebra使用案例</span></a></li></ol>
   </div>
 
 
@@ -159,12 +160,12 @@
 <div class="content content-post CENTER">
    <article id="post-还是无法避免分库分表" class="article article-type-post" itemprop="blogPost">
   <header class="article-header">
-    <h1 class="post-title">(no title)</h1>
+    <h1 class="post-title">还是无法避免分库分表</h1>
 
     <div class="article-meta">
       <span>
         <i class="icon-calendar"></i>
-        <span>2020.01.14</span>
+        <span>2019.04.15</span>
       </span>
 
       
@@ -175,12 +176,17 @@
       
 
       
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/Expand/">Expand</a>
+  </span>
+
 
 
       
         <span>
           <i class="icon-comment"></i>
-          <a href="https://feifaninternet.github.io//2020/01/14/还是无法避免分库分表/#disqus_thread"></a>
+          <a href="https://feifaninternet.github.io//2019/04/15/还是无法避免分库分表/#disqus_thread"></a>
         </span>
       
 
@@ -197,9 +203,7 @@
 
   <div class="article-content">
     
-      <hr>
-<p>title: 还是无法避免分库分表<br>date: 2020-01-10 14:29:27<br>tags: sharding-jdbc</p>
-<h2 id="categories-Expand"><a href="#categories-Expand" class="headerlink" title="categories: Expand"></a>categories: Expand</h2><h3 id="为什么要分库分表"><a href="#为什么要分库分表" class="headerlink" title="为什么要分库分表"></a>为什么要分库分表</h3><p>数据库慢了不是可以优化sql和索引，加缓存，memcached,redis，数据库读写分离来解决吗，当然可以，不过，数据量太大，这些方案就会不足以应对</p>
+      <h3 id="为什么要分库分表"><a href="#为什么要分库分表" class="headerlink" title="为什么要分库分表"></a>为什么要分库分表</h3><p>数据库慢了不是可以优化sql和索引，加缓存，memcached,redis，数据库读写分离来解决吗，当然可以，不过，数据量太大，这些方案就会不足以应对</p>
 <p>一个表格对比</p>
 <table>
 <thead>
@@ -607,10 +611,10 @@ public class UserServiceTest {
 
    
   <div class="box-prev-next clearfix">
-    <a class="show pull-left" href="/2019/05/17/Java线上诊断工具-Arthas/">
+    <a class="show pull-left" href="/2019/04/15/NOSQL数据库-SSDB/">
         <i class="icon icon-angle-left"></i>
     </a>
-    <a class="hide pull-right" href="/">
+    <a class="show pull-right" href="/2019/04/15/实时分布式消息传递平台-NSQ/">
         <i class="icon icon-angle-right"></i>
     </a>
   </div>
@@ -700,7 +704,7 @@ public class UserServiceTest {
   <script>
     var disqus_shortname = 'xfan';
     
-    var disqus_url = 'https://feifaninternet.github.io/2020/01/14/还是无法避免分库分表/';
+    var disqus_url = 'https://feifaninternet.github.io/2019/04/15/还是无法避免分库分表/';
     
     (function(){
       var dsq = document.createElement('script');
