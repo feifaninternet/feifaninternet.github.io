@@ -9,7 +9,7 @@ description: the personal blog of xfan
 author: xfan
 avatar: /images/xfan.jpg
 language: Chinese
-timezone: China
+timezone: Asia/Shanghai
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'

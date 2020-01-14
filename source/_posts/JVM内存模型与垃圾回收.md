@@ -2,11 +2,16 @@
 title: JVM内存模型与垃圾回收
 tags: JAVA
 categories: JAVA
-----------------------------
 date: 2018-03-20 11:53:35
+----------------------------
 
 ### 内存模型   
-![Picture](/picture/java-stack-model.png)   
+<div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+	webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+	moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+	o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;">
+	<img src="/picture/java-stack-model.png" alt="Picture" title="Picture">
+</div> 
  
 &nbsp;&nbsp;堆栈的分开设计
 1. 栈存储了处理逻辑，堆存储了具体的数据，这样隔离设计更为清晰

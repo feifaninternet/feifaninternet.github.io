@@ -2,8 +2,8 @@
 title: String 源码
 tags: String
 categories: Origin Code
------------------------
 date: 2018-06-07 12:31:11
+-----------------------
 
 ### String 类
 String 类被 final 所修饰，为不可变量，并发程序对不可变量非常友好，String 类实现了Serializable,Comparable<Stirng>,CharSequence接口。

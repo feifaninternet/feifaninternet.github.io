@@ -2,8 +2,8 @@
 title: SpringCloud Ribbon
 tags: SpringCloud
 categories: Spring
--------------------------
 date: 2018-03-30 18:00:01
+-------------------------
 
 ### Description
 ribbon是一个负载均衡客户端，可以很好的控制http和tcp的一些行为，它是基于Netflix Ribbon实现的。它不像服务注册中心，API网关，配置中心那样独立部署，但是他几乎存在于每个微服务的基础设施中，主要功能是 提供客户端的软件负载均衡算法，将Netflix的中间层服务连接在一起。Ribbon客户端组件提供一系列完善的配置，在配置文件中列出Load Balancer(LB)后面所有的机器，Ribbon会自动的帮助你基于某种规则去连接这种机器。

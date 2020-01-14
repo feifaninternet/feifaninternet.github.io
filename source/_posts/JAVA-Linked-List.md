@@ -2,8 +2,8 @@
 title: JAVA Linked List
 tags: JAVA
 categories: JAVA
------------------------
 date: 2018-02-02 11:45:03
+-----------------------
 
 ### About
 

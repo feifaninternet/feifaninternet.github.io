@@ -2,8 +2,8 @@
 title: Java Data Structure
 tags: JAVA
 categories: JAVA
-------------------------
 date: 2018-01-29 10:21:52
+------------------------
 
 ### The class and interface of the structure
 

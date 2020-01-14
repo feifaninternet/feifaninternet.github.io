@@ -2,8 +2,9 @@
 title: Gradle版本控制
 tags: Gradle
 categories: Expand
----------------------
 date: 2018-05-14 11:47:56
+---------------------
+
 
 ### Description
 Gradle是一个基于Maven概念的项目自动化构建工具，它使用一个基于Groovy的特定域语言(DSL)来声明项目设置，抛弃了基于xml的繁琐配置，支持传递性依赖，支持多工程构建。
@@ -168,7 +169,12 @@ Gradle 中有2种插件：脚本插件和二进制插件。脚本插件是一个
 ### 执行多个任务
 Gradle可以从单个构建文件执行多个任务。使用Gradle命令处理构建文件，此命令将按照顺序编译每个命令，并使用不同的选项执行每个任务以及依赖关系。
 如图所示的任务关系
-![相互依赖的任务](/picture/GradleRefer.png)
+<div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+	webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+	moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+	o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;">
+	<img src="/picture/GradleRefer.png" alt="相互依赖的任务" title="相互依赖的任务">
+</div>
 
    ```groovy
     task task1 << {

@@ -2,8 +2,9 @@
 title: Elasticsearch
 tags: Elastic
 categories: Expand
--------------------------
 date: 2018-05-24 14:29:34
+-------------------------
+
 
 ### About
 找了很久找到了一个很不错的学习资源  [GitBook -- Elasticsearch](https://es.xiaoleilu.com/010_Intro/25_Tutorial_Indexing.html)   
@@ -75,7 +76,12 @@ Elasticsearch是一个接近实时的搜索平台，这意味着从索引文档�
 1.它在碎片/节点失败的情况下提供高可用性。由于这个原因，需要注意的是，副本分片永远不会分配到与从中复制的原始/主分片相同的节点上。   
 2.它允许您扩展搜索量/吞吐量，因为搜索可以在所有副本上并行执行。      
 如果不指定，es 将默认使用 5 个分片和 1个副本。
-![分片与副本的关系结构图](/picture/Elasticsearch01.png)
+<div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+	webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+	moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+	o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;">
+	<img src="/picture/Elasticsearch01.png" alt="分片与副本的关系结构图" title="分片与副本的关系结构图">
+</div>
 总而言之，每个索引可以分成多个分片。索引也可以被复制为零（意味着没有副本）或更多次。一旦复制，每个索引将具有主分片（从中复制的原始分片）和副本分片（主分片的副本）。在创建索引时，可以为每个索引定义分片和副本的数量。在创建索引之后，您可以随时更改动态副本的数量，但您无法在事后更改碎片的数量。      
 默认情况下，Elasticsearch中的每个索引都分配了5个主分片和1个副本，这意味着如果群集中至少有两个节点，则索引将包含5个主分片和另外5个副本分片（1个完整副本），总共每个索引10个碎片。
 

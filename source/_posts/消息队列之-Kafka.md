@@ -2,8 +2,8 @@
 title: 消息队列之 Kafka
 tags: MQ
 categories: Expand
------------------------
 date: 2018-04-04 10:16:24
+-----------------------
 ### Description
 Kafka是一个分布式、支持分区的（partition）、多副本的（replica），基于zookeeper协调的分布式消息系统，它的最大的特性就是可以实时的处理大量数据以满足各种需求场景：比如基于hadoop的批处理系统、低延迟的实时系统、storm/Spark流式处理引擎，web/nginx日志、访问日志，消息服务等等。
 详见[Apache 官方 Kafka 文档](http://kafka.apache.org/intro)

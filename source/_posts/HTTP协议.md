@@ -2,8 +2,8 @@
 title: HTTP协议
 tags: http
 categories: Expand
----------------
 date: 2018-03-27 15:45:14
+---------------
 
 ### Http 简介 
 HTTP协议(HyperText Transfer Protocol,超文本传输协议)是用于WWW 服务器传输超文本到本地浏览器的传送协议，它可以使浏览器更加高效，使网络传输减少。
@@ -24,7 +24,12 @@ TCP确保数据包以正确的次序到达，并且尝试确认数据包的内�
 ### HTTP 所在协议层
 HTTP是基于TCP协议之上的，它是应用层协议。
 
-![各层的协议](/picture/protocol.jpg)
+<div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+	webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+	moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+	o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;">
+	<img src="/picture/protocol.jpg" alt="各层的协议" title="各层的协议">
+</div>
 
 ### HTTP的请求响应
 HTTP由请求和响应构成，是一个标准的客户端服务器模型（B/S）。HTTP协议永远都是客户端发起请求，服务器回送响应。   

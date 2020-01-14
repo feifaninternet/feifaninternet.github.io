@@ -2,8 +2,8 @@
 title: HashMap 源码
 tags: HashMap
 categories: Origin Code
-------------------------
 date: 2018-06-08 14:58:49
+------------------------
 
 ### Description
 HashMap的源码是很有代表性的，涉及的方面也很多，我们需要仔细的学习。   
@@ -18,7 +18,12 @@ HashMap的源码是很有代表性的，涉及的方面也很多，我们需要�
 ### HashMap 的存储结构
 HashMap的存储结构在JDK 1.7和1.8之间有很大的变化，JDK1.7中先添加的元素总是放在数组相应的角标位置，而原来处于该角标位置的节点作为next节点放到新节点的后面，在JDK1.8之后解决hash冲突就不单单是使用数组加上单链表的组合了，因为如果hash值冲突较多，链表的长度就会越来越长，时间复杂度会达到0(n)，在1.8之后，新增节点导致链表长度超过TREEIFY_THRESHOLD = 8的时候，就会在添加元素的同时将原来的单链表转化为红黑树。
 
-![HashMap的红黑树](/picture/HashMapRedBlankTree.jpg)
+<div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+	webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+	moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+	o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;">
+	<img src="/picture/HashMapRedBlankTree.jpg" alt="HashMap的红黑树" title="HashMap的红黑树">
+</div>
 
 ### HashMap 的重要参数
 

@@ -2,15 +2,21 @@
 title: Dubbo框架
 tags: Dubbo
 categories: Frame
-----------------
 date: 2018-04-03 11:24:40
+----------------
+
 
 ### Description
 Dubbo是Alibaba开源的分布式服务框架，它最大的特点是按照分层的方式来架构，使用这种方式可以使各个层之间解耦合。从服务模型的角度来看，Dubbo采用的是一种非常简单的模型，要么是提供方提供服务，要么是消费方消费服务，所以基于这一点可以抽象出服务提供方和服务消费方两个角色。   
 详细框架介绍可见[Alibba官方Dubbo文档](http://dubbo.io/books/dubbo-dev-book/design.html)
 
 ### 总体架构
-![Dubbo总体架构](/picture/DubboArchitecture.png)
+<div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+	webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+	moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+	o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;">
+	<img src="/picture/DubboArchitecture.png" alt="Dubbo总体架构" title="Dubbo总体架构">
+</div>
 
 Dubbo框架设计一共划分了10个层，而最上面的Service层是留给实际想要使用Dubbo开发分布式服务的开发者实现业务逻辑的接口层。
 1. 服务接口层(Service)：该层是与实际业务逻辑相关的，根据服务提供方和服务消费方的业务设计对应的接口和实现。
@@ -33,7 +39,12 @@ Dubbo框架设计一共划分了10个层，而最上面的Service层是留给实
 - Registry 和 Monitor 实际上不算一层，而是一个独立的节点，只是为了全局概览，用层的方式画在一起。
 
 ### 模块分包
-![Dubbo模块分包](/picture/dubboModules.jpg)
+<div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+	webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+	moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+	o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;">
+	<img src="/picture/dubboModules.jpg" alt="Dubbo模块分包" title="Dubbo模块分包">
+</div>
 
 模块说明：
 - dubbo-common 公共逻辑模块：包括 Util 类和通用模型。
@@ -75,7 +86,12 @@ Dubbo提供的注册中心有如下几种类型可供选择：
 - Grizzly
 
 ### 依赖关系
-![Dubbo依赖关系](/picture/dubboRefer.jpg)
+<div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+	webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+	moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+	o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;">
+	<img src="/picture/dubboRefer.jpg" alt="Dubbo依赖关系" title="Dubbo依赖关系">
+</div>
 
 业务调用流程
 1. 服务提供方发布服务到服务注册中心
@@ -83,4 +99,9 @@ Dubbo提供的注册中心有如下几种类型可供选择：
 3. 服务消费方调用已经注册的可用服务
 
 ### 调用链
-![Dubbo调用链](/picture/DubboInvok.jpg)
+<div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+	webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+	moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+	o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;">
+	<img src="/picture/DubboInvok.jpg" alt="Dubbo调用链" title="Dubbo调用链">
+</div>
