@@ -15,18 +15,18 @@
     <meta name="keywords" content="git,">
   
 
-  <meta name="description" content="Git operationPut your project into remote warehouse1.you need a project code and a code repository(gitHub or coding)2.initialize local repository    1$ git init 3.add the project code to working tree">
+  <meta name="description" content="Git operationPut your project into remote warehouse1.you need a project code and a code repository(gitHub or coding)       # 1.initialize local repository $ git init  # 2.add the project code to worki">
 <meta name="keywords" content="git">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Git Notes">
 <meta property="og:url" content="https://feifaninternet.github.io/2018/01/27/Git-Notes/index.html">
 <meta property="og:site_name" content="Xfan blog">
-<meta property="og:description" content="Git operationPut your project into remote warehouse1.you need a project code and a code repository(gitHub or coding)2.initialize local repository    1$ git init 3.add the project code to working tree">
+<meta property="og:description" content="Git operationPut your project into remote warehouse1.you need a project code and a code repository(gitHub or coding)       # 1.initialize local repository $ git init  # 2.add the project code to worki">
 <meta property="og:locale" content="Chinese">
-<meta property="og:updated_time" content="2019-04-11T03:35:25.220Z">
+<meta property="og:updated_time" content="2020-04-15T10:29:56.800Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git Notes">
-<meta name="twitter:description" content="Git operationPut your project into remote warehouse1.you need a project code and a code repository(gitHub or coding)2.initialize local repository    1$ git init 3.add the project code to working tree">
+<meta name="twitter:description" content="Git operationPut your project into remote warehouse1.you need a project code and a code repository(gitHub or coding)       # 1.initialize local repository $ git init  # 2.add the project code to worki">
 
   
 
@@ -150,7 +150,7 @@
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Git-operation"><span class="toc-text">Git operation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Put-your-project-into-remote-warehouse"><span class="toc-text">Put your project into remote warehouse</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Change-your-git-warehouse-address"><span class="toc-text">Change your git warehouse address</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Submit-code-steps"><span class="toc-text">Submit code steps</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Resolve-git-conflict"><span class="toc-text">Resolve git conflict</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Merge-conflict"><span class="toc-text">Merge conflict</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Rebase-conflict"><span class="toc-text">Rebase conflict</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#My-IDEA-ignore-directory"><span class="toc-text">My IDEA .ignore directory</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Git-operation"><span class="toc-text">Git operation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Put-your-project-into-remote-warehouse"><span class="toc-text">Put your project into remote warehouse</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Change-your-git-warehouse-address"><span class="toc-text">Change your git warehouse address</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Submit-code-steps"><span class="toc-text">Submit code steps</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Resolve-git-conflict"><span class="toc-text">Resolve git conflict</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Merge-conflict"><span class="toc-text">Merge conflict</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Rebase-conflict"><span class="toc-text">Rebase conflict</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Some-Matter-In-Work"><span class="toc-text">Some Matter In Work</span></a></li></ol>
   </div>
 
 
@@ -201,62 +201,94 @@
 
   <div class="article-content">
     
-      <h3 id="Git-operation"><a href="#Git-operation" class="headerlink" title="Git operation"></a>Git operation</h3><h3 id="Put-your-project-into-remote-warehouse"><a href="#Put-your-project-into-remote-warehouse" class="headerlink" title="Put your project into remote warehouse"></a>Put your project into remote warehouse</h3><p>1.you need a project code and a code repository(gitHub or coding)<br>2.initialize local repository   </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git init</span><br></pre></td></tr></table></figure>
-<p>3.add the project code to working tree  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add .</span><br></pre></td></tr></table></figure>
-<p>4.commit your project code</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m <span class="string">"first commit notes"</span></span><br></pre></td></tr></table></figure>
-<p>5.synchronize the code to the remote repository</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git remote add origin your remote reposiroty address</span><br></pre></td></tr></table></figure>
-<p>6.create an upstream push to the master branch</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push -u origin master</span><br></pre></td></tr></table></figure>
-<p>7.now you can create a new dev branch based on the master,and then create your branch based on the dev,keep the developments</p>
-<h3 id="Change-your-git-warehouse-address"><a href="#Change-your-git-warehouse-address" class="headerlink" title="Change your git warehouse address"></a>Change your git warehouse address</h3><p>We use the simplest method.</p>
-   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote <span class="built_in">set</span>-url origin remote_git_address</span><br></pre></td></tr></table></figure>
-<h3 id="Submit-code-steps"><a href="#Submit-code-steps" class="headerlink" title="Submit code steps"></a>Submit code steps</h3><p>1.add your code to the working tree</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add .</span><br></pre></td></tr></table></figure>
-<p>2.commit your code</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m <span class="string">"notes"</span></span><br></pre></td></tr></table></figure>
-<p>3.pushed to the remote branch</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push origin yourBranch</span><br></pre></td></tr></table></figure>
-<p>4.switch to the dev branch </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout dev</span><br></pre></td></tr></table></figure>
-<p>5.synchronize remote dev branch code</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git pull</span><br></pre></td></tr></table></figure>
-<p>6.merge your branch code into dev</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git merge --no-ff -m <span class="string">"merge: notes"</span></span><br></pre></td></tr></table></figure>
-<p>7.pushed to the remote branch</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push</span><br></pre></td></tr></table></figure>
-<p>8.switch to your branch </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout yourBranch</span><br></pre></td></tr></table></figure>
-<p>9.rebase the dev branch</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git rebase dev</span><br></pre></td></tr></table></figure>
-<p>10.pushed to the remote branch</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push origin yourBranch</span><br></pre></td></tr></table></figure>
-<h3 id="Resolve-git-conflict"><a href="#Resolve-git-conflict" class="headerlink" title="Resolve git conflict"></a>Resolve git conflict</h3><h3 id="Merge-conflict"><a href="#Merge-conflict" class="headerlink" title="Merge conflict"></a>Merge conflict</h3><p>1.find the conflict file<br>2.find the text like this </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD  -- dev branch</span><br><span class="line"> dev code</span><br><span class="line">=======</span><br><span class="line">your code</span><br><span class="line">&gt;&gt;&gt;&gt;&gt;&gt;&gt; 6853e5ff961e684d3a6c02d4d06183b5ff330dcc  -- your branch</span><br></pre></td></tr></table></figure>
-<p>3.remove the conflict flag, leaving only one branch of the code (dev code or your code)<br>4.add changes to the working tree</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add .</span><br></pre></td></tr></table></figure>
-<p>5.commit your code   </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m <span class="string">"notes"</span></span><br></pre></td></tr></table></figure>
-<p>6.push changes to dev branch   </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push</span><br></pre></td></tr></table></figure>
-<h3 id="Rebase-conflict"><a href="#Rebase-conflict" class="headerlink" title="Rebase conflict"></a>Rebase conflict</h3><p>1.find the conflict file<br>2.find the text like this </p>
-   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD  -- dev branch</span><br><span class="line">dev code</span><br><span class="line">=======</span><br><span class="line">your code</span><br><span class="line">&gt;&gt;&gt;&gt;&gt;&gt;&gt; 6853e5ff961e684d3a6c02d4d06183b5ff330dcc  -- your branch</span><br></pre></td></tr></table></figure>
-<p>3.remove the conflict flag, leaving only one branch of the code (dev code or your code)<br>4.add changes to the working tree</p>
-   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add -u</span><br></pre></td></tr></table></figure>
-<p>5.continue rebase   </p>
-   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git rebase --<span class="built_in">continue</span></span><br></pre></td></tr></table></figure>
-<p>6.until all conflicts resolved<br>7.if you want to quit rebase   </p>
-   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git rebase --abort</span><br></pre></td></tr></table></figure>
-<p><em>attention: after rebase,don`t need to commit and submit new changes,all git automatically</em></p>
-<h3 id="My-IDEA-ignore-directory"><a href="#My-IDEA-ignore-directory" class="headerlink" title="My IDEA .ignore directory"></a>My IDEA .ignore directory</h3>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">target/</span><br><span class="line">!.mvn/wrapper/maven-wrapper.jar</span><br><span class="line"></span><br><span class="line">### STS ###</span><br><span class="line">.apt_generated</span><br><span class="line">*.classpath</span><br><span class="line">.factorypath</span><br><span class="line">*.project</span><br><span class="line">*.settings/</span><br><span class="line">*.springBeans</span><br><span class="line">*.class</span><br><span class="line"></span><br><span class="line">### IntelliJ IDEA ###</span><br><span class="line">*.jar</span><br><span class="line"># *.war</span><br><span class="line">*.ear</span><br><span class="line">*.log</span><br><span class="line">*.mvn</span><br><span class="line"></span><br><span class="line">*.idea</span><br><span class="line">*.iws</span><br><span class="line">*.iml</span><br><span class="line">*.ipr</span><br><span class="line"></span><br><span class="line">target</span><br><span class="line">src/test</span><br><span class="line"></span><br><span class="line">### NetBeans ###</span><br><span class="line">nbproject/private/</span><br><span class="line">build/</span><br><span class="line">nbbuild/</span><br><span class="line">dist/</span><br><span class="line">nbdist/</span><br><span class="line">.nb-gradle/</span><br></pre></td></tr></table></figure>
-<p>need to remove cached first : </p>
-   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rm -r --cached .</span><br></pre></td></tr></table></figure>
-<p>no userName no password every push :</p>
-   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global credential.helper store</span><br></pre></td></tr></table></figure>
+      <h3 id="Git-operation"><a href="#Git-operation" class="headerlink" title="Git operation"></a>Git operation</h3><h3 id="Put-your-project-into-remote-warehouse"><a href="#Put-your-project-into-remote-warehouse" class="headerlink" title="Put your project into remote warehouse"></a>Put your project into remote warehouse</h3><p>1.you need a project code and a code repository(gitHub or coding)      </p>
+<pre><code># 1.initialize local repository
+$ git init
 
+# 2.add the project code to working tree
+$ git add .
+
+# 3.commit your project code
+$ git commit -m &quot;first commit notes&quot;
+
+# 4.synchronize the code to the remote repository
+$ git remote add origin your remote reposiroty address
+
+# 5.synchronize the code to the remote repository
+$ git push -u origin master
+</code></pre><h3 id="Change-your-git-warehouse-address"><a href="#Change-your-git-warehouse-address" class="headerlink" title="Change your git warehouse address"></a>Change your git warehouse address</h3><p>We use the simplest method.</p>
+<pre><code>git remote set-url origin remote_git_address
+</code></pre><h3 id="Submit-code-steps"><a href="#Submit-code-steps" class="headerlink" title="Submit code steps"></a>Submit code steps</h3><pre><code># 1.add your code to the working tree
+$ git add .
+
+# 2.commit your code with message
+$ git commit -m &quot;notes&quot;
+
+# 3.pushed to the remote branch
+$ $ git push origin yourBranch
+
+# 4.switch to the dev branch 
+$ $ git checkout dev
+
+# 5.synchronize remote dev branch code
+$ $ git pull
+
+# 6.merge your branch code into dev
+$ git merge --no-ff -m &quot;merge: notes&quot;
+
+# 7.pushed to the remote branch
+$ git push
+
+# 8.switch to your branch
+$ git checkout yourBranch
+
+# 9.rebase the dev branch
+$ git rebase dev
+
+# 10.pushed to the remote branch
+$ git push origin yourBranch
+</code></pre><h3 id="Resolve-git-conflict"><a href="#Resolve-git-conflict" class="headerlink" title="Resolve git conflict"></a>Resolve git conflict</h3><h3 id="Merge-conflict"><a href="#Merge-conflict" class="headerlink" title="Merge conflict"></a>Merge conflict</h3><p>1.find the conflict file<br>2.find the text like this </p>
+<pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD  -- dev branch
+ dev code
+=======
+your code
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; 6853e5ff961e684d3a6c02d4d06183b5ff330dcc  -- your branch
+</code></pre><p>3.remove the conflict flag, leaving only one branch of the code (dev code or your code)<br>4.add changes to the working tree</p>
+<pre><code>$ git add .
+</code></pre><p>5.commit your code   </p>
+<pre><code>$ git commit -m &quot;notes&quot;
+</code></pre><p>6.push changes to dev branch   </p>
+<pre><code>$ git push
+</code></pre><h3 id="Rebase-conflict"><a href="#Rebase-conflict" class="headerlink" title="Rebase conflict"></a>Rebase conflict</h3><p>1.find the conflict file<br>2.find the text like this </p>
+<pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD  -- dev branch
+dev code
+=======
+your code
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; 6853e5ff961e684d3a6c02d4d06183b5ff330dcc  -- your branch
+</code></pre><p>3.remove the conflict flag, leaving only one branch of the code (dev code or your code)<br>4.add changes to the working tree</p>
+<pre><code>$ git add -u
+</code></pre><p>5.continue rebase   </p>
+<pre><code>$ git rebase --continue
+</code></pre><p>6.until all conflicts resolved<br>7.if you want to quit rebase   </p>
+<pre><code>$ git rebase --abort
+</code></pre><p><em>attention: after rebase,don`t need to commit and submit new changes,all git automatically</em></p>
+<h3 id="Some-Matter-In-Work"><a href="#Some-Matter-In-Work" class="headerlink" title="Some Matter In Work"></a>Some Matter In Work</h3>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">target/</span><br><span class="line">!.mvn/wrapper/maven-wrapper.jar</span><br><span class="line"></span><br><span class="line">### STS ###</span><br><span class="line">.apt_generated</span><br><span class="line">*.classpath</span><br><span class="line">.factorypath</span><br><span class="line">*.project</span><br><span class="line">*.settings/</span><br><span class="line">*.springBeans</span><br><span class="line">*.class</span><br><span class="line"></span><br><span class="line">### IntelliJ IDEA ###</span><br><span class="line">*.jar</span><br><span class="line"># *.war</span><br><span class="line">*.ear</span><br><span class="line">*.log</span><br><span class="line">*.mvn</span><br><span class="line"></span><br><span class="line">*.idea</span><br><span class="line">*.iws</span><br><span class="line">*.iml</span><br><span class="line">*.ipr</span><br><span class="line"></span><br><span class="line">target</span><br><span class="line">src/test</span><br><span class="line"></span><br><span class="line">### NetBeans ###</span><br><span class="line">nbproject/private/</span><br><span class="line">build/</span><br><span class="line">nbbuild/</span><br><span class="line">dist/</span><br><span class="line">nbdist/</span><br><span class="line">.nb-gradle/</span><br></pre></td></tr></table></figure>
+<p>need to remove cached first : </p>
+<pre><code>git rm -r --cached .
+</code></pre><p>no userName no password every push :</p>
+<pre><code>git config --global credential.helper store
+</code></pre><p>if the 22 port is refuse always :</p>
+<pre><code># check remote url
+git remote -v
+
+# then update it to http like this
+git remote set-url origin http://[yourGitUserName]@test.com/test.git
+
+# check again
+git remote -v
+
+# then push or pull with password
+</code></pre>
     
   </div>
 
