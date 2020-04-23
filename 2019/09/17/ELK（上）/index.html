@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>ELK（上） | Xfan blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="ELK,">
+  
+
+  <meta name="description" content="Description当我们的业务发展越来越庞大，服务器越来越多各种访问日志、应用日志、错误日志量也越来越多，便会导致运维人员无法有效管理日志开发人员排查问题，查询日志不高效，这个时候我们便需要ELK。 为什么要用到ELK： 一般我们需要进行日志分析场景：直接在日志文件中 grep、awk 就可以获得自己想要的信息。但在规模较大也就是日志量多而复杂的场景中，此方法效率低下，面临问题包括日志量太大如">
+<meta name="keywords" content="ELK">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ELK（上）">
+<meta property="og:url" content="https://feifaninternet.github.io/2019/09/17/ELK（上）/index.html">
+<meta property="og:site_name" content="Xfan blog">
+<meta property="og:description" content="Description当我们的业务发展越来越庞大，服务器越来越多各种访问日志、应用日志、错误日志量也越来越多，便会导致运维人员无法有效管理日志开发人员排查问题，查询日志不高效，这个时候我们便需要ELK。 为什么要用到ELK： 一般我们需要进行日志分析场景：直接在日志文件中 grep、awk 就可以获得自己想要的信息。但在规模较大也就是日志量多而复杂的场景中，此方法效率低下，面临问题包括日志量太大如">
+<meta property="og:locale" content="Chinese">
+<meta property="og:updated_time" content="2020-04-23T09:04:59.245Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ELK（上）">
+<meta name="twitter:description" content="Description当我们的业务发展越来越庞大，服务器越来越多各种访问日志、应用日志、错误日志量也越来越多，便会导致运维人员无法有效管理日志开发人员排查问题，查询日志不高效，这个时候我们便需要ELK。 为什么要用到ELK： 一般我们需要进行日志分析场景：直接在日志文件中 grep、awk 就可以获得自己想要的信息。但在规模较大也就是日志量多而复杂的场景中，此方法效率低下，面临问题包括日志量太大如">
+
+  
+
+  
+    <link rel="icon" href="/picture/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/person/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">Site</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">Site</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/archives/" rel="noopener noreferrer" target="_self">
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/categories/JAVA" rel="noopener noreferrer" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/tags/git" rel="noopener noreferrer" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/link/" rel="noopener noreferrer" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/about/" rel="noopener noreferrer" target="_self">
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/search/" rel="noopener noreferrer" target="_self">
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Description"><span class="toc-text">Description</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ELK搭建"><span class="toc-text">ELK搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ES安装"><span class="toc-text">ES安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ES配置"><span class="toc-text">ES配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Kibana安装配置"><span class="toc-text">Kibana安装配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Logstash安装"><span class="toc-text">Logstash安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Logstash配置"><span class="toc-text">Logstash配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#kibana上查看日志"><span class="toc-text">kibana上查看日志</span></a></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-ELK（上）" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">ELK（上）</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2019.09.17</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>xfan</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/Expand/">Expand</a>
+  </span>
+
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="https://feifaninternet.github.io//2019/09/17/ELK（上）/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>当我们的业务发展越来越庞大，服务器越来越多<br>各种访问日志、应用日志、错误日志量也越来越多，便会导致运维人员无法有效管理日志<br>开发人员排查问题，查询日志不高效，这个时候我们便需要ELK。</p>
+<p>为什么要用到ELK：</p>
+<p>一般我们需要进行日志分析场景：直接在日志文件中 grep、awk 就可以获得自己想要的信息。但在规模较大也就是日志量多而复杂的场景中，此方法效率低下，面临问题包括日志量太大如何归档、文本搜索太慢怎么办、如何多维度查询。需要集中化的日志管理，所有服务器上的日志收集汇总。常见解决思路是建立集中式日志收集系统，将所有节点上的日志统一收集，管理，访问。</p>
+<p>大型系统通常都是一个分布式部署的架构，不同的服务模块部署在不同的服务器上，问题出现时，大部分情况需要根据问题暴露的关键信息，定位到具体的服务器和服务模块，构建一套集中式日志系统，可以提高定位问题的效率。</p>
+<p>一个完整的集中式日志系统，需要包含以下几个主要特点：</p>
+<p>收集－能够采集多种来源的日志数据<br>传输－能够稳定的把日志数据传输到中央系统<br>存储－如何存储日志数据<br>分析－可以支持 UI 分析<br>警告－能够提供错误报告，监控机制<br>而ELK则提供了一整套解决方案，并且都是开源软件，之间互相配合使用，完美衔接，高效的满足了很多场合的应用。是目前主流的一种日志系统。</p>
+<p>ELK是三个开源软件的缩写，分别为：Elasticsearch 、 Logstash以及Kibana , 它们都是开源软件。不过现在还新增了一个Beats，它是一个轻量级的日志收集处理工具(Agent)，Beats占用资源少，适合于在各个服务器上搜集日志后传输给Logstash。</p>
+<p>ELK包含：</p>
+<ul>
+<li><p>Elasticsearch：开源分布式搜索引擎，提供搜集、分析、存储数据三大功能。它的特点有：分布式，零配置，自动发现，索引自动分片，索引副本机制，restful风格接口，多数据源，自动搜索负载等。</p>
+</li>
+<li><p>Logstash：日志的搜集、分析、过滤日志的工具，支持大量的数据获取方式。一般工作方式为c/s架构，client端安装在需要收集日志的主机上，server端负责将收到的各节点日志进行过滤、修改等操作在一并发往elasticsearch上去。</p>
+</li>
+<li><p>Kibana ：为 Logstash 和 ElasticSearch 提供的日志分析友好的 Web 界面，汇总、分析和搜索重要数据日志。</p>
+</li>
+<li><p>Beats：轻量级日志采集器。</p>
+</li>
+</ul>
+<h3 id="ELK搭建"><a href="#ELK搭建" class="headerlink" title="ELK搭建"></a>ELK搭建</h3><h4 id="ES安装"><a href="#ES安装" class="headerlink" title="ES安装"></a>ES安装</h4><p><a href="https://www.elastic.co/guide/en/elastic-stack/current/installing-elastic-stack.html" target="_blank" rel="noopener">官方文档</a></p>
+<pre><code>[root@master-test ~]# rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
+[root@master-test ~]# vim /etc/yum.repos.d/elastic.repo
+#进入文件后增加以下内容
+[elasticsearch-6.x]
+name=Elasticsearch repository for 6.x packages
+baseurl=https://artifacts.elastic.co/packages/6.x/yum
+gpgcheck=1
+gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
+enabled=1
+autorefresh=1
+type=rpm-md
+[root@master-node ~]# yum install -y elasticsearch
+</code></pre><p>主节点和子节点都要安装</p>
+<h4 id="ES配置"><a href="#ES配置" class="headerlink" title="ES配置"></a>ES配置</h4><pre><code>[root@master-test ~]# vim /etc/elasticsearch/elasticsearch.yml
+#增加以下内容
+cluster.name: master-test  #集群中的名称
+node.name: master  #该节点名称
+node.master: true  #意思是该节点为主节点
+node.data: false  #表示这不是数据节点
+network.host: 0.0.0.0  #监听全部ip，在实际环境中应设置为一个安全的ip
+http.port: 9200  #es服务的端口号
+discovery.zen.ping.unicast.hosts: [&quot;192.168.23.11&quot;, &quot;192.168.23.12&quot;, &quot;192.168.23.13&quot;] #配置自动发现
+[root@master-test ~]# 
+</code></pre><p>集群需要额外步骤</p>
+<pre><code>#发送文件到节点机器
+[root@master-test ~]# scp /etc/elasticsearch/elasticsearch.yml data-node1:/tmp/
+
+#修改配置
+[root@data-test ~]# vim /tmp/elasticsearch.yml 
+node.name: data-test2
+node.master: false
+node.data: true
+[root@data-test ~]# cp /tmp/elasticsearch.yml /etc/elasticsearch/elasticsearch.yml 
+cp: overwrite ‘/etc/elasticsearch/elasticsearch.yml’? yes
+[root@data-test ~]# 
+然后启动主节点和子节点es服务,然后通过curl查看集群情况 
+
+#健康情况
+curl &apos;192.168.23.11:9200/_cluster/health?pretty&apos;
+#详细信息
+curl &apos;192.168.23.11:9200/_cluster/state?pretty&apos;
+</code></pre><h4 id="Kibana安装配置"><a href="#Kibana安装配置" class="headerlink" title="Kibana安装配置"></a>Kibana安装配置</h4><pre><code>[root@master-test ~]# yum -y install kibana 
+</code></pre><p>配置</p>
+<pre><code>[root@master-test ~]# vim /etc/kibana/kibana.yml
+#增加以下内容  
+server.port: 5601  #配置kibana的端口
+server.host: 192.168.23.11  #配置监听ip
+elasticsearch.url: &quot;http://192.168.23.11:9200&quot;  #配置es服务器的ip，集群则配置该集群中主节点的ip
+logging.dest: /var/log/kibana.log  #配置kibana的日志文件路径
+</code></pre><p>创建日志文件</p>
+<pre><code>[root@master-test ~]# touch /var/log/kibana.log; chmod 777 /var/log/kibana.log
+</code></pre><p>启动kibana服务，并检查进程和监听端口</p>
+<pre><code>[root@master-test ~]# systemctl start kibana
+[root@master-test ~]# ps aux |grep kibana
+[root@master-test ~]# netstat -lntp |grep port
+</code></pre><p>然后在浏览器里进行访问，<a href="http://192.168.23.11:5601/,验证是否成功" target="_blank" rel="noopener">http://192.168.23.11:5601/,验证是否成功</a></p>
+<h4 id="Logstash安装"><a href="#Logstash安装" class="headerlink" title="Logstash安装"></a>Logstash安装</h4><p>在<code>192.168.23.13</code>上安装logstash</p>
+<pre><code>[root@data-test ~]# yum install -y  logstash
+</code></pre><p>配置logstash收集syslog日志</p>
+<pre><code>[root@data-test ~]# vim /etc/logstash/conf.d/syslog.conf  
+#添加以下内容
+input {  #定义日志源
+  syslog {
+    type =&gt; &quot;system-syslog&quot;  #定义类型
+    port =&gt; 10088    #定义监听端口
+  }
+}
+output {  #定义日志输出
+  stdout {
+    codec =&gt; rubydebug  #将日志输出到当前的终端上显示，方便测试
+  }
+}
+</code></pre><p>检查配置</p>
+<pre><code>[root@data-test ~]# cd /usr/share/logstash/bin
+[root@data-test /usr/share/logstash/bin]# ./logstash --path.settings /etc/logstash/ -f /etc/logstash/conf.d/syslog.conf --config.test_and_exit
+Sending Logstash&apos;s logs to /var/log/logstash which is now configured via log4j2.properties
+Configuration OK  #为ok则代表配置文件没有问题
+[root@data-test /usr/share/logstash/bin]# 
+</code></pre><p>配置ip以及监听端口：</p>
+<pre><code>[root@data-test ~]# vim /etc/rsyslog.conf
+#### RULES ####
+
+*.* @@192.168.23.13:11081
+重启rsyslog，让配置生效：
+
+[root@data-test ~]# systemctl restart rsyslog
+指定配置文件，启动logstash：
+
+[root@data-test ~]# cd /usr/share/logstash/bin
+[root@data-test /usr/share/logstash/bin]# ./logstash --path.settings /etc/logstash/ -f /etc/logstash/conf.d/syslog.conf
+Sending Logstash&apos;s logs to /var/log/logstash which is now configured via log4j2.properties
+#这时终端会停留在这里，因为我们在配置文件中定义的是将信息输出到当前终端，使用监听的节点机器ssh查看是否有日志打印
+</code></pre><h4 id="Logstash配置"><a href="#Logstash配置" class="headerlink" title="Logstash配置"></a>Logstash配置</h4><p>让收集的日志信息输出到es服务器中，而不是当前终端</p>
+<pre><code>[root@data-test ~]# vim /etc/logstash/conf.d/syslog.conf 
+#更改
+input {
+  syslog {
+    type =&gt; &quot;system-syslog&quot;
+    port =&gt; 11081
+  }
+}
+output {
+  elasticsearch {
+    hosts =&gt; [&quot;192.168.23.11:9200&quot;]  #定义es服务器的ip
+    index =&gt; &quot;system-syslog-%{+YYYY.MM}&quot; # 定义索引
+    document_id =&gt; &quot;%{主键字段}
+  }
+}
+</code></pre><p>检查配置，无误后启动</p>
+<pre><code>[root@data-test ~]# systemctl start logstash
+[root@data-test ~]# ps aux |grep logstash
+</code></pre><p>如果有端口未被监听，查看messages的日志，看是否为权限问题</p>
+<h4 id="kibana上查看日志"><a href="#kibana上查看日志" class="headerlink" title="kibana上查看日志"></a>kibana上查看日志</h4><p>完成了logstash服务器的搭建之后，回到kibana服务器上查看日志，执行以下命令可以获取索引信息：</p>
+<pre><code>[root@master-test ~]# curl &apos;192.168.23.11:9200/_cat/indices?v&apos;
+health status index                 uuid                   pri rep docs.count docs.deleted store.size pri.store.size
+green  open   .kibana               6JfXc0gFSPOWq9gJI1ZX2g   1   1          1            0      6.9kb          3.6kb
+green  open   system-syslog-2018.03 bUXmEDskTh6fjGD3JgyHcA   5   1         61            0    593.7kb        286.7kb
+[root@master-test ~]# 
+</code></pre><p>如上，可以看到，在logstash配置文件中定义的system-syslog索引成功获取到了，证明配置没问题，logstash与es通信正常，然后到kibana上配置索引通配符即可</p>
+
+    
+  </div>
+
+  
+      <div class="git"></div>
+  
+
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持xfan</div>
+        <ul>
+        
+          <li class="item">
+            <span>微信扫一扫</span>
+            <img src="/picture/qr-wechat.png" alt>
+          </li>
+        
+          <li class="item">
+            <span>支付宝扫一扫</span>
+            <img src="/picture/qr-alipay.png" alt>
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2019/07/17/Java线上诊断工具-Arthas/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2019/09/20/ELK（下）/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/archives/" rel="noopener noreferrer" target="_self">
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/categories/JAVA" rel="noopener noreferrer" target="_self">
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/tags/git" rel="noopener noreferrer" target="_self">
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/link/" rel="noopener noreferrer" target="_self">
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/about/" rel="noopener noreferrer" target="_self">
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/search/" rel="noopener noreferrer" target="_self">
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'xfan';
+    
+    var disqus_url = 'https://feifaninternet.github.io/2019/09/17/ELK（上）/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//xfan.disqus.com/count.js" async></script>
+
+
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
