@@ -25,7 +25,7 @@
 <meta property="og:locale" content="Chinese">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/14001673-adcf8b01a5004396.gif">
 <meta property="og:image" content="https://feifaninternet.github.io/picture/nsq/nsqadmin.jpg">
-<meta property="og:updated_time" content="2020-04-23T09:14:29.158Z">
+<meta property="og:updated_time" content="2020-04-23T09:49:08.462Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="实时分布式消息传递平台 -- NSQ">
 <meta name="twitter:description" content="Description网上关于 NSQ 在 java 平台使用的资料非常少，我们来看下 NSQ 到底与其他消息中间件有何不同，到底应该如何使用？ NSQ简介NSQ 是一个基于 go 语言开发的分布式实时消息架构。NSQ 主要用于处理大规模消息任务，每天可以处理的任务可达十亿级别。 特点 分布式，去中心化拓扑 可伸缩，横向扩展 操作友好，简单的配置&amp;amp;部署  主要模块 nsqlookupd :">
@@ -220,7 +220,7 @@
 <div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
     webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
     moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
-    o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;"><br>    <img src="https://upload-images.jianshu.io/upload_images/14001673-adcf8b01a5004396.gif" alt="发布与消费" title="发布与消费"><br></div>
+    o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;"><br>    <img src="https://upload-images.jianshu.io/upload_images/14001673-adcf8b01a5004396.gif" alt="nsq发布消费" title="nsq发布消费"><br></div>
 
 <h4 id="主要角色"><a href="#主要角色" class="headerlink" title="主要角色"></a>主要角色</h4><h5 id="生产者-Producer"><a href="#生产者-Producer" class="headerlink" title="生产者 Producer"></a>生产者 Producer</h5><p>连接<code>nsqd</code>发布消息到<code>topic</code></p>
 <p><code>Producer</code>断线后需要手动重连，<code>Consumer</code>断线后会自动重连，<code>Consumer</code>的重连时间默认为60s，可设置短一点<br><code>Producer</code>不能发布空<code>message</code>否则会导致<code>panic</code><br>如果<code>Producer</code>连接的<code>nsqd</code>中断，那么<code>message</code>就会发布失败，所以我们也要考虑这种情况，做好备用方案。</p>

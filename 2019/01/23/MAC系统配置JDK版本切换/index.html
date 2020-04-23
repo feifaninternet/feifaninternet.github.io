@@ -7,29 +7,28 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
-  <title>500G磁盘凭空消失！ | Xfan blog</title>
+  <title>MAC系统配置JDK版本切换 | Xfan blog</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="http,">
+    <meta name="keywords" content="java环境,">
   
 
-  <meta name="description" content="Description最近有一台磁盘容量500G的机器频繁出现磁盘容量不足，每次出现都只能重新启动机器，次数多了就想用一个一劳永逸的办法给他解决掉 问题查看步骤1.查看磁盘空间剩余容量    1df -h 2.如果磁盘容量已经用尽，找出占用容量最大的目录    1du -s /* | sort -nr        3.假设 /root 目录占用最多，查看root目录下哪个目录占用磁盘最多">
-<meta name="keywords" content="http">
+  <meta name="description" content="Description最近换了个Mac2019，配置java环境的时候需要进行版本切换，在这里记录一下 1.安装需要的JDK版本JDK7，JDK8则需要自己到Oracle官网下载安装对应的版本。自己安装的JDK默认路径为：/Library/Java/JavaVirtualMachines/jdk1.8.0_102.jdk 2.配置JDK创建.bash_profile配置文件（已经有该文件就跳过此步">
+<meta name="keywords" content="java环境">
 <meta property="og:type" content="article">
-<meta property="og:title" content="500G磁盘凭空消失！">
-<meta property="og:url" content="https://feifaninternet.github.io/2019/04/12/500G磁盘凭空消失！/index.html">
+<meta property="og:title" content="MAC系统配置JDK版本切换">
+<meta property="og:url" content="https://feifaninternet.github.io/2019/01/23/MAC系统配置JDK版本切换/index.html">
 <meta property="og:site_name" content="Xfan blog">
-<meta property="og:description" content="Description最近有一台磁盘容量500G的机器频繁出现磁盘容量不足，每次出现都只能重新启动机器，次数多了就想用一个一劳永逸的办法给他解决掉 问题查看步骤1.查看磁盘空间剩余容量    1df -h 2.如果磁盘容量已经用尽，找出占用容量最大的目录    1du -s /* | sort -nr        3.假设 /root 目录占用最多，查看root目录下哪个目录占用磁盘最多">
+<meta property="og:description" content="Description最近换了个Mac2019，配置java环境的时候需要进行版本切换，在这里记录一下 1.安装需要的JDK版本JDK7，JDK8则需要自己到Oracle官网下载安装对应的版本。自己安装的JDK默认路径为：/Library/Java/JavaVirtualMachines/jdk1.8.0_102.jdk 2.配置JDK创建.bash_profile配置文件（已经有该文件就跳过此步">
 <meta property="og:locale" content="Chinese">
-<meta property="og:image" content="https://feifaninternet.github.io/picture/http/du-s.jpg">
-<meta property="og:image" content="https://feifaninternet.github.io/picture/http/cronjob.jpg">
-<meta property="og:updated_time" content="2019-04-30T10:17:12.051Z">
+<meta property="og:image" content="https://feifaninternet.github.io/picture/jdk.jpg">
+<meta property="og:updated_time" content="2020-04-23T09:49:08.458Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="500G磁盘凭空消失！">
-<meta name="twitter:description" content="Description最近有一台磁盘容量500G的机器频繁出现磁盘容量不足，每次出现都只能重新启动机器，次数多了就想用一个一劳永逸的办法给他解决掉 问题查看步骤1.查看磁盘空间剩余容量    1df -h 2.如果磁盘容量已经用尽，找出占用容量最大的目录    1du -s /* | sort -nr        3.假设 /root 目录占用最多，查看root目录下哪个目录占用磁盘最多">
-<meta name="twitter:image" content="https://feifaninternet.github.io/picture/http/du-s.jpg">
+<meta name="twitter:title" content="MAC系统配置JDK版本切换">
+<meta name="twitter:description" content="Description最近换了个Mac2019，配置java环境的时候需要进行版本切换，在这里记录一下 1.安装需要的JDK版本JDK7，JDK8则需要自己到Oracle官网下载安装对应的版本。自己安装的JDK默认路径为：/Library/Java/JavaVirtualMachines/jdk1.8.0_102.jdk 2.配置JDK创建.bash_profile配置文件（已经有该文件就跳过此步">
+<meta name="twitter:image" content="https://feifaninternet.github.io/picture/jdk.jpg">
 
   
 
@@ -153,20 +152,20 @@
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Description"><span class="toc-text">Description</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#问题查看步骤"><span class="toc-text">问题查看步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nohup-后台方式启动项目产生的-nohup-out-文件过大的问题解决记录"><span class="toc-text">nohup 后台方式启动项目产生的 nohup.out 文件过大的问题解决记录</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Description"><span class="toc-text">Description</span></a></li></ol>
   </div>
 
 
 
 <div class="content content-post CENTER">
-   <article id="post-500G磁盘凭空消失！" class="article article-type-post" itemprop="blogPost">
+   <article id="post-MAC系统配置JDK版本切换" class="article article-type-post" itemprop="blogPost">
   <header class="article-header">
-    <h1 class="post-title">500G磁盘凭空消失！</h1>
+    <h1 class="post-title">MAC系统配置JDK版本切换</h1>
 
     <div class="article-meta">
       <span>
         <i class="icon-calendar"></i>
-        <span>2019.04.12</span>
+        <span>2019.01.23</span>
       </span>
 
       
@@ -179,7 +178,7 @@
       
   <span class="article-category">
     <i class="icon-list"></i>
-    <a class="article-category-link" href="/categories/Expand/">Expand</a>
+    <a class="article-category-link" href="/categories/work-notes/">work notes</a>
   </span>
 
 
@@ -187,7 +186,7 @@
       
         <span>
           <i class="icon-comment"></i>
-          <a href="https://feifaninternet.github.io//2019/04/12/500G磁盘凭空消失！/#disqus_thread"></a>
+          <a href="https://feifaninternet.github.io//2019/01/23/MAC系统配置JDK版本切换/#disqus_thread"></a>
         </span>
       
 
@@ -204,42 +203,27 @@
 
   <div class="article-content">
     
-      <h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>最近有一台磁盘容量500G的机器频繁出现磁盘容量不足，每次出现都只能重新启动机器，次数多了就想用一个一劳永逸的办法给他解决掉</p>
-<h3 id="问题查看步骤"><a href="#问题查看步骤" class="headerlink" title="问题查看步骤"></a>问题查看步骤</h3><p>1.查看磁盘空间剩余容量</p>
-   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df -h</span><br></pre></td></tr></table></figure>
-<p>2.如果磁盘容量已经用尽，找出占用容量最大的目录</p>
-   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">du -s /* | sort -nr</span><br></pre></td></tr></table></figure>
+      <h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>最近换了个Mac2019，配置java环境的时候需要进行版本切换，在这里记录一下</p>
+<p>1.安装需要的JDK版本<br>JDK7，JDK8则需要自己到<a href="https://www.oracle.com/java/" target="_blank" rel="noopener">Oracle官网</a>下载安装对应的版本。自己安装的JDK默认路径为：/Library/Java/JavaVirtualMachines/jdk1.8.0_102.jdk</p>
+<p>2.配置JDK<br>创建.bash_profile配置文件（已经有该文件就跳过此步骤）</p>
+<pre><code>touch ~/.bash_profile
+
+#vim编辑.bash_profile文件
+vim ~/.bash_profile
+</code></pre><p>设置jdk版本</p>
+<pre><code>export JAVA_7_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_80.jdk/Contents/Home
+export JAVA_8_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_102.jdk/Contents/Home
+export JAVA_HOME=$JAVA_8_HOME
+</code></pre><p>alias命令动态切换JAVA_HOME的配置</p>
+<pre><code>alias jdk8=&apos;export JAVA_HOME=$JAVA_8_HOME&apos;
+alias jdk7=&apos;export JAVA_HOME=$JAVA_7_HOME&apos;
+</code></pre><p>输入完成后保存执行下面命令,重新执行.bash_profile文件</p>
+<pre><code>source ~/.bash_profile
+</code></pre><p>3.验证JDK版本<br>使用：jdk7、jdk8 即可切换jdk版本</p>
 <div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
     webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
     moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
-    o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;"><br>    <img src="/picture/http/du-s.jpg"><br></div>
-
-
-<p>3.假设 <code>/root</code> 目录占用最多，查看root目录下哪个目录占用磁盘最多</p>
-   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">du -s /root/* |sort -nr</span><br></pre></td></tr></table></figure>
-<p>4.找到占用最多的文件，选择性的进行删除，如果删除后仍未解决，可以查看被删除的文件是否仍然被进程所占用而没有实际删除</p>
-   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsof |grep delete</span><br></pre></td></tr></table></figure>
-<p>最后结束占用进程</p>
-<p>我发现我的项目中 <code>nohup.out</code> 文件最大，而且删除了也还是被项目占用，结束进程后又要重启项目，非常麻烦，下面我们来了解一下 <code>nohup.out</code> 和如何解决此文件过大的问题</p>
-<h3 id="nohup-后台方式启动项目产生的-nohup-out-文件过大的问题解决记录"><a href="#nohup-后台方式启动项目产生的-nohup-out-文件过大的问题解决记录" class="headerlink" title="nohup 后台方式启动项目产生的 nohup.out 文件过大的问题解决记录"></a>nohup 后台方式启动项目产生的 nohup.out 文件过大的问题解决记录</h3><p>原因：使用 <code>nohup</code> 执行 <code>java</code> 项目时，未指定日志去向，会自动在当前目录生成一个 <code>nohup.out</code> 文件来存放请求日志，而这个日志文件中的日志策略根本不会使用项目中的配置，所有的日志都会打印记录，所以会导致这个文件非常大，</p>
-<p>1.指定日志文件去到系统空洞/垃圾桶 <code>/dev/null</code></p>
-   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup *** &gt;&gt; /dev/null 1 &gt; /var/log/app.log &amp;</span><br></pre></td></tr></table></figure>
-<p>2.指定日志去向，定时清除</p>
-<p>2.1指定日志输出到 <code>/var/log/app.log</code><br>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup *** &gt;&gt; /var/log/app.log &amp;</span><br></pre></td></tr></table></figure></p>
-<p>2.2编写 <code>cron</code> 定时任务脚本文件</p>
-   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim app.cron</span><br></pre></td></tr></table></figure>
-<p>2.3在定时任务脚本文件写入，每天18点清除<br>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 18 * * * cat /dev/null &gt; /var/log/app.log</span><br></pre></td></tr></table></figure></p>
-<p>2.4执行</p>
-   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crontab /app/app.cron &gt; /var/log/corn.log</span><br></pre></td></tr></table></figure>
-<p>2.5查看</p>
-   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crontab -l</span><br></pre></td></tr></table></figure>
-<div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
-    webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
-    moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
-    o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;"><br>    <img src="/picture/http/cronjob.jpg" alt="定时任务" title="定时任务"><br></div>
-
-<p>3.</p>
-
+    o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;"><br>    <img src="/picture/jdk.jpg" alt="jdk版本" title="jdk版本"><br></div>
     
   </div>
 
@@ -276,10 +260,10 @@
 
    
   <div class="box-prev-next clearfix">
-    <a class="show pull-left" href="/2019/04/02/996-icu/">
+    <a class="show pull-left" href="/2018/08/09/秒杀系统/">
         <i class="icon icon-angle-left"></i>
     </a>
-    <a class="show pull-right" href="/2019/05/15/还是无法避免分库分表/">
+    <a class="show pull-right" href="/2019/03/13/如何应对恶意IP访问/">
         <i class="icon icon-angle-right"></i>
     </a>
   </div>
@@ -369,7 +353,7 @@
   <script>
     var disqus_shortname = 'xfan';
     
-    var disqus_url = 'https://feifaninternet.github.io/2019/04/12/500G磁盘凭空消失！/';
+    var disqus_url = 'https://feifaninternet.github.io/2019/01/23/MAC系统配置JDK版本切换/';
     
     (function(){
       var dsq = document.createElement('script');
