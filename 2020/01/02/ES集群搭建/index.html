@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>ES集群搭建 | Xfan blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Elastic,">
+  
+
+  <meta name="description" content="一、背景知识当我们想要搭建集群时，要先了解下ES的集群发现机制 默认情况下，es进程会绑定在自己的回环地址上，会去寻找9300-9305端口是否存在es node，如果有并且是启动的，会主动与其通信，组成集群。这样的话如果本地启动多个节点，其搭建集群是非常方便的。但是生产环境不同，因为是在不同服务器上进行集群的搭建，需要绑定到非回环的ip地址上，并使用集群发现机制进行通信。 集群发现机制常用的有两">
+<meta name="keywords" content="Elastic">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES集群搭建">
+<meta property="og:url" content="https://feifaninternet.github.io/2020/01/02/ES集群搭建/index.html">
+<meta property="og:site_name" content="Xfan blog">
+<meta property="og:description" content="一、背景知识当我们想要搭建集群时，要先了解下ES的集群发现机制 默认情况下，es进程会绑定在自己的回环地址上，会去寻找9300-9305端口是否存在es node，如果有并且是启动的，会主动与其通信，组成集群。这样的话如果本地启动多个节点，其搭建集群是非常方便的。但是生产环境不同，因为是在不同服务器上进行集群的搭建，需要绑定到非回环的ip地址上，并使用集群发现机制进行通信。 集群发现机制常用的有两">
+<meta property="og:locale" content="Chinese">
+<meta property="og:updated_time" content="2021-04-21T07:45:24.167Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ES集群搭建">
+<meta name="twitter:description" content="一、背景知识当我们想要搭建集群时，要先了解下ES的集群发现机制 默认情况下，es进程会绑定在自己的回环地址上，会去寻找9300-9305端口是否存在es node，如果有并且是启动的，会主动与其通信，组成集群。这样的话如果本地启动多个节点，其搭建集群是非常方便的。但是生产环境不同，因为是在不同服务器上进行集群的搭建，需要绑定到非回环的ip地址上，并使用集群发现机制进行通信。 集群发现机制常用的有两">
+
+  
+
+  
+    <link rel="icon" href="/picture/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/person/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">Site</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">Site</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/archives/" rel="noopener noreferrer" target="_self">
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/categories/JAVA" rel="noopener noreferrer" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/tags/git" rel="noopener noreferrer" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/link/" rel="noopener noreferrer" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/about/" rel="noopener noreferrer" target="_self">
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/search/" rel="noopener noreferrer" target="_self">
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、背景知识"><span class="toc-text">一、背景知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#基础配置"><span class="toc-text">基础配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#master-node与data-node"><span class="toc-text">master node与data node</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#master选举"><span class="toc-text">master选举</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#脑裂"><span class="toc-text">脑裂</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置解决"><span class="toc-text">配置解决</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#动态配置"><span class="toc-text">动态配置</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#集群故障检查"><span class="toc-text">集群故障检查</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#集群状态更新"><span class="toc-text">集群状态更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#宕机阻塞集群操作"><span class="toc-text">宕机阻塞集群操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件存放位置"><span class="toc-text">文件存放位置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置日志信息"><span class="toc-text">配置日志信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#集群重启shard重分配问题"><span class="toc-text">集群重启shard重分配问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#系统设置"><span class="toc-text">系统设置</span></a></li></ol><li class="toc-item toc-level-1"><a class="toc-link" href="#必须配置"><span class="toc-text">必须配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#根据情况设置（必须）"><span class="toc-text">根据情况设置（必须）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#根据情况选择设置"><span class="toc-text">根据情况选择设置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#jvm-heap内存，根据需要配置"><span class="toc-text">jvm heap内存，根据需要配置</span></a>
+  </li></div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-ES集群搭建" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">ES集群搭建</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2020.01.02</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>xfan</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/Expand/">Expand</a>
+  </span>
+
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="https://feifaninternet.github.io//2020/01/02/ES集群搭建/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h2 id="一、背景知识"><a href="#一、背景知识" class="headerlink" title="一、背景知识"></a>一、背景知识</h2><p>当我们想要搭建集群时，要先了解下ES的集群发现机制</p>
+<p>默认情况下，es进程会绑定在自己的回环地址上，会去寻找9300-9305端口是否存在es node，如果有并且是启动的，会主动与其通信，组成集群。这样的话如果本地启动多个节点，其搭建集群是非常方便的。但是生产环境不同，因为是在不同服务器上进行集群的搭建，需要绑定到非回环的ip地址上，并使用集群发现机制进行通信。</p>
+<p>集群发现机制常用的有两种：</p>
+<p>unicast：es默认的集群发现机制，通过特殊节点的配置，使之组成一个集群，主要使用网络通信协议，而不是随便什么节点就可以进入集群。<br>multicast：这个机制非常简单，所有在启动的节点接收到multicast ping后就自动加入集群，但是非常脆弱，如果有点网络波动，可能会导致集群的不稳定，一般不使用。</p>
+<p>##二、配置</p>
+<h3 id="基础配置"><a href="#基础配置" class="headerlink" title="基础配置"></a>基础配置</h3><pre><code> #集群名称，一个集群的节点需要设置相同名称
+cluster.name: my-es 
+ # 节点名称
+node.name: node-1 
+#本机ip，保存unicast可以发现，进入非回环
+network.host: 192.168.25.250 
+#服务端口号，默认9200
+http.port: 9200  
+#集群间通信端口号， 默认9300
+transport.tcp.port: 9300  
+#集群自动发现的机器ip集合
+discovery.zen.ping.unicast.hosts: [&quot;es01&quot;,&quot;es02&quot;,&quot;es03&quot;] 
+</code></pre><h3 id="master-node与data-node"><a href="#master-node与data-node" class="headerlink" title="master node与data node"></a>master node与data node</h3><p>配置节点时，可以选择哪些node作为<code>master eligible node</code>（备选主节点），这些节点具有争夺<code>master node</code>的权利，但是如果竞选失败还是当做<code>data node</code>使用</p>
+<p>配置哪些<code>node</code>作为<code>data node</code>，只用来保存数据，不竞选<code>master node</code>。</p>
+<pre><code># 配置为 master eligible node
+node.master: true
+node.data: false
+#配置为 data node
+node.master: false
+node.data: true
+</code></pre><h3 id="master选举"><a href="#master选举" class="headerlink" title="master选举"></a>master选举</h3><ul>
+<li><p><code>discovery.zen.ping_timeout</code>：集群启动时，会通过ping命令，对各个节点选举出一个master node，这里如果网络波动，会导致选举失败，所以设置这个参数可以增加选举时间，比如10s内选举完成，增加稳定性</p>
+</li>
+<li><p><code>discovery.zen.join_timeout</code>：即选举成功后，如果有node加入集群，会发送join请求，增加join_timeout时长，如果join失败，在时间内会一直重试，也是增加稳定性</p>
+</li>
+<li><p><code>discovery.zen.master_election.ignore_non_master_pings</code>：如果为true，ping选举master节点时，会强制区分候选节点，如果上面说的配置了node.master:false的节点，会被忽略掉。</p>
+</li>
+<li><p><code>discovery.zen.minimum_master_nodes</code>：这个配置相当重要，避免脑裂问题！</p>
+</li>
+</ul>
+<h4 id="脑裂"><a href="#脑裂" class="headerlink" title="脑裂"></a>脑裂</h4><p>比如两节点集群，一主一从，如果通信中断（网络问题或者无响应），从节点会认为主节点挂掉，自动上升为主节点，这时在它身上的副本分片也会提升为主分片，就会出现两个主节点，导致数据破坏。</p>
+<h4 id="配置解决"><a href="#配置解决" class="headerlink" title="配置解决"></a>配置解决</h4><p>这个配置即在选举中至少有几个节点保持通信才可以推选master，缺省是1，一般设置为N/2+1，N为节点数量</p>
+<h4 id="动态配置"><a href="#动态配置" class="headerlink" title="动态配置"></a>动态配置</h4><p>当集群增加或减少节点时，可以动态配置这个参数</p>
+<p>PUT /_cluster/settings<br>{<br>    “persistent” : {<br>        “discovery.zen.minimum_master_nodes” : 2<br>    }<br>}</p>
+<h3 id="集群故障检查"><a href="#集群故障检查" class="headerlink" title="集群故障检查"></a>集群故障检查</h3><p>es有两种集群故障探查机制，第一种是通过master进行的，master会ping集群中所有的其他node，确保它们是否是存活着的。第二种，每个node都会去ping master node来确保master node是存活的，否则就会发起一个选举过程。</p>
+<p>有下面三个参数用来配置集群故障的探查过程：</p>
+<ul>
+<li><code>ping_interval</code>：每隔多长时间会ping一次node，默认是1s</li>
+<li><code>ping_timeout</code>：每次ping的timeout等待时长是多长时间，默认是30s</li>
+<li><code>ping_retries</code>：如果一个node被ping多少次都失败了，就会认为node故障，默认是3次</li>
+</ul>
+<h3 id="集群状态更新"><a href="#集群状态更新" class="headerlink" title="集群状态更新"></a>集群状态更新</h3><p>ES中只有master node是可以对cluster state进行更新的node，它也是主要干这个事的。</p>
+<p>这里会发现第四步和第七步，具有规定时间和足够数量，就是通过配置文件配置的。</p>
+<p>discovery.zen.commit_timeout:指定时间内获取ack响应，如果没有便不会应用时间（默认30s）<br>discovery.zen.publish_timeout：指定时间内响应状态更新成功，如果超时便不会进行下一次更新操作（默认30s）<br>discovery.zen.minimum_master_nodes：即上面配置的至少有多少个节点保持通信</p>
+<h3 id="宕机阻塞集群操作"><a href="#宕机阻塞集群操作" class="headerlink" title="宕机阻塞集群操作"></a>宕机阻塞集群操作</h3><p>如果要让集群正常运转，那么必须有一个master，还有discovery.zen.minimum_master_nodes指定数量的master候选node，都在运行。</p>
+<p>discovery.zen.no_master_block可以控制当master宕机时，什么样的操作应该被拒绝。有下面两个选项：</p>
+<p>discovery.zen.no_master_block:all – 一旦master当即，那么所有的操作都会被拒绝<br>discovery.zen.no_master_block:write – 这是默认的选项，所有的写操作都会被拒绝，但是读操作是被允许的</p>
+<h3 id="文件存放位置"><a href="#文件存放位置" class="headerlink" title="文件存放位置"></a>文件存放位置</h3><p>es默认存放数据到data目录下，日志存放log目录下，插件存放plugin目录下，如果es升级，会导致文件夹覆盖。所以我们应该更改文件存放位置</p>
+<p>一般目录存放在/var下：</p>
+<pre><code>mkdir -p /var/log/elasticsearch
+mkdir -p /var/data/elasticsearch
+</code></pre><p>修改elasticsearch.yml：</p>
+<pre><code>path.logs: /var/log/elasticsearch
+path.data: /var/data/elasticsearch
+</code></pre><h3 id="配置日志信息"><a href="#配置日志信息" class="headerlink" title="配置日志信息"></a>配置日志信息</h3><p>ES默认的日志配置中没有删除的操作，需要配下日志删除的逻辑，在log4j2.properties·中</p>
+<pre><code>#配置默认的DefaultRolloverStrategy
+appender.rolling.strategy.type = DefaultRolloverStrategy
+#配置Delete action，在rollover之后，就会删除文件
+appender.rolling.strategy.action.type = Delete
+#配置es log的基础路径
+appender.rolling.strategy.action.basepath = ${sys:es.logs.base_path}
+#配置rollover发生的条件，是基于IfLastModified
+appender.rolling.strategy.action.condition.type = IfLastModified
+#配置保留的天数，这里是7天
+appender.rolling.strategy.action.condition.age = 7D
+#配置删除匹配7天前的文件
+appender.rolling.strategy.action.PathConditions.type = IfFileName
+#配置一个删除文件的格式，这样就只是删除过期日志文件，但是不要删除慢查询日志
+appender.rolling.strategy.action.PathConditions.glob = ${sys:es.logs.cluster_name}-*
+</code></pre><h3 id="集群重启shard重分配问题"><a href="#集群重启shard重分配问题" class="headerlink" title="集群重启shard重分配问题"></a>集群重启shard重分配问题</h3><p>问题：好比10个节点，5个primary shard，5个replica shard，一开始均匀的每个节点分配一个shard</p>
+<p>这时重启节点，因为某些原因，只先启动了5个节点，还有5个节点没有启动，这时ES会自动恢复shard</p>
+<ul>
+<li><p>将启动的5个节点中replica升级为primary shard</p>
+</li>
+<li><p>将每个shard 复制一份 replica，这样每个节点有两个shard，主副各一份</p>
+</li>
+<li><p>此时启动剩余5个节点了</p>
+</li>
+<li><p>根据负载均衡，将先启动节点的shard均匀分配到新启动节点上，这样回到每个节点一个shard的情况</p>
+</li>
+<li><p>删除新启动节点本地shard</p>
+</li>
+</ul>
+<p>所以，根据这种情况，节点多做了很多操作，如：</p>
+<p>平白无故复制了50%的shard<br>后上线的node删除本地shard<br>50%的shard进行网络传输移动<br>便会浪费大量资源且启动缓慢</p>
+<p>解决：</p>
+<p>gateway.recover_after_nodes: 8<br>gateway.expected_nodes: 10<br>gateway.recover_after_time: 5m<br>搭配使用，启动节点数量大于8个后，如果再过5分钟内没有启动10个节点，开始分配shard<br>这样可以节省大量资源，并且启动速度变快</p>
+<h2 id="系统设置"><a href="#系统设置" class="headerlink" title="系统设置"></a>系统设置</h2><p>ES不能用root用户启动，所以必须创建用户分配权限启动才可以</p>
+<pre><code>adduser es
+passwd es
+chown -R es /usr/local/elasticsearch
+chown -R es /var
+su es
+</code></pre><p>四、启动报错问题</p>
+<ol>
+<li>ERROR: [2] bootstrap checks failed：max file descriptors [4096] for elasticsearch process is too low, increase to at least [65536][2]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]</li>
+</ol>
+<p>在vi /etc/security/limits.conf</p>
+<p>添加如下内容:</p>
+<pre><code>* - nofile 65536
+* soft memlock unlimited
+* hard memlock unlimited
+</code></pre><ol>
+<li>elasticsearch max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]</li>
+</ol>
+<p>在root用户下执行</p>
+<pre><code>vi /etc/sysctl.conf 
+</code></pre><p>添加下面配置：</p>
+<pre><code>vm.max_map_count=655360
+</code></pre><p>并执行命令：</p>
+<pre><code>sysctl -p
+</code></pre><p>五、启动与关闭<br>配置完那些后，在es/bin目录下执行</p>
+<pre><code>./elasticsearch -d
+</code></pre><p>然后查看日志</p>
+<pre><code>cat /var/log/elasticsearch/my-cat.log
+</code></pre><p>启动成功</p>
+<p>关闭需要查看进程号：</p>
+<pre><code>ps -ef|grep elasticsearch
+</code></pre><p>杀死进程：</p>
+<pre><code>kill -SIGTERM pid
+</code></pre><p>六、总结<br>1）创建日志存放目录</p>
+<pre><code>mkdir -p /var/log/elasticsearch
+mkdir -p /var/data/elasticsearch
+</code></pre><p>2）修改elasticsearch.yml</p>
+<h1 id="必须配置"><a href="#必须配置" class="headerlink" title="必须配置"></a>必须配置</h1><pre><code>cluster.name: my-es
+node.name: node-1
+network.host: 192.168.25.250
+http.port: 9200
+transport.tcp.port: 9300
+discovery.zen.ping.unicast.hosts: [&quot;es01&quot;,&quot;es02&quot;,&quot;es03&quot;]
+</code></pre><h1 id="根据情况设置（必须）"><a href="#根据情况设置（必须）" class="headerlink" title="根据情况设置（必须）"></a>根据情况设置（必须）</h1><pre><code>discovery.zen.minimum_master_nodes: 1
+
+gateway.recover_after_nodes: 1
+gateway.expected_nodes: 2
+gateway.recover_after_time: 5m
+</code></pre><h1 id="根据情况选择设置"><a href="#根据情况选择设置" class="headerlink" title="根据情况选择设置"></a>根据情况选择设置</h1><pre><code>path.logs: /var/log/elasticsearch
+path.data: /var/data/elasticsearch
+
+node.master: true
+node.data: false
+</code></pre><p>#跨域设置<br>    http.cors.enabled: true<br>    http.cors.allow-origin: “*”</p>
+<p>3）jvm.options</p>
+<h1 id="jvm-heap内存，根据需要配置"><a href="#jvm-heap内存，根据需要配置" class="headerlink" title="jvm heap内存，根据需要配置"></a>jvm heap内存，根据需要配置</h1><pre><code>-Xms2g
+-Xmx2g
+</code></pre><p>4）配置系统设置</p>
+<pre><code>vi /etc/security/limits.conf 添加
+
+* - nofile 65536
+* soft memlock unlimited
+* hard memlock unlimited
+vi /etc/sysctl.conf 添加vm.max_map_count=655360，执行sysctl -p
+</code></pre><p>5）创建用户</p>
+<pre><code>adduser es
+passwd es
+chown -R es /usr/local/elasticsearch
+chown -R es /var/log/elasticsearch/
+chown -R es /var/data/elasticsearch/
+su es
+</code></pre><p>6）启动所有节点</p>
+<p>再bin目录下：</p>
+<pre><code>./elasticsearch -d
+</code></pre><p>查看日志是否启动成功：</p>
+<pre><code>cat /var/log/elasticsaerch/my-cat.log
+</code></pre><p>7）测试</p>
+<pre><code>curl -XGET elasticsearch02:9200
+curl -XGET elasticsearch02:9200/_cat/nodes?v
+</code></pre><p>成功启动三个节点</p>
+
+    
+  </div>
+
+  
+      <div class="git"></div>
+  
+
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持xfan</div>
+        <ul>
+        
+          <li class="item">
+            <span>微信扫一扫</span>
+            <img src="/picture/qr-wechat.png" alt>
+          </li>
+        
+          <li class="item">
+            <span>支付宝扫一扫</span>
+            <img src="/picture/qr-alipay.png" alt>
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2019/11/24/实时分布式消息传递平台-NSQ/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/archives/" rel="noopener noreferrer" target="_self">
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/categories/JAVA" rel="noopener noreferrer" target="_self">
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/tags/git" rel="noopener noreferrer" target="_self">
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/link/" rel="noopener noreferrer" target="_self">
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/about/" rel="noopener noreferrer" target="_self">
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/search/" rel="noopener noreferrer" target="_self">
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'xfan';
+    
+    var disqus_url = 'https://feifaninternet.github.io/2020/01/02/ES集群搭建/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//xfan.disqus.com/count.js" async></script>
+
+
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

@@ -23,7 +23,7 @@
 <meta property="og:site_name" content="Xfan blog">
 <meta property="og:description" content="DescriptionDocker是一个开源的引擎，可以轻松的为任何应用创建一个轻量级的，可移植的自给自足的容器，开发者可以打包应用以及依赖包到这个容器中，然后发布到任何流行的Linux机器上，也可以实现虚拟化。容器是完全使用沙箱机制，相互之间不会有任何接口。 Docker通常用于如下场景 web应用的自动化打包和发布 自动化测试和持续集成，发布 在服务型环境中部署和调整数据库或者其他的后台应用">
 <meta property="og:locale" content="Chinese">
-<meta property="og:updated_time" content="2019-04-11T03:21:00.669Z">
+<meta property="og:updated_time" content="2021-04-16T09:13:39.701Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker">
 <meta name="twitter:description" content="DescriptionDocker是一个开源的引擎，可以轻松的为任何应用创建一个轻量级的，可移植的自给自足的容器，开发者可以打包应用以及依赖包到这个容器中，然后发布到任何流行的Linux机器上，也可以实现虚拟化。容器是完全使用沙箱机制，相互之间不会有任何接口。 Docker通常用于如下场景 web应用的自动化打包和发布 自动化测试和持续集成，发布 在服务型环境中部署和调整数据库或者其他的后台应用">
@@ -150,7 +150,7 @@
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Description"><span class="toc-text">Description</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker通常用于如下场景"><span class="toc-text">Docker通常用于如下场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker-的优点"><span class="toc-text">Docker 的优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker-的核心"><span class="toc-text">Docker 的核心</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#镜像"><span class="toc-text">镜像</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#容器"><span class="toc-text">容器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#仓库"><span class="toc-text">仓库</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker-使用"><span class="toc-text">Docker 使用</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Description"><span class="toc-text">Description</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker通常用于如下场景"><span class="toc-text">Docker通常用于如下场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker-的优点"><span class="toc-text">Docker 的优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker-的核心"><span class="toc-text">Docker 的核心</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#镜像"><span class="toc-text">镜像</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#容器"><span class="toc-text">容器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#仓库"><span class="toc-text">仓库</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker安装"><span class="toc-text">Docker安装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#yum安装"><span class="toc-text">yum安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二进制安装"><span class="toc-text">二进制安装</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker基本使用"><span class="toc-text">Docker基本使用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#镜像使用"><span class="toc-text">镜像使用</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#列出镜像列表"><span class="toc-text">列出镜像列表</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#查找镜像"><span class="toc-text">查找镜像</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#获取镜像"><span class="toc-text">获取镜像</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#导入导出镜像"><span class="toc-text">导入导出镜像</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#删除镜像"><span class="toc-text">删除镜像</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#创建镜像"><span class="toc-text">创建镜像</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#容器使用"><span class="toc-text">容器使用</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#启动容器"><span class="toc-text">启动容器</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#列出容器"><span class="toc-text">列出容器</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#进入容器"><span class="toc-text">进入容器</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#导入导出容器"><span class="toc-text">导入导出容器</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#删除容器"><span class="toc-text">删除容器</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#容器端口映射"><span class="toc-text">容器端口映射</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#容器数据持久化"><span class="toc-text">容器数据持久化</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#容器的数据拷贝"><span class="toc-text">容器的数据拷贝</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装centos7容器"><span class="toc-text">安装centos7容器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#获取centos7镜像"><span class="toc-text">获取centos7镜像</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#检查是否导入成功"><span class="toc-text">检查是否导入成功</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#运行容器，并且可以通过-exec-命令进入-CentOS-容器"><span class="toc-text">运行容器，并且可以通过 exec 命令进入 CentOS 容器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装成功"><span class="toc-text">安装成功</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#操作容器"><span class="toc-text">操作容器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#导出容器"><span class="toc-text">导出容器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#导入容器为镜像"><span class="toc-text">导入容器为镜像</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#通过镜像启动容器"><span class="toc-text">通过镜像启动容器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#检查容器运行状态"><span class="toc-text">检查容器运行状态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#导出镜像"><span class="toc-text">导出镜像</span></a></li></ol></li></ol>
   </div>
 
 
@@ -217,7 +217,129 @@
 <h3 id="Docker-的核心"><a href="#Docker-的核心" class="headerlink" title="Docker 的核心"></a>Docker 的核心</h3><h4 id="镜像"><a href="#镜像" class="headerlink" title="镜像"></a>镜像</h4><p>镜像类似于虚拟机镜像，可以理解为一个面向docker引擎的只读模板，包含了系统文件。<br>镜像是流行的Linux系统的(CentOS,Ubuntu),然后在上面安装应用程序。<br>镜像是创建容器的基础，通过版本管理和增量的文件系统，docker可以简单的创建和更新现有的镜像，也可以直接使用网上下载的镜像。</p>
 <h4 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h4><p>容器相当于一个轻量级的沙箱，用来运行和隔离应用。<br>容器是从镜像创建的应用运行实例，可以将其启动，开始，停止，删除，这些容器是相互隔离，互不可见的。<br>镜像自身是只读的，容器从镜像启动的时候，Docker会在镜像的最上层创建一个可写层，镜像本身将保持不变。</p>
 <h4 id="仓库"><a href="#仓库" class="headerlink" title="仓库"></a>仓库</h4><p>仓库类似于代码仓库，是docker集中存放镜像文件的场所。<br>docker仓库和注册服务器是不一样的，注册服务器是存放仓库的地方，可以包含很多个仓库 ，每个仓库集中存放某一类镜像，往往包含多个镜像文件，通过不同的标签区分。<br>仓库分为公共仓库和私有仓库，公共仓库是存放的共享镜像文件，目前最大的是Docker Hub，用户可以创建私有仓库在自己的局域网中。</p>
-<h3 id="Docker-使用"><a href="#Docker-使用" class="headerlink" title="Docker 使用"></a>Docker 使用</h3>
+<h3 id="Docker安装"><a href="#Docker安装" class="headerlink" title="Docker安装"></a>Docker安装</h3><p>Docker 运行在 CentOS 7 上，要求系统为64位、系统内核版本为 3.10 以上。</p>
+<p>Docker 运行在 CentOS-6.5 或更高的版本的 CentOS 上，要求系统为64位、系统内核版本为 2.6.32-431 或者更高版本。</p>
+<h4 id="yum安装"><a href="#yum安装" class="headerlink" title="yum安装"></a>yum安装</h4><p>检查能连接外网或者有内部yum源(/etc/yum.repos.d/下)，长亮合度机器可在/etc/yum.repos.d/新建一个docker.repo文件，配置信息如下</p>
+<pre><code>[docker]
+name=Docker Packages for Enterprise Linux 7 - $basearch
+baseurl=http://e-proxy.yfb.xfan.cn/repos/docker-ce/7/$basearch/
+enabled=1
+gpgcheck=0
+gpgkey=http://e-proxy.yfb.xfan.cn/repos/docker-ce/gpg
+</code></pre><p>有可用的yum源后，执行命令安装docker：</p>
+<pre><code># 安装docker
+yum install docker-ce -y
+# 启动docker服务
+systemctl start docker
+# 设置docker服务开机自启
+systemctl enable docker
+# 其他： 服务的重启和关闭
+systemctl restart/stop docker
+</code></pre><h4 id="二进制安装"><a href="#二进制安装" class="headerlink" title="二进制安装"></a>二进制安装</h4><p>参考<a href="https://docs.docker.com/engine/install/binaries/" target="_blank" rel="noopener">官方文档</a> 上传<a href="http://10.22.80.28/download/docker/docker-19.03.12.tgz" target="_blank" rel="noopener">docker安装包</a>，解压安装包并运行docker服务</p>
+<pre><code>#解压目录
+tar xzvf docker-19.03.12.tgz
+#拷贝运行文件
+cp docker/* /usr/bin/
+#启动服务
+dockerd &amp;
+</code></pre><h3 id="Docker基本使用"><a href="#Docker基本使用" class="headerlink" title="Docker基本使用"></a>Docker基本使用</h3><h4 id="镜像使用"><a href="#镜像使用" class="headerlink" title="镜像使用"></a>镜像使用</h4><h5 id="列出镜像列表"><a href="#列出镜像列表" class="headerlink" title="列出镜像列表"></a>列出镜像列表</h5><p>我们可以使用 docker images 来列出本地主机上的镜像</p>
+<pre><code>docker images
+</code></pre><h5 id="查找镜像"><a href="#查找镜像" class="headerlink" title="查找镜像"></a>查找镜像</h5><p>可以从 Docker Hub 网站来搜索镜像，Docker Hub 网址为： <code>https://hub.docker.com/</code>，也可以使用 <code>docker search</code> 命令来搜索镜像</p>
+<pre><code>docker search httpd
+</code></pre><h5 id="获取镜像"><a href="#获取镜像" class="headerlink" title="获取镜像"></a>获取镜像</h5><p>如果我们本地没有 ubuntu 镜像，我们可以使用 <code>docker pull</code> 命令来载入 ubuntu 镜像（能连接外网或配置了私有镜像仓库）：</p>
+<pre><code>docker pull ubuntu:13.10
+</code></pre><h5 id="导入导出镜像"><a href="#导入导出镜像" class="headerlink" title="导入导出镜像"></a>导入导出镜像</h5><p>使用 <code>save</code> 和 <code>load</code> 命令可以把镜像导出或者导入</p>
+<pre><code>#导出ubuntu:v3镜像保存到本地my_ubuntu_v3.tar
+docker save -o my_ubuntu_v3.tar ubuntu:v3
+#导入my_ubuntu_v3.tar至本地
+docker load -i my_ubuntu_v3.tar
+</code></pre><h5 id="删除镜像"><a href="#删除镜像" class="headerlink" title="删除镜像"></a>删除镜像</h5><p>镜像删除使用 <code>docker rmi</code> 命令，比如我们删除 <code>hello-world</code> 镜像：</p>
+<pre><code>docker rmi hello-world
+</code></pre><h5 id="创建镜像"><a href="#创建镜像" class="headerlink" title="创建镜像"></a>创建镜像</h5><p>当下载的镜像不能满足我们的需求时，我们可以通过以下两种方式对镜像进行更改</p>
+<p>1）<code>docker commit</code> 从已经创建的容器中更新镜像，并且提交这个镜像</p>
+<pre><code>docker commit -m=&quot;has update&quot; -a=&quot;xfan&quot; e218edb10161 xfan:2.0.1.6
+</code></pre><p>2）使用 Dockerfile 来构建一个新的镜像</p>
+<pre><code>xfan@localhost:~$ cat Dockerfile
+FROM    centos:7.6
+MAINTAINER      Fisher &quot;fisher@sudops.com&quot;
+
+RUN     /bin/echo &apos;root:123456&apos; |chpasswd
+RUN     useradd xfan
+RUN     /bin/echo &apos;xfan:123456&apos; |chpasswd
+RUN     /bin/echo -e &quot;LANG=\&quot;en_US.UTF-8\&quot;&quot; &gt;/etc/default/local
+EXPOSE  22
+EXPOSE  80
+CMD     /usr/sbin/sshd -D
+</code></pre><p>每一个指令都会在镜像上创建一个新的层，每一个指令的前缀都必须是大写的。</p>
+<p>第一条FROM，指定使用哪个镜像源</p>
+<p>RUN 指令告诉docker 在镜像内执行命令，安装了什么</p>
+<p>然后，使用 Dockerfile 文件，通过 docker build 命令来构建一个镜像</p>
+<pre><code>docker build -t xfan/centos:7.6 .
+</code></pre><p>xfan-boot Dockerfile</p>
+<pre><code>FROM 10.22.20.72/library/jdk:1.8
+COPY xfan-boot-2.0.11-bin.tar.gz /
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN tar zxf xfan-boot-2.0.11-bin.tar.gz \
+    &amp;&amp; rm -rf xfan-boot-2.0.11-bin.tar.gz \
+    &amp;&amp; mv xfan-boot-2.0.11 xfan-boot \
+    &amp;&amp; echo &quot;2.0.11&quot; &gt; xfan-boot/version.txt \
+    &amp;&amp; chmod +x /usr/local/bin/docker-entrypoint.sh
+EXPOSE 8081
+WORKDIR /xfan-boot
+ENTRYPOINT [&quot;docker-entrypoint.sh&quot;]
+CMD [&quot;/bin/bash&quot;, &quot;-c&quot;, &quot;/bin/bash /xfan-boot/bin/startup.sh \
+    &amp;&amp; tailf  /xfan-boot/logs/default.log &quot;]
+</code></pre><h4 id="容器使用"><a href="#容器使用" class="headerlink" title="容器使用"></a>容器使用</h4><h5 id="启动容器"><a href="#启动容器" class="headerlink" title="启动容器"></a>启动容器</h5><p>使用 <code>docker run</code> 启动容器</p>
+<pre><code>docker run -itd --name ubuntu-test ubuntu /bin/bash
+</code></pre><p>参数说明：</p>
+<ul>
+<li>i: 交互式操作。</li>
+<li>t: 终端。</li>
+<li>d: 后台运行</li>
+<li>ubuntu: ubuntu 镜像。</li>
+<li>/bin/bash：放在镜像名后的是命令，这里我们希望有个交互式 Shell，因此用的是 /bin/bash。</li>
+</ul>
+<p><strong>注：启动后可通过docker logs -f  ubuntu-test查看相关日志</strong></p>
+<h5 id="列出容器"><a href="#列出容器" class="headerlink" title="列出容器"></a>列出容器</h5><p>查看所有的容器</p>
+<pre><code>docker ps -a
+3.2.3.运行关闭重启容器
+docker start/stop/restart b750bbbcfd88  #通过容器ID
+docker start/stop/restart ubuntu-test   #通过容器名称
+</code></pre><h5 id="进入容器"><a href="#进入容器" class="headerlink" title="进入容器"></a>进入容器</h5><p>在使用 -d 参数时，容器启动后会进入后台。此时想要进入容器，可以通过以下指令进入：</p>
+<pre><code>docker exec -it 243c32535da7 /bin/bash
+</code></pre><h5 id="导入导出容器"><a href="#导入导出容器" class="headerlink" title="导入导出容器"></a>导入导出容器</h5><p>如果要导出本地某个容器，可以使用 <code>docker export</code> 命令。</p>
+<pre><code>docker export 1e560fca3906 -o ubuntu.tar
+</code></pre><p>可以使用 <code>docker import</code> 从容器快照文件中再导入为镜像</p>
+<pre><code>docker import  ubuntu.tar ubuntu:v4
+</code></pre><h5 id="删除容器"><a href="#删除容器" class="headerlink" title="删除容器"></a>删除容器</h5><pre><code>docker rm 1e560fca3906 # -f 强制删除，不管容器是否停止
+</code></pre><h5 id="容器端口映射"><a href="#容器端口映射" class="headerlink" title="容器端口映射"></a>容器端口映射</h5><p>要让外部也可以访问这些应用，可以通过 -P 或 -p 参数来指定端口映射</p>
+<pre><code>docker run --name nginx-test -p 8080:80 -d nginx
+</code></pre><h5 id="容器数据持久化"><a href="#容器数据持久化" class="headerlink" title="容器数据持久化"></a>容器数据持久化</h5><p>删除容器会试容器内的数据全部删除，对于一些比如重要或者需要持久化的数据，可以通过启动容器时加-v进行本地目录的映射</p>
+<pre><code>mkdir /data/mysql/conf –p &amp;&amp; cd /data/mysql
+docker run -p 3306:3306 –name=mysql -v $PWD/conf:/etc/mysql/ -v $PWD/logs:/logs  -v $PWD/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.6.42
+</code></pre><h5 id="容器的数据拷贝"><a href="#容器的数据拷贝" class="headerlink" title="容器的数据拷贝"></a>容器的数据拷贝</h5><p>使用<code>docker cp</code>命令可以将宿主机的文件拷贝至容器或容器的文件拷贝回宿主机</p>
+<pre><code>docker cp /www/pte 96f7f14e99ab:/www/ # 宿主机拷贝至容器
+docker cp nginx:/www/pte  /tmp/  # 容器拷贝至宿主机
+</code></pre><p>###实例演示</p>
+<h4 id="安装centos7容器"><a href="#安装centos7容器" class="headerlink" title="安装centos7容器"></a>安装centos7容器</h4><h4 id="获取centos7镜像"><a href="#获取centos7镜像" class="headerlink" title="获取centos7镜像"></a>获取centos7镜像</h4><pre><code>docker pull centos:centos7 或 docker load -i centos7.tar
+</code></pre><h4 id="检查是否导入成功"><a href="#检查是否导入成功" class="headerlink" title="检查是否导入成功"></a>检查是否导入成功</h4><pre><code>docker images
+</code></pre><h4 id="运行容器，并且可以通过-exec-命令进入-CentOS-容器"><a href="#运行容器，并且可以通过-exec-命令进入-CentOS-容器" class="headerlink" title="运行容器，并且可以通过 exec 命令进入 CentOS 容器"></a>运行容器，并且可以通过 exec 命令进入 CentOS 容器</h4><pre><code>docker run -itd --name centos-test centos:centos7
+docker exec -it centos-test /bin/bash
+</code></pre><h4 id="安装成功"><a href="#安装成功" class="headerlink" title="安装成功"></a>安装成功</h4><p>通过 docker ps 命令查看容器的运行信息</p>
+<pre><code>docker ps
+</code></pre><h3 id="操作容器"><a href="#操作容器" class="headerlink" title="操作容器"></a>操作容器</h3><p>可以通过exec进入容器进行操作，比如安装jdk，部署应用，配置启动脚本等</p>
+<h4 id="导出容器"><a href="#导出容器" class="headerlink" title="导出容器"></a>导出容器</h4><p>由于通过docker commit容器提交为镜像会保存容器的操作记录，使得镜像比较大，可以使用docker export 保存容器快照，减少文件大小</p>
+<pre><code>docker export  centos-test -o xfan.tar
+</code></pre><h4 id="导入容器为镜像"><a href="#导入容器为镜像" class="headerlink" title="导入容器为镜像"></a>导入容器为镜像</h4><p>导出的容器快照通过dcoker import导入为镜像</p>
+<pre><code>docker import  ./xfan.tar sun_job:2.2.0.6
+</code></pre><h4 id="通过镜像启动容器"><a href="#通过镜像启动容器" class="headerlink" title="通过镜像启动容器"></a>通过镜像启动容器</h4><p>使用docker run启动容器,启动命令可以是自定义的启动脚本</p>
+<pre><code>docker run -dit --name=xfan -p 9080:8080 -p 9999:9999  sun_job:2.2.0.6 sh /root/startup.sh
+</code></pre><h4 id="检查容器运行状态"><a href="#检查容器运行状态" class="headerlink" title="检查容器运行状态"></a>检查容器运行状态</h4><p>运行容器后，可通过docker logs -f ,docker ps 检查容器服务是否启动成功</p>
+<pre><code>docker ps
+docker logs -f xfan
+</code></pre><h4 id="导出镜像"><a href="#导出镜像" class="headerlink" title="导出镜像"></a>导出镜像</h4><p>确定镜像没问题后，通过docker save 保存镜像，可通过该镜像文件拷贝至其他机器导入运行</p>
+<pre><code>docker save -o  sun_job20210121.tar sun_job:2.2.0.6
+</code></pre>
     
   </div>
 
