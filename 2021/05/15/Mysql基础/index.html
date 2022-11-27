@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>Mysql基础 | Xfan blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="mysql,">
+  
+
+  <meta name="description" content="MySQL是在开发过程中使用的最多的一个关系型数据库。所以了解和掌握对它的调优是很有必要的。 MySQL数据类型MySQL的支持哪些数据类型，对应的大小及用途等信息，附上几个表格。  数字         字符         日期        引擎MySQL的官方引擎主要有两个：MyISAM和InnoDB。 MyISAM最大的特点是支持全文索引、查询效率较高。缺点是不支持事物、表级锁。 Inn">
+<meta name="keywords" content="mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mysql基础">
+<meta property="og:url" content="https://feifaninternet.github.io/2021/05/15/Mysql基础/index.html">
+<meta property="og:site_name" content="Xfan blog">
+<meta property="og:description" content="MySQL是在开发过程中使用的最多的一个关系型数据库。所以了解和掌握对它的调优是很有必要的。 MySQL数据类型MySQL的支持哪些数据类型，对应的大小及用途等信息，附上几个表格。  数字         字符         日期        引擎MySQL的官方引擎主要有两个：MyISAM和InnoDB。 MyISAM最大的特点是支持全文索引、查询效率较高。缺点是不支持事物、表级锁。 Inn">
+<meta property="og:locale" content="Chinese">
+<meta property="og:image" content="https://feifaninternet.github.io/picture/database/mysql01.png">
+<meta property="og:image" content="https://feifaninternet.github.io/picture/database/mysql02.png">
+<meta property="og:image" content="https://feifaninternet.github.io/picture/database/mysql03.png">
+<meta property="og:image" content="https://feifaninternet.github.io/picture/database/mysql03.png">
+<meta property="og:updated_time" content="2022-11-27T03:01:32.102Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mysql基础">
+<meta name="twitter:description" content="MySQL是在开发过程中使用的最多的一个关系型数据库。所以了解和掌握对它的调优是很有必要的。 MySQL数据类型MySQL的支持哪些数据类型，对应的大小及用途等信息，附上几个表格。  数字         字符         日期        引擎MySQL的官方引擎主要有两个：MyISAM和InnoDB。 MyISAM最大的特点是支持全文索引、查询效率较高。缺点是不支持事物、表级锁。 Inn">
+<meta name="twitter:image" content="https://feifaninternet.github.io/picture/database/mysql01.png">
+
+  
+
+  
+    <link rel="icon" href="/picture/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/person/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">Site</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">Site</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/archives/" rel="noopener noreferrer" target="_self">
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/categories/JAVA" rel="noopener noreferrer" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/tags/git" rel="noopener noreferrer" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/link/" rel="noopener noreferrer" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/about/" rel="noopener noreferrer" target="_self">
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/search/" rel="noopener noreferrer" target="_self">
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-Mysql基础" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Mysql基础</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2021.05.15</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>xfan</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/Database/">Database</a>
+  </span>
+
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="https://feifaninternet.github.io//2021/05/15/Mysql基础/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>MySQL是在开发过程中使用的最多的一个关系型数据库。所以了解和掌握对它的调优是很有必要的。</p>
+<p>MySQL数据类型<br>MySQL的支持哪些数据类型，对应的大小及用途等信息，附上几个表格。</p>
+<ul>
+<li>数字</li>
+</ul>
+<div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;"><br>    <img src="/picture/database/mysql01.png" alt="数据类型" title="数据类型"><br></div>
+
+<ul>
+<li>字符</li>
+</ul>
+<div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;"><br>    <img src="/picture/database/mysql02.png" alt="数据类型" title="数据类型"><br></div>
+
+<ul>
+<li>日期</li>
+</ul>
+<div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;"><br>    <img src="/picture/database/mysql03.png" alt="数据类型" title="数据类型"><br></div>
+
+<p>引擎<br>MySQL的官方引擎主要有两个：MyISAM和InnoDB。</p>
+<p>MyISAM最大的特点是支持全文索引、查询效率较高。缺点是不支持事物、表级锁。</p>
+<p>InnoDB是MySQL5.5之后MySQL默认引擎。特点是支持ACID事务、支持外键、支持行级锁提高了并发效率。</p>
+<p>有关事务、外键、锁下面会一一介绍。</p>
+<p>数据库事务<br>数据库中事务的特性：ACID，这个也是上面说的InnoDB支持ACID事务。</p>
+<p>ACID分别为：原子性、一致性、隔离性、持久性。</p>
+<p>原子性：事务的操作要么全部成功要么失败回滚。</p>
+<p>一致性：事务不能破坏数据库的一致性和完整性。例如事务操作了多张表，要么多张表全是操作前的数据要么多张表全是操作后的数据。</p>
+<p>隔离性：隔离性是针对并发问题，多用户的事务相互隔离。</p>
+<p>持久性：事务提交成功后对数据库的修改是永久的。</p>
+<p>数据库并发<br>刚才提到事务的隔离性是针对并发问题的。如果对事务没有进行隔离会出现什么问题呢？</p>
+<div class="wrap effect" style="box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    webkit-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    moz-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;
+    o-box-shadow:0px 1px 4px rgba(0,0,0,0.3),0 0 40px rgba(0,0,0,0.1) inset;"><br>    <img src="/picture/database/mysql03.png" alt="示意图" title="示意图"><br></div>
+
+
+<p>如果没有进行事务隔离，则将会出现脏读、不可重复度、幻读等情况，分别说明一下。</p>
+<p>脏读：事物A读取到了事物B未提交的数据。</p>
+<p>不可重复读：事物A多次读区数据库中同一条数据时返回不同的数据。</p>
+<p>幻读：事物A执行完全相同的语句时返回结果集不同。与不可重复的区别是不可重复是读区一条数据。幻读是由于增加和删除记录导致的。</p>
+<p>不同的事务隔离级别能解决不同的问题，如上图所示。MySQL默认是可重复读级别。</p>
+<p>事务分类<br>事务分为：扁平化事务、带保存点扁平化事务、链事务、嵌套事务、分布式事务。</p>
+<p>扁平化事务：要么全部成功，要么全部回滚。这个也是使用最多的。</p>
+<p>带保存点扁平化事务：是在事务执行过程中插入保存点，事务失败时回滚到保存点。</p>
+<p>链事务：可以回滚到最近的保存点。和带保存点扁平化事务的区别在于带保存点扁平化事务可以回滚到任意保存点。</p>
+<p>嵌套事务：事务的嵌套，如果上层事务回滚所有事务回滚。</p>
+<p>分布式事务：分布式系统的扁平化事务，这个块内容很多后面可以单独拿出来写一篇。</p>
+<p>MySQL锁<br>上面说过InnoDB是行级锁，MyISAM是表级锁。下面介绍一下几个常见的锁。</p>
+<p>行级锁：锁的颗粒度小，并发效率高，可能出现锁死。</p>
+<p>表级锁：锁的颗粒度大，并发效率低，无锁死。</p>
+<p>共享锁：也叫读锁，就是其他事务可以读就是不能写。上锁语句：lock in share mode。</p>
+<p>排他锁：排他锁就是写锁，其他事务不能读取，也不能写。UPDATE、DELETE 和 INSERT 语句，InnoDB 会自动给涉及的数据集加排他锁。上锁语句：select for update</p>
+<p>需要说明的是：行级锁和表级锁是锁的颗粒度，而共享锁和排他锁是锁的策略。</p>
+<p>外键<br>InnoDB支持外键，那外键是什么呢？简单介绍一下。</p>
+<p>外键：A表保存的B表的主键id。</p>
+<p>可能会想，这个不是一直都这样吗？其实不是的一般情况下，外键开发人员知道，但是数据库不知道，现在数据库知道了以后就可以帮我们确保数据的完整性和一致性。比如如果删除主表的那从表自动删除等等。</p>
+<p>索引<br>索引是我们最常用的优化方式，可以大幅提升数据库的查询性能。当然它也有代价，代价就是牺牲磁盘空间以及新增、修改、删除等操作增加额外开销。</p>
+<p>索引分为：唯一索引、主键索引、普通索引、联合索引、全文索引</p>
+<p>唯一索引：全表唯一，允许未空。</p>
+<p>主键索引：全表唯一，不允许未空。</p>
+<p>普通索引：允许索引列值相同。</p>
+<p>联合索引：是由多个列组成的索引，并不是多个索引组成。联合索引遵循《最左原则》所以选择列时顺序很重要。</p>
+<p>全文索引：只能在 CHAR、VARCHAR、TEXT 类型字段上使用，底层使用倒排索引实现。这个慎用，会非常消耗磁盘资源。</p>
+<p>MySQL调优<br>MySQL的调优是经常用到的所有很有必要掌握，大概调优思路如下：</p>
+<p>表结构+索引  -&gt; SQL优化  -&gt;MySQL参数优化  -&gt;  硬件及系统配置</p>
+<p>当然最有效果的是最右边的方案，但也是成本最高的。</p>
+<p>下面罗列一下优化方案：</p>
+<ol>
+<li><p>要在设计表结构时，考虑数据库的水平与垂直扩展能力。</p>
+</li>
+<li><p>要选择合适的字段大小及类型。</p>
+</li>
+<li><p>避免一个表子段过多。</p>
+</li>
+<li><p>做适当的反范式，注意适当的。</p>
+</li>
+<li><p>对经常查询的维度要做好索引。</p>
+</li>
+<li><p>列尽量设置为not null，因为MySQL对可以为null的列无法做查询优化，允许未null使得索引统计更加复杂，以及占用更多的空间。</p>
+</li>
+<li><p>通过慢查询日志来针对性的优化。</p>
+</li>
+<li><p>学会使用Explain来分析语句。</p>
+</li>
+<li><p>尽量使用索引排序。</p>
+</li>
+</ol>
+
+    
+  </div>
+
+  
+      <div class="git"></div>
+  
+
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持xfan</div>
+        <ul>
+        
+          <li class="item">
+            <span>微信扫一扫</span>
+            <img src="/picture/qr-wechat.png" alt>
+          </li>
+        
+          <li class="item">
+            <span>支付宝扫一扫</span>
+            <img src="/picture/qr-alipay.png" alt>
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2020/03/20/新生代农民工，合理/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2021/12/20/Log4j远程执行代码漏洞及修复方案/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/archives/" rel="noopener noreferrer" target="_self">
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/categories/JAVA" rel="noopener noreferrer" target="_self">
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/tags/git" rel="noopener noreferrer" target="_self">
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/link/" rel="noopener noreferrer" target="_self">
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/about/" rel="noopener noreferrer" target="_self">
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/atom.xml" rel="noopener noreferrer" target="_blank">
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/search/" rel="noopener noreferrer" target="_self">
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'xfan';
+    
+    var disqus_url = 'https://feifaninternet.github.io/2021/05/15/Mysql基础/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//xfan.disqus.com/count.js" async></script>
+
+
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
